@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   if (password !== PASSWORDS[project]) {
     return Response.json(
       {
-        error: `Incorrect password. Update ${PASSWORD_HINTS[project]} if you want to change it.`,
+        error: `That password ain't right, try`,
       },
       { status: 401 },
     );

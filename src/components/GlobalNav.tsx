@@ -51,20 +51,7 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
     return () => clearTimeout(timer);
   }, [typingDone]);
 
-  // ── Section / footer detection ──────────────────────────────────────────
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
 
-  useEffect(() => {
-    const footer = document.querySelector("footer, .footer-section");
-    if (!footer) return;
-
-    const obs = new IntersectionObserver(
-      ([entry]) => setIsFooterVisible(entry.isIntersecting),
-      { threshold: 0.15 }
-    );
-    obs.observe(footer);
-    return () => obs.disconnect();
-  }, []);
 
   // ── Scroll helpers ──────────────────────────────────────────────────────
   const handleScrollTo = (sectionIndex: number) => {
@@ -86,8 +73,8 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
   };
 
   const isWorkActive    = activeSection === 1 || activeSection === 2;
-  const isAboutActive   = activeSection === 3 || activeSection === 4 || activeSection === 5;
-  const isContactActive = isFooterVisible;
+  const isAboutActive   = activeSection === 3 || activeSection === 4;
+  const isContactActive = activeSection === 5;
 
   const navLinks = [
     { label: "WORK",    active: isWorkActive,    onClick: () => handleScrollTo(1) },
@@ -128,7 +115,16 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
       </div>
 
       {/* Right — Resume CTA */}
-      <div className="nav-right">
+      <motion.div
+        className="nav-right"
+        initial={false}
+        animate={{
+          x: isContactActive ? 150 : 0,
+          opacity: isContactActive ? 0 : 1,
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        style={{ pointerEvents: isContactActive ? "none" : "auto" }}
+      >
         <a
           href="/Resume.pdf"
           target="_blank"
@@ -137,7 +133,7 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
         >
           Resume <span className="resume-arrow">↓</span>
         </a>
-      </div>
+      </motion.div>
     </nav>
   );
 }

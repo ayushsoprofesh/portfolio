@@ -172,13 +172,14 @@ export default function Home() {
                           transition={{ duration: 1.2, delay: 0.5 }}
                           className="profile-image-container"
                         >
-                          <Image
-                            src="/Profile.png"
-                            alt="Ayush Profile"
-                            fill
-                            sizes="(max-width: 768px) 100vw, 25vw"
-                            priority
+                          <video
+                            src="/Profile.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
                             className="profile-image"
+                            style={{ objectFit: "cover", width: "100%", height: "100%" }}
                           />
                         </motion.div>
                       </div>
