@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import ExperienceSection from "@/components/ExperienceSection";
 import ChosenWorksSection from "@/components/ChosenWorksSection";
 // import TestimonialsSection from "@/components/TestimonialsSection"; // HIDDEN FOR NOW
@@ -11,14 +11,18 @@ import AboutMeSection from "@/components/AboutMeSection";
 import FooterSection from "@/components/FooterSection";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import GlobalNav from "@/components/GlobalNav";
+import MatrixLoader from "@/components/MatrixLoader";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [activeFrame, setActiveFrame] = useState(0);
+  const [showLoader, setShowLoader] = useState(true);
 
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (y) => {
+    if (showLoader) return; // don't update layout sections when loading
+    
     const vh = window.innerHeight;
 
     if (y < 120) {
@@ -44,20 +48,39 @@ export default function Home() {
       setActiveSection(5); // Footer
     }
   });
+
+  // Lock scrolling while loading
+  useEffect(() => {
+    if (showLoader) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+      // Force initial section calculation after loader goes away
+      window.dispatchEvent(new Event("scroll"));
+    }
+  }, [showLoader]);
+
   return (
     <>
-      <GlobalNav activeSection={activeSection} />
-      <main
-        className="portfolio-main"
-        style={{
-          position: "relative",
-          zIndex: 10,
-          backgroundColor: "transparent",
-          pointerEvents: "none",
-        }}
-      >
+      <AnimatePresence>
+        {showLoader && (
+          <MatrixLoader onComplete={() => setShowLoader(false)} />
+        )}
+      </AnimatePresence>
 
-        {/* Mega scroll container for all sections */}
+      <div style={{ opacity: showLoader ? 0 : 1, transition: "opacity 0.6s ease-in" }}>
+        <GlobalNav activeSection={activeSection} />
+        <main
+          className="portfolio-main"
+          style={{
+            position: "relative",
+            zIndex: 10,
+            backgroundColor: "transparent",
+            pointerEvents: "none",
+          }}
+        >
+
+          {/* Mega scroll container for all sections */}
         <div style={{ height: "1200vh", position: "relative" }}> {/* Was 1350vh, adjusted for About Me & Footer */}
 
           {/* Sticky viewport — always fills the screen */}
@@ -352,6 +375,7 @@ export default function Home() {
       >
         <FooterSection />
       </motion.div>
+      </div>
     </>
   );
 }
