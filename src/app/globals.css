@@ -139,11 +139,64 @@ body {
   cursor: pointer;
 }
 
-.nav-resume-btn:hover {
+/* Illuminated green resume button */
+.nav-resume-btn--glow {
   color: var(--matrix-green);
+  border-color: rgba(57, 255, 20, 0.55);
+  background: rgba(57, 255, 20, 0.06);
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.55);
+  box-shadow:
+    0 0 6px rgba(57, 255, 20, 0.18),
+    0 0 14px rgba(57, 255, 20, 0.10),
+    inset 0 0 8px rgba(57, 255, 20, 0.05);
+  animation: resume-pulse 3s ease-in-out infinite;
+}
+
+.nav-resume-btn--glow:hover {
+  color: #fff;
+  background: rgba(57, 255, 20, 0.14);
   border-color: var(--matrix-green);
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.15);
-  text-shadow: 0 0 4px rgba(57, 255, 20, 0.3);
+  box-shadow:
+    0 0 12px rgba(57, 255, 20, 0.35),
+    0 0 28px rgba(57, 255, 20, 0.18),
+    inset 0 0 10px rgba(57, 255, 20, 0.08);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.7);
+  animation: none;
+}
+
+@keyframes resume-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 6px rgba(57, 255, 20, 0.18),
+      0 0 14px rgba(57, 255, 20, 0.10),
+      inset 0 0 8px rgba(57, 255, 20, 0.05);
+    border-color: rgba(57, 255, 20, 0.55);
+  }
+  50% {
+    box-shadow:
+      0 0 10px rgba(57, 255, 20, 0.30),
+      0 0 24px rgba(57, 255, 20, 0.16),
+      inset 0 0 12px rgba(57, 255, 20, 0.07);
+    border-color: rgba(57, 255, 20, 0.80);
+  }
+}
+
+/* CONTACT lit up when footer is in view */
+.nav-contact-lit {
+  color: var(--matrix-green) !important;
+  text-shadow:
+    0 0 6px rgba(57, 255, 20, 0.7),
+    0 0 14px rgba(57, 255, 20, 0.4) !important;
+  animation: contact-flicker 2.5s ease-in-out infinite;
+}
+
+@keyframes contact-flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.7; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.85; }
+  97%       { opacity: 1; }
 }
 
 .resume-arrow {

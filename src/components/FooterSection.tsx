@@ -26,7 +26,7 @@ export default function FooterSection() {
   }, [isPlaying]);
 
   const handleVideoEnd = () => {
-    window.open("resume.pdf", "_blank");
+    window.open("Resume.pdf", "_blank");
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -117,7 +117,7 @@ export default function FooterSection() {
         {!isPlaying ? (
           <>
             <Image 
-              src="/footer.jpg"
+              src="/Footer.jpg"
               alt="Terminal CV Output"
               fill
               style={{ objectFit: "contain" }}
@@ -145,7 +145,7 @@ export default function FooterSection() {
         ) : (
           <video 
             ref={videoRef}
-            src="/Footer_video.mp4"
+            src="/Footer_Video.mp4"
             onEnded={handleVideoEnd}
             style={{
               width: "100%",
