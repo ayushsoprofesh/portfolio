@@ -1566,7 +1566,8 @@ body {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 99999; /* Way above the nav bar */
+  z-index: 99999;
+  /* Way above the nav bar */
   background: var(--bg-color);
   display: flex;
   justify-content: center;
@@ -1588,7 +1589,8 @@ body {
   width: 100%;
   height: 100%;
   border: none;
-  pointer-events: none; /* Make sure users don't interact with it manually */
+  pointer-events: none;
+  /* Make sure users don't interact with it manually */
   filter: contrast(1.1) brightness(0.9);
 }
 

@@ -80,8 +80,8 @@ export const CASE_STUDIES: Record<
     subtitle:
       "Designing mass-action workflows that reduced friction across dense enterprise pricing operations.",
     meta: {
-      role: "Lead UX Designer",
-      timeline: "8 release cycles",
+      role: "UX Designer",
+      timeline: "6 Release Cycles (25B to 26C)",
       focus: "Scalability, batch actions, engineering-ready specs",
     },
     sections: [
@@ -143,7 +143,7 @@ export const CASE_STUDIES: Record<
       "Shipping accelerated design work across interconnected products without losing coherence.",
     meta: {
       role: "UX Designer",
-      timeline: "5 release cycles",
+      timeline: "4 Release Cycles (26A to 26D)",
       focus: "Cross-functional delivery, rapid iteration, multi-product alignment",
     },
     sections: [

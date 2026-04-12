@@ -74,7 +74,7 @@ export default function CaseStudyTwoPage() {
       <article id="cross-team" className="case-study-section-block">
         <p className="case-study-section-eyebrow">Coordination</p>
         <h2 className="case-study-section-title">4. The Cross Team Battle</h2>
-        <h3 className="case-study-section-title">Rate Plans</h3>
+        <h3 className="case-study-section-subtitle">Rate Plans</h3>
         <div className="case-study-prose">
           <p>
             My most complex project was the Rate Plan redesign in cycle 26D. This project spanned across three different products owned by three different teams. I had to work with their designers and PMs, and my main goal was to <strong style={{ color: "#39FF14" }}>protect the user experience from company politics</strong>.
