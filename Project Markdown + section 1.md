@@ -282,3 +282,48 @@ We need to add a Global Top Navigation bar to the Landing Page. **Override any p
 *   **Styling:** Neon green text (`#39FF14`), a thin neon green rounded border (`rounded-md border border-[#39FF14]`), and a subtle green outer glow/shadow. Transparent background.
 *   **Interaction (Click):** On click, execute `window.open('resume.pdf', '_blank')`.
 *   **Interaction (Hide on Footer):** Using the same `IntersectionObserver` mentioned above, when Section 6 (The Footer) enters the viewport, this Resume button must smoothly fade out and become unclickable (`opacity-0 pointer-events-none`). When the user scrolls back up, it should fade back in.
+
+Perfect. The Landing Page is complete. Now we need to build the routing logic, the Password Gate Screen, and the custom Case Study page template.
+
+# 1. Routing & Navigation Logic
+Update the "View Case Study" buttons in Section 3 (Chosen Works) with this flow:
+*   **Project 1 Button:** Route to the Password Gate. On success -> Route to internal `/case-study-1`.
+*   **Project 2 Button:** Route to the Password Gate. On success -> Route to internal `/case-study-2`.
+*   **Project 3 Button:** Route to the Password Gate. On success -> Redirect to external Figma URL (`_blank`).
+*   **Project 4 Button:** No password required. Redirect directly to external Behance URL (`_blank`).
+
+# 2. Build the Password Gate Screen
+Create a new full-screen component for the Password Gate.
+*   **Layout:** Full screen (`min-h-screen`), perfectly centered content, deep black background. 
+*   **UI Elements:**
+    *   **Header:** "Restricted Access" (sans-serif, large).
+    *   **Sub-text:** "This project contains sensitive enterprise data under NDA. Please enter the password to proceed."
+    *   **Input Field:** A clean, dark-mode input field (subtle border, glowing green `#39FF14` focus state). 
+    *   **Submit Button:** Simple solid or outlined CTA.
+    *   **Helper Text:** "Don't have a password? Reach out: [Email Hyperlink] • [LinkedIn Hyperlink]".
+
+# 3. Build the Case Study Page Template (`/case-study-1` & `/case-study-2`)
+Do not use a standard web layout. We are building a "Mission Control" glass panel layout.
+
+*   **Background:** Use the exact same dark, deep-charcoal/black background aesthetic as Section 2 of the landing page.
+*   **Layout Constraints:** Full-height layout with padding around the edges (e.g., `p-6` or `p-8` for desktop). On mobile/tablet, stack the panels vertically. The side-by-side split is for Desktop only.
+
+**The Glass Panels (1/6 and 5/6 Split)**
+The content lives inside two distinct glassmorphism panels sitting side-by-side with a gap (`gap-6`).
+*   **Panel Styling (Both):** Use dark glassmorphism (`backdrop-filter: blur`, dark transparent background like `bg-white/5`), subtle borders, and significantly rounded corners (`rounded-3xl`).
+
+**Panel 1: Left Panel (Sticky Table of Contents)**
+*   **Width:** Takes up exactly 1/6th of the horizontal width. 
+*   **Layout:** Make this panel `position: sticky; top: 2rem; height: calc(100vh - 4rem);` so it stays locked in place.
+*   **Content:** A vertical list of Case Study Section Headings (e.g., "1. The Problem", "2. Architecture Battle", "3. Mass Actions").
+*   **Interaction (ScrollSpy):** Write an `IntersectionObserver` script. As the user scrolls through the Right Panel, track which section is currently in the viewport. Illuminate the corresponding heading in the Left Panel by changing its text color to neon green (`text-[#39FF14]`).
+
+**Panel 2: Right Panel (Free Scrolling Content)**
+*   **Width:** Takes up the remaining 5/6ths of the horizontal width.
+*   **Layout:** This panel scrolls freely with the window. Give it ample internal padding (`p-12`) for readability.
+*   **Content Structure:** 
+    *   **Top Bar:** A "← Back to Home" text button at the top left.
+    *   **Hero Area:** Large `H1` Project Title, plus metadata (Role, Timeline, Focus).
+    *   **Sections:** Create placeholder blocks for the case study content (matching the headings in the left panel). Use clean, readable sans-serif text (`prose prose-invert`). 
+    *   **Image Placeholders:** Include full-width (within the panel) image blocks with rounded corners to hold Figma exports.
+*   **Footer:** At the very bottom of this right panel, include a "Next Project →" link.

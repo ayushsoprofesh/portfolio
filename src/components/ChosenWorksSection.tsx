@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { EXTERNAL_CASE_STUDY_LINKS } from "@/lib/portfolio-content";
 
 const FRAMES = [
   {
     id: 0,
     left: { type: "title" as const, text: "CHOSEN" },
-    right: { type: "title" as const, text: "WORKS" }
+    right: { type: "title" as const, text: "WORKS" },
   },
   {
     id: 1,
@@ -15,10 +18,14 @@ const FRAMES = [
       type: "project" as const,
       title: "Designing for Enterprise Scale",
       product: "Oracle Fusion Pricing | Timeline: 8 Release Cycles",
-      tags: "Scalability • Complex Systems",
+      tags: "Scalability / Complex Systems",
       body: "Increased system efficiency and significantly reduced cognitive load by designing mass-action workflows for repetitive tasks. Maintained a strict user-centric approach while solving complex edge cases and delivering detailed engineering specifications.",
+      cta: {
+        type: "internal" as const,
+        href: "/password-gate?project=case-study-1",
+      },
     },
-    right: { type: "image" as const, label: "Oracle Pricing Engine" }
+    right: { type: "image" as const, label: "Oracle Pricing Engine" },
   },
   {
     id: 2,
@@ -26,10 +33,14 @@ const FRAMES = [
       type: "project" as const,
       title: "Fast Execution and Cross-Team Design",
       product: "Oracle Fusion Pricing | Timeline: 5 Release Cycles",
-      tags: "Rapid Execution • Cross-Functional",
+      tags: "Rapid Execution / Cross-Functional",
       body: "Designed and delivered multiple cross-application features within accelerated timelines. Collaborated effectively across different product teams to ensure seamless integration, while pitching and documenting strategic enhancements for future roadmaps.",
+      cta: {
+        type: "internal" as const,
+        href: "/password-gate?project=case-study-2",
+      },
     },
-    right: { type: "image" as const, label: "Cross-Team Design" }
+    right: { type: "image" as const, label: "Cross-Team Design" },
   },
   {
     id: 3,
@@ -37,10 +48,14 @@ const FRAMES = [
       type: "project" as const,
       title: "Visualising Segment Analytics",
       product: "Oracle CX Unity | Timeline: 3 Months",
-      tags: "Cornerstone Project • Data Visualisation Dashboard",
+      tags: "Cornerstone Project / Data Visualisation Dashboard",
       body: "Spearheaded a zero-to-one cornerstone project to design the foundational analytics dashboard for the Unity platform. Engaged in deep research workshops and stakeholder alignment, delivering a high-impact solution that secured a full-time return offer.",
+      cta: {
+        type: "internal" as const,
+        href: "/password-gate?project=project-3",
+      },
     },
-    right: { type: "image" as const, label: "Unity CDP Analytics" }
+    right: { type: "image" as const, label: "Unity CDP Analytics" },
   },
   {
     id: 4,
@@ -48,19 +63,17 @@ const FRAMES = [
       type: "project" as const,
       title: "Solving College Event Management",
       product: "IITG SWC Eventdeck | Timeline: 6 Months",
-      tags: "Zero-to-One • User Research",
+      tags: "Zero-to-One / User Research",
       body: "Led the zero-to-one UX for a comprehensive campus event management portal. Directed the design of the MVP and subsequent feature enhancements by independently managing user research, iterative testing, wireframing, and final high-fidelity delivery.",
+      cta: {
+        type: "external" as const,
+        href: EXTERNAL_CASE_STUDY_LINKS.behance,
+      },
     },
-    right: { type: "image" as const, label: "Eventdeck Platform" }
-  }
+    right: { type: "image" as const, label: "Eventdeck Platform" },
+  },
 ];
 
-/**
- * Word-aware typing line.
- * Characters are revealed one at a time, but grouped inside per-word
- * <span style="display:inline-block; white-space:nowrap"> wrappers
- * so the browser never breaks a word across two lines.
- */
 function TypingLine({
   text,
   className,
@@ -79,7 +92,7 @@ function TypingLine({
         hidden: { opacity: 1 },
         visible: {
           opacity: 1,
-          transition: { staggerChildren: 0.007 }, // 40% faster than 0.012
+          transition: { staggerChildren: 0.007 },
         },
       }}
       initial="hidden"
@@ -101,8 +114,7 @@ function TypingLine({
               {char}
             </motion.span>
           ))}
-          {/* Space after each word (except the last) */}
-          {wi < words.length - 1 && (
+          {wi < words.length - 1 ? (
             <motion.span
               key={`space-${wi}`}
               variants={{
@@ -112,14 +124,13 @@ function TypingLine({
             >
               {"\u00A0"}
             </motion.span>
-          )}
+          ) : null}
         </span>
       ))}
     </motion.p>
   );
 }
 
-/* A project frame with staggered typing reveal: title → product → tags → body */
 function ProjectFrame({
   title,
   product,
@@ -140,16 +151,32 @@ function ProjectFrame({
         hidden: { opacity: 1 },
         visible: {
           opacity: 1,
-          transition: { staggerChildren: 0.009, delayChildren: 0.05 }, // 40% faster
+          transition: { staggerChildren: 0.009, delayChildren: 0.05 },
         },
       }}
       initial="hidden"
       animate={isActive ? "visible" : "hidden"}
     >
-      <TypingLine text={title} className="chosen-project-title" isActive={isActive} />
-      <TypingLine text={product} className="chosen-project-product" isActive={isActive} />
-      <TypingLine text={tags} className="chosen-project-tags" isActive={isActive} />
-      <TypingLine text={body} className="chosen-project-body" isActive={isActive} />
+      <TypingLine
+        text={title}
+        className="chosen-project-title"
+        isActive={isActive}
+      />
+      <TypingLine
+        text={product}
+        className="chosen-project-product"
+        isActive={isActive}
+      />
+      <TypingLine
+        text={tags}
+        className="chosen-project-tags"
+        isActive={isActive}
+      />
+      <TypingLine
+        text={body}
+        className="chosen-project-body"
+        isActive={isActive}
+      />
     </motion.div>
   );
 }
@@ -161,11 +188,27 @@ export default function ChosenWorksSection({
   isActive: boolean;
   activeFrame: number;
 }) {
+  const router = useRouter();
+  // Track which frame pair is being hovered (by frame index)
+  const [hoveredFrame, setHoveredFrame] = useState<number | null>(null);
+
+  const handleFrameClick = (frame: (typeof FRAMES)[number]) => {
+    if (frame.left.type !== "project") return;
+    const { cta } = frame.left;
+    if (cta.type === "external") {
+      window.open(cta.href, "_blank", "noreferrer noopener");
+    } else {
+      router.push(cta.href);
+    }
+  };
+
   return (
     <section className="chosen-section">
       <div className="matrix-container">
-        {/* CRT Background — identical to Hero */}
-        <div className="background-img-wrapper" style={{ position: "absolute", width: "100%", height: "100%" }}>
+        <div
+          className="background-img-wrapper"
+          style={{ position: "absolute", width: "100%", height: "100%" }}
+        >
           <Image
             src="/background.png"
             alt="Matrix CRT Array"
@@ -175,18 +218,27 @@ export default function ChosenWorksSection({
           />
         </div>
 
-        {/* 4x3 Grid overlay */}
         <div className="precise-grid">
-
-          {/* LEFT SCREEN (cell-2-2) */}
+          {/* LEFT SCREEN — project info */}
           <div className="grid-cell cell-2-2">
             <div className="inner-screen chosen-screen">
               {FRAMES.map((frame, i) => {
                 const frameIsActive = activeFrame === i && isActive;
+                const isClickable = frame.left.type === "project";
+
                 return (
                   <div
                     key={frame.id}
-                    className={`chosen-frame ${frameIsActive ? "active" : ""}`}
+                    className={`chosen-frame ${frameIsActive ? "active" : ""} ${isClickable ? "chosen-frame-clickable" : ""}`}
+                    onMouseEnter={() => isClickable && setHoveredFrame(i)}
+                    onMouseLeave={() => setHoveredFrame(null)}
+                    onClick={() => handleFrameClick(frame)}
+                    aria-label={
+                      isClickable && frame.left.type === "project"
+                        ? `View case study: ${frame.left.title}`
+                        : undefined
+                    }
+                    role={isClickable ? "button" : undefined}
                   >
                     {frame.left.type === "title" ? (
                       <div className="chosen-giant-wrapper">
@@ -194,10 +246,10 @@ export default function ChosenWorksSection({
                       </div>
                     ) : (
                       <ProjectFrame
-                        title={frame.left.title!}
-                        product={frame.left.product!}
-                        tags={frame.left.tags!}
-                        body={frame.left.body!}
+                        title={frame.left.title}
+                        product={frame.left.product}
+                        tags={frame.left.tags}
+                        body={frame.left.body}
                         isActive={frameIsActive}
                       />
                     )}
@@ -207,35 +259,53 @@ export default function ChosenWorksSection({
             </div>
           </div>
 
-          {/* RIGHT SCREEN (cell-2-3) */}
+          {/* RIGHT SCREEN — image placeholder */}
           <div className="grid-cell cell-2-3">
             <div className="inner-screen chosen-screen">
-              {FRAMES.map((frame, i) => (
-                <div
-                  key={frame.id}
-                  className={`chosen-frame ${activeFrame === i && isActive ? "active" : ""}`}
-                >
-                  {frame.right.type === "title" ? (
-                    <div className="chosen-giant-wrapper">
-                      <h2 className="chosen-giant-text">{frame.right.text}</h2>
-                    </div>
-                  ) : (
-                    <div className="chosen-image-placeholder">
-                      <div className="placeholder-scanlines" />
-                      <span className="placeholder-label">{frame.right.label}</span>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {FRAMES.map((frame, i) => {
+                const frameIsActive = activeFrame === i && isActive;
+                const isHovered = hoveredFrame === i;
+                const isClickable = frame.right.type === "image";
+
+                return (
+                  <div
+                    key={frame.id}
+                    className={`chosen-frame ${frameIsActive ? "active" : ""} ${isClickable ? "chosen-frame-clickable" : ""}`}
+                    onMouseEnter={() => isClickable && setHoveredFrame(i)}
+                    onMouseLeave={() => setHoveredFrame(null)}
+                    onClick={() => handleFrameClick(frame)}
+                    aria-label={
+                      isClickable ? "View case study" : undefined
+                    }
+                    role={isClickable ? "button" : undefined}
+                  >
+                    {frame.right.type === "title" ? (
+                      <div className="chosen-giant-wrapper">
+                        <h2 className="chosen-giant-text">{frame.right.text}</h2>
+                      </div>
+                    ) : (
+                      <div className="chosen-image-placeholder">
+                        <div className="placeholder-scanlines" />
+                        <span className="placeholder-label">{frame.right.label}</span>
+
+                        {/* Hover overlay */}
+                        <div
+                          className={`chosen-image-overlay ${isHovered && frameIsActive ? "visible" : ""}`}
+                          aria-hidden="true"
+                        >
+                          <span className="chosen-image-overlay-text">View Case Study</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
-
         </div>
 
-        {/* Scanlines overlay */}
         <div className="scanlines"></div>
 
-        {/* Frame indicator dots */}
         <div className="frame-indicators">
           {FRAMES.map((_, i) => (
             <div

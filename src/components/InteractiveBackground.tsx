@@ -227,7 +227,7 @@ export default function InteractiveBackground({ showChevron, activeSection }: { 
             key={ripple.id}
             initial={{ width: 0, height: 0, x: "-50%", y: "-50%", opacity: 1 }}
             animate={{ width: 1400, height: 1400, opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
+            transition={{ duration: 1.2 }}
             onAnimationComplete={() => {
               setRipples((prev) => prev.filter((r) => r.id !== ripple.id));
             }}

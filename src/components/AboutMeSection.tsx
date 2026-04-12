@@ -13,11 +13,14 @@ const MARQUEE_ITEMS = [
 ];
 
 export default function AboutMeSection({ isActive }: { isActive: boolean }) {
+  const revealEase = [0.25, 1, 0.5, 1] as const;
+  const textEase = [0.16, 1, 0.3, 1] as const;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 1, ease: [0.25, 1, 0.5, 1] }
+      transition: { duration: 1, ease: revealEase }
     }
   };
 
@@ -26,7 +29,7 @@ export default function AboutMeSection({ isActive }: { isActive: boolean }) {
     visible: { 
       y: 0, 
       opacity: 1, 
-      transition: { delay: 0.3, duration: 0.8, ease: "easeOut" } 
+      transition: { delay: 0.3, duration: 0.8, ease: textEase } 
     }
   };
 

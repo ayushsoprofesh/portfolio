@@ -1,29 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 
 interface GlobalNavProps {
   activeSection: number;
 }
 
 export default function GlobalNav({ activeSection }: GlobalNavProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
+
   const handleScrollTo = (sectionIndex: number) => {
+    if (!isHomePage) {
+      router.push("/");
+      return;
+    }
+
     const vh = window.innerHeight;
     const scrollTargets: Record<number, number> = {
       0: 0,                // Hero
       1: vh * 0.5,         // Experience (WORK)
       2: vh * 2.5,         // Chosen Works
-      // 3: vh * 8,        // Testimonials (HIDDEN)
-      3: vh * 8,           // Hire Me For (ABOUT) - was 4, mapped up
-      4: vh * 10,          // About Me - was 5, mapped up
+      3: vh * 8.2,         // Hire Me For
+      4: vh * 10.1,        // About Me
+      5: vh * 12.1,        // Footer panel
     };
     window.scrollTo({ top: scrollTargets[sectionIndex] ?? 0, behavior: "smooth" });
   };
 
-  // WORK is active during Experience (1) and Chosen Works (2)
   const isWorkActive = activeSection === 1 || activeSection === 2;
-  // ABOUT is active during Hire Me For (3) and About Me (4) [Testimonials hidden]
-  const isAboutActive = activeSection === 3 || activeSection === 4;
+  const isAboutActive = activeSection === 3 || activeSection === 4 || activeSection === 5;
 
   const navLinks = [
     { label: "WORK", active: isWorkActive, onClick: () => handleScrollTo(1) },
@@ -31,7 +39,14 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
     {
       label: "CONTACT",
       active: false,
-      onClick: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+      onClick: () => {
+        if (!isHomePage) {
+          router.push("/");
+          return;
+        }
+
+        handleScrollTo(5);
+      },
     },
   ];
 

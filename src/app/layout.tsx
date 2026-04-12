@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Share_Tech_Mono, Inter, DotGothic16 } from "next/font/google";
+import { Share_Tech_Mono, Inter } from "next/font/google";
 import "./globals.css";
 
 const matrixFont = Share_Tech_Mono({
@@ -13,12 +13,6 @@ const interFont = Inter({
   variable: "--font-inter",
 });
 
-const dotGothic = DotGothic16({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-dot-gothic",
-});
-
 export const metadata: Metadata = {
   title: "Ayush - UX Designer",
   description: "The Matrix Theme Portfolio",
@@ -30,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${matrixFont.className} ${matrixFont.variable} ${interFont.variable} ${dotGothic.variable}`}>
+    <html lang="en" className={`${matrixFont.className} ${matrixFont.variable} ${interFont.variable}`}>
       <body>{children}</body>
     </html>
   );

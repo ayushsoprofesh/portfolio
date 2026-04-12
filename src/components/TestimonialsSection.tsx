@@ -134,6 +134,7 @@ export default function TestimonialsSection({
 }: {
   isActive: boolean;
 }) {
+  const revealEase = [0.25, 1, 0.5, 1] as const;
   const carouselRef = useRef<HTMLDivElement>(null);
   const [dragLeft, setDragLeft] = useState(-300);
   const [isDragging, setIsDragging] = useState(false);
@@ -199,7 +200,7 @@ export default function TestimonialsSection({
           }
           transition={{
             duration: 0.8,
-            ease: [0.25, 1, 0.5, 1],
+            ease: revealEase,
             delay: isActive ? 0.15 : 0,
           }}
         >

@@ -26,6 +26,8 @@ const HIRE_ME_SERVICES = [
 ];
 
 export default function HireMeSection({ isActive }: { isActive: boolean }) {
+  const revealEase = [0.25, 1, 0.5, 1] as const;
+
   // Staggering animation when section is active
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,7 +45,7 @@ export default function HireMeSection({ isActive }: { isActive: boolean }) {
     visible: { 
       x: 0, 
       opacity: 1, 
-      transition: { ease: [0.25, 1, 0.5, 1], duration: 0.8 } 
+      transition: { ease: revealEase, duration: 0.8 } 
     }
   };
 
@@ -74,7 +76,7 @@ export default function HireMeSection({ isActive }: { isActive: boolean }) {
                 boxShadow: "0 0 15px rgba(57, 255, 20, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.37)",
                 borderColor: "rgba(255, 255, 255, 0.15)"
               }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.3 }}
             >
               <div style={{ display: "flex", alignItems: "baseline", gap: "0.8rem", marginBottom: "0.8rem" }}>
                 <span style={{ color: "var(--matrix-green)", fontSize: "1.2rem", fontWeight: "bold", opacity: 0.8 }}>0{index + 1}</span>

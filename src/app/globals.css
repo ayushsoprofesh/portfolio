@@ -588,28 +588,11 @@ body {
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.chosen-cta {
-  align-self: flex-start;
-  margin-top: 0.25rem;
-  padding: 0.5em 1.2em;
-  font-size: clamp(0.65rem, 0.9vw, 0.9rem);
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-weight: 600;
-  color: #000;
-  background-color: var(--matrix-green);
-  border: none;
-  border-radius: 6px;
+/* Clickable frame pair — pointer cursor */
+.chosen-frame-clickable {
   cursor: pointer;
-  transition: all 0.25s ease;
-  text-shadow: none;
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
 }
 
-.chosen-cta:hover {
-  background-color: #4dff33;
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
-  transform: translateY(-1px);
-}
 
 /* Image placeholders with green monochrome CRT tint */
 .chosen-image-placeholder {
@@ -645,6 +628,42 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   z-index: 1;
+  transition: opacity 0.35s ease;
+}
+
+/* Green translucent overlay on image — fades in on frame hover */
+.chosen-image-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(57, 255, 20, 0.18);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.chosen-image-overlay.visible {
+  opacity: 1;
+}
+
+.chosen-image-overlay-text {
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  color: #000;
+  font-size: clamp(0.7rem, 1.4cqw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  background: rgba(57, 255, 20, 0.85);
+  padding: 0.45em 1.1em;
+  border-radius: 6px;
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.6), 0 0 40px rgba(57, 255, 20, 0.25);
 }
 
 /* Frame progress indicators */
@@ -1004,5 +1023,462 @@ body {
 
   100% {
     transform: translateX(-50%);
+  }
+}
+
+/* =========================================
+   PASSWORD GATE
+   ========================================= */
+
+.password-gate-page,
+.case-study-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(57, 255, 20, 0.08), transparent 30%),
+    linear-gradient(180deg, #060606 0%, #040404 100%);
+  color: #fff;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.password-gate-page {
+  padding-top: var(--nav-height);
+}
+
+.case-study-page {
+  height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+.password-gate-page::before,
+.case-study-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.82) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.82) 2px, transparent 2px);
+  background-size: 12px 20px, 12px 20px;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+.password-gate-background-layer,
+.case-study-background-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.password-gate-shell {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - var(--nav-height));
+  width: min(100%, 680px);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.password-gate-badge {
+  align-self: flex-start;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(57, 255, 20, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.password-gate-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.password-gate-kicker {
+  color: #39ff14;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.password-gate-title {
+  font-size: clamp(2.8rem, 6vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.password-gate-description {
+  max-width: 56ch;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.password-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.password-gate-label {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.95rem;
+}
+
+.password-gate-input {
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.password-gate-input::placeholder {
+  color: rgba(255, 255, 255, 0.36);
+}
+
+.password-gate-input:focus {
+  border-color: rgba(57, 255, 20, 0.9);
+  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.75), 0 0 24px rgba(57, 255, 20, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.password-gate-error {
+  color: #ff8d8d;
+  font-size: 0.95rem;
+}
+
+.password-gate-submit,
+.case-study-next-link,
+.case-study-back-link,
+.password-gate-back {
+  transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease,
+    transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.password-gate-submit {
+  align-self: flex-start;
+  padding: 0.95rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(57, 255, 20, 0.28);
+  background: #39ff14;
+  color: #041104;
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(57, 255, 20, 0.18);
+}
+
+.password-gate-submit:hover,
+.password-gate-submit:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(57, 255, 20, 0.28);
+}
+
+.password-gate-submit:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.password-gate-helper {
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.7;
+}
+
+.password-gate-helper a,
+.password-gate-back,
+.case-study-back-link,
+.case-study-next-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.password-gate-helper a:hover,
+.password-gate-back:hover,
+.case-study-back-link:hover,
+.case-study-next-link:hover {
+  color: #39ff14;
+}
+
+.password-gate-back {
+  align-self: flex-start;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* =========================================
+   CASE STUDY
+   ========================================= */
+
+.case-study-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 5fr);
+  gap: 1.5rem;
+  align-items: start;
+  height: calc(100vh - var(--nav-height));
+  padding: 2rem;
+}
+
+.case-study-panel {
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.case-study-sidebar {
+  height: 100%;
+  padding: 1.75rem;
+}
+
+.case-study-sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.case-study-sidebar-kicker {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.case-study-sidebar-title {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.03em;
+}
+
+.case-study-toc {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.case-study-toc-link {
+  display: inline-flex;
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.case-study-toc-link.is-active {
+  color: #39ff14;
+  text-shadow: 0 0 14px rgba(57, 255, 20, 0.2);
+}
+
+.case-study-content-panel {
+  padding: 2.25rem 3rem 3rem;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.case-study-topbar {
+  margin-bottom: 2rem;
+}
+
+.case-study-back-link {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.case-study-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.case-study-eyebrow,
+.case-study-section-eyebrow {
+  color: #39ff14;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.case-study-title {
+  font-size: clamp(2.9rem, 5vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.case-study-subtitle {
+  max-width: 58ch;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.case-study-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.case-study-meta-card {
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.case-study-meta-card dt {
+  margin-bottom: 0.4rem;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.case-study-meta-card dd {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.case-study-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 2rem;
+}
+
+.case-study-section-block {
+  scroll-margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 28px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.case-study-section-title {
+  margin-top: 0.5rem;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.case-study-section-subtitle {
+  margin-top: 0.8rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.2rem;
+  line-height: 1.45;
+}
+
+.case-study-prose {
+  margin-top: 1rem;
+  max-width: 68ch;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.02rem;
+  line-height: 1.9;
+}
+
+.case-study-bullets {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  color: rgba(255, 255, 255, 0.84);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.case-study-bullets li::marker {
+  color: #39ff14;
+}
+
+.case-study-image-placeholder {
+  margin-top: 1.5rem;
+  min-height: 300px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(135deg, rgba(57, 255, 20, 0.06), transparent 45%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.case-study-image-placeholder span {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.96rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.case-study-footer-nav {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2rem;
+}
+
+.case-study-next-link {
+  color: #fff;
+  font-size: 1rem;
+}
+
+@media (max-width: 960px) {
+  .case-study-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 1.2rem;
+  }
+
+  .case-study-sidebar {
+    height: auto;
+  }
+
+  .case-study-content-panel {
+    height: auto;
+    overflow: visible;
+    padding: 1.5rem;
+  }
+
+  .case-study-meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .password-gate-shell {
+    padding: 2rem 1rem;
+  }
+
+  .password-gate-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .case-study-section-block {
+    padding: 1.4rem;
+  }
+
+  .case-study-title {
+    font-size: clamp(2.5rem, 12vw, 3.6rem);
   }
 }

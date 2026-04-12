@@ -27,6 +27,8 @@ const EXPERIENCES = [
 ];
 
 export default function ExperienceSection({ isActive }: { isActive: boolean }) {
+  const revealEase = [0.25, 1, 0.5, 1] as const;
+
   // Orchestrate the staggering of the elements once this section is completely visible
   const containerVariants = {
     hidden: { opacity: 1 },
@@ -44,7 +46,7 @@ export default function ExperienceSection({ isActive }: { isActive: boolean }) {
     visible: { 
       x: 0, 
       opacity: 1, 
-      transition: { ease: [0.25, 1, 0.5, 1], duration: 0.8 } 
+      transition: { ease: revealEase, duration: 0.8 } 
     }
   };
 
@@ -75,7 +77,7 @@ export default function ExperienceSection({ isActive }: { isActive: boolean }) {
                 boxShadow: "0 0 15px rgba(57, 255, 20, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.37)",
                 borderColor: "rgba(255, 255, 255, 0.15)"
               }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.3 }}
             >
               <h3 className="card-company">{exp.company}</h3>
               <p className="card-designation">{exp.designation}</p>
