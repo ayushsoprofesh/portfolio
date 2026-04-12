@@ -69,8 +69,8 @@ export default function FooterSection() {
               zIndex: 10
             }}
           >
-            <a href="#" style={{ color: "#39ff14", textDecoration: "none" }}>LinkedIn</a>
-            <a href="#" style={{ color: "#39ff14", textDecoration: "none" }}>Behance</a>
+            <a href="https://www.linkedin.com/in/ayush-singh-5065881a1/" style={{ color: "#39ff14", textDecoration: "none" }}>LinkedIn</a>
+            <a href="https://www.behance.net/ayushsingh83" style={{ color: "#39ff14", textDecoration: "none" }}>Behance</a>
           </motion.div>
         )}
       </AnimatePresence>
