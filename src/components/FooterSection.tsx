@@ -26,12 +26,10 @@ export default function FooterSection() {
     <footer 
       className={`footer-section ${dotGothic.className}`}
       style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
+        position: "relative",
         width: "100%",
-        height: "100vh",
-        zIndex: -5,
+        height: "calc(100vh - var(--nav-height))",
+        marginTop: "var(--nav-height)",
         backgroundColor: "#000",
         color: "#39ff14",
         display: "flex",
