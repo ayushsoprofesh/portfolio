@@ -12,6 +12,7 @@ import FooterSection from "@/components/FooterSection";
 import InteractiveBackground from "@/components/InteractiveBackground";
 import GlobalNav from "@/components/GlobalNav";
 import MatrixLoader from "@/components/MatrixLoader";
+import { ScrollConfig } from "@/lib/scroll-config";
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
@@ -19,31 +20,30 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
 
   const rawScrollY = useMotionValue(0);
-  const scrollY = useSpring(rawScrollY, { stiffness: 100, damping: 20, mass: 0.5 });
+  const scrollY = useSpring(rawScrollY, ScrollConfig.spring);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     if (showLoader) return; // don't update layout sections when loading
 
     const vh = window.innerHeight;
+    const { breakpoints, chosenWorksFrames } = ScrollConfig;
 
-    if (y < 120) {
+    if (y < breakpoints.heroPx) {
       setActiveSection(0); // Hero
-    } else if (y < vh / 2) {
+    } else if (y < vh * breakpoints.experienceVh) {
       setActiveSection(1); // Experience
-    } else if (y < vh * 3) {
+    } else if (y < vh * breakpoints.chosenWorksVh) {
       setActiveSection(2); // Chosen Works
 
-      // Map remaining scroll zone to 5 frames (0–4)
-      const frameStart = vh * 0.5;
-      const frameEnd = vh * 2.5;
+      // Map remaining scroll zone to frames based on config
+      const frameStart = vh * chosenWorksFrames.startVh;
+      const frameEnd = vh * chosenWorksFrames.endVh;
       const progress = Math.max(0, Math.min(0.999, (y - frameStart) / (frameEnd - frameStart)));
-      setActiveFrame(Math.floor(progress * 5));
-      // HIDING TESTIMONIALS
-      // } else if (y < vh * 9.5) {
-      //   setActiveSection(3); // Testimonials
-    } else if (y < vh * 3.5) {
+      setActiveFrame(Math.floor(progress * chosenWorksFrames.frameCount));
+      
+    } else if (y < vh * breakpoints.hireMeForVh) {
       setActiveSection(3); // Hire Me For
-    } else if (y < vh * 4.0) {
+    } else if (y < vh * breakpoints.aboutMeVh) {
       setActiveSection(4); // About Me
     } else {
       setActiveSection(5); // Footer
@@ -61,6 +61,32 @@ export default function Home() {
   // Virtual Custom Scroll Engine
   useEffect(() => {
     let touchStartY = 0;
+    let isAutoScrolling = false;
+
+    const snapToNextOrPrev = (direction: 'up' | 'down') => {
+      if (isAutoScrolling) return;
+      isAutoScrolling = true;
+      setTimeout(() => { isAutoScrolling = false; }, ScrollConfig.snapCooldownMs);
+
+      const vh = window.innerHeight;
+      const currentY = rawScrollY.get();
+      const pts = ScrollConfig.snapPointsVh.map((p) => p * vh);
+
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      pts.forEach((p, i) => {
+        if (Math.abs(p - currentY) < minDiff) {
+          minDiff = Math.abs(p - currentY);
+          closestIdx = i;
+        }
+      });
+
+      if (direction === 'down' && closestIdx < pts.length - 1) {
+        rawScrollY.set(pts[closestIdx + 1]);
+      } else if (direction === 'up' && closestIdx > 0) {
+        rawScrollY.set(pts[closestIdx - 1]);
+      }
+    };
 
     const handleWheel = (e: WheelEvent) => {
       if (showLoader) return;
@@ -84,10 +110,9 @@ export default function Home() {
       }
 
       if (!isScrollable) {
-        const maxScroll = window.innerHeight * 11.5;
-        let newY = rawScrollY.get() + e.deltaY * 1.2;
-        newY = Math.max(0, Math.min(newY, maxScroll));
-        rawScrollY.set(newY);
+        if (Math.abs(e.deltaY) > 5) {
+          snapToNextOrPrev(e.deltaY > 0 ? 'down' : 'up');
+        }
       }
     };
 
@@ -120,11 +145,10 @@ export default function Home() {
       }
 
       if (!isScrollable) {
-        touchStartY = touchY;
-        const maxScroll = window.innerHeight * 11.5;
-        let newY = rawScrollY.get() + deltaY * 1.5;
-        newY = Math.max(0, Math.min(newY, maxScroll));
-        rawScrollY.set(newY);
+        if (Math.abs(deltaY) > 20) { // Threshold for swipe
+          snapToNextOrPrev(deltaY > 0 ? 'down' : 'up');
+          touchStartY = touchY;
+        }
       } else {
         touchStartY = touchY;
       }
@@ -171,13 +195,11 @@ export default function Home() {
               key={idx}
               onClick={() => {
                 const vh = window.innerHeight;
-                let targetY = 0;
-                if (idx === 0) targetY = 0;
-                else if (idx === 1) targetY = vh * 1.2;
-                else if (idx === 2) targetY = vh * 7.2;
-                else if (idx === 3) targetY = vh * 8.6;
-                else if (idx === 4) targetY = vh * 10.8;
-                else if (idx === 5) targetY = vh * 11.5;
+                // Grab the configured target for this dot index
+                const targetVh = ScrollConfig.navTargetsVh[idx];
+                // For the last index, ensure we use maxScrollVh as a fallback if not configured well
+                const targetY = idx === 5 ? vh * ScrollConfig.maxScrollVh : vh * targetVh;
+
                 rawScrollY.set(targetY);
               }}
               style={{
