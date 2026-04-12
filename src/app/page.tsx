@@ -36,10 +36,12 @@ export default function Home() {
       // HIDING TESTIMONIALS
       // } else if (y < vh * 9.5) {
       //   setActiveSection(3); // Testimonials
-    } else if (y < vh * 9.5) {
-      setActiveSection(3); // Hire Me For (was 4)
+    } else if (y < vh * 8.8) {
+      setActiveSection(3); // Hire Me For
+    } else if (y < vh * 11.0) {
+      setActiveSection(4); // About Me
     } else {
-      setActiveSection(4); // About Me (was 5)
+      setActiveSection(5); // Footer
     }
   });
   return (
@@ -49,17 +51,18 @@ export default function Home() {
         className="portfolio-main"
         style={{
           position: "relative",
-          zIndex: activeSection >= 4 ? 0 : 10,
+          zIndex: 10,
           backgroundColor: "transparent",
-          pointerEvents: activeSection >= 4 ? "none" : "auto",
+          pointerEvents: "none",
         }}
       >
 
         {/* Mega scroll container for all sections */}
-        <div style={{ height: "1150vh", position: "relative" }}> {/* Was 1350vh before hiding Testimonials */}
+        <div style={{ height: "1200vh", position: "relative" }}> {/* Was 1350vh, adjusted for About Me & Footer */}
 
           {/* Sticky viewport — always fills the screen */}
-          <div style={{ position: "sticky", top: "var(--nav-height)", height: "calc(100vh - var(--nav-height))", width: "100vw", overflow: "hidden" }}>
+          <div style={{ position: "sticky", top: "var(--nav-height)", height: "calc(100vh - var(--nav-height))", width: "100vw", overflow: "hidden", pointerEvents: "auto" }}>
+
 
             <InteractiveBackground showChevron={activeSection === 1} activeSection={activeSection} />
 
@@ -329,12 +332,11 @@ export default function Home() {
           left: 0,
           width: "100vw",
           height: "100vh",
-          zIndex: 20,
-          pointerEvents: activeSection >= 4 ? "auto" : "none",
+          zIndex: 0,
         }}
         initial={false}
         animate={{
-          opacity: activeSection >= 4 ? 1 : 0 // Shifted from 5 to 4
+          opacity: activeSection >= 5 ? 1 : 0
         }}
       >
         <FooterSection />

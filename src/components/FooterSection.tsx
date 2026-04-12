@@ -35,7 +35,7 @@ export default function FooterSection() {
   };
 
   return (
-    <footer 
+    <footer
       className={`footer-section ${dotGothic.className}`}
       style={{
         position: "relative",
@@ -101,7 +101,7 @@ export default function FooterSection() {
       </AnimatePresence>
 
       {/* Center Media Container */}
-      <div 
+      <div
         style={{
           position: "absolute",
           width: "100%",
@@ -116,7 +116,7 @@ export default function FooterSection() {
       >
         {!isPlaying ? (
           <>
-            <Image 
+            <Image
               src="/Footer.jpg"
               alt="Terminal CV Output"
               fill
@@ -143,7 +143,7 @@ export default function FooterSection() {
             />
           </>
         ) : (
-          <video 
+          <video
             ref={videoRef}
             src="/Footer_Video.mp4"
             onEnded={handleVideoEnd}
@@ -160,7 +160,7 @@ export default function FooterSection() {
       </div>
 
       {/* Bottom Center Bar */}
-      <div 
+      <div
         style={{
           position: "absolute",
           bottom: "0rem",
