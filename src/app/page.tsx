@@ -45,7 +45,15 @@ export default function Home() {
   return (
     <>
       <GlobalNav activeSection={activeSection} />
-      <main className="portfolio-main" style={{ position: "relative", zIndex: 10, backgroundColor: "transparent" }}>
+      <main
+        className="portfolio-main"
+        style={{
+          position: "relative",
+          zIndex: activeSection >= 4 ? 0 : 10,
+          backgroundColor: "transparent",
+          pointerEvents: activeSection >= 4 ? "none" : "auto",
+        }}
+      >
 
         {/* Mega scroll container for all sections */}
         <div style={{ height: "1150vh", position: "relative" }}> {/* Was 1350vh before hiding Testimonials */}
@@ -317,7 +325,12 @@ export default function Home() {
       <motion.div
         style={{
           position: "fixed",
-          bottom: 0, left: 0, width: "100vw", height: "100vh", zIndex: -5,
+          bottom: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 20,
+          pointerEvents: activeSection >= 4 ? "auto" : "none",
         }}
         initial={false}
         animate={{

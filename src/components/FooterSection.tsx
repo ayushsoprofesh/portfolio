@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { DotGothic16 } from "next/font/google";
@@ -13,10 +13,17 @@ export default function FooterSection() {
 
   const handlePrintTrigger = () => {
     setIsPlaying(true);
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
   };
+
+  useEffect(() => {
+    if (!isPlaying || !videoRef.current) {
+      return;
+    }
+
+    void videoRef.current.play().catch(() => {
+      // Keep the state change even if autoplay is blocked.
+    });
+  }, [isPlaying]);
 
   const handleVideoEnd = () => {
     window.open("resume.pdf", "_blank");
@@ -94,6 +101,7 @@ export default function FooterSection() {
           position: "absolute",
           width: "100%",
           maxWidth: "1",
+          bottom: "3rem",
           height: "auto",
           aspectRatio: "16 / 9",
           display: "flex",
@@ -116,15 +124,16 @@ export default function FooterSection() {
               onClick={handlePrintTrigger}
               style={{
                 position: "absolute",
-                top: "70%",   // Estimate: bottom third
-                right: "10%", // Estimate: right margin
+                top: "50%",   // Estimate: bottom third
+                right: "27.5%", // Estimate: right margin
                 width: "15%",
                 height: "15%",
                 background: "transparent",
                 border: "none",
                 cursor: "pointer",
-                zIndex: 20
+                zIndex: 1000
               }}
+              type="button"
               aria-label="Print CV"
             />
           </>
@@ -138,6 +147,7 @@ export default function FooterSection() {
               height: "100%",
               objectFit: "contain"
             }}
+            autoPlay
             playsInline
             muted={false} // Adjust based on whether video requires audio
           />
@@ -148,12 +158,14 @@ export default function FooterSection() {
       <div 
         style={{
           position: "absolute",
-          bottom: "1rem",
+          bottom: "0rem",
           width: "100%",
           textAlign: "center",
           fontSize: "1.1rem",
           letterSpacing: "0.05em",
-          zIndex: 10
+          zIndex: 10,
+          background: "black",
+          padding: "1rem",
         }}
       >
         Made with love for The Matrix, Antigravity and Panic!!!
