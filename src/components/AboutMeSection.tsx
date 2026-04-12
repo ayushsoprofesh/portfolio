@@ -9,7 +9,8 @@ const MARQUEE_ITEMS = [
   "Motion Folio (Video Placeholder)",
   "Alcheringa Theme Video (Video Placeholder)",
   "Photos with Friends",
-  "My Photo"
+  "My Photo",
+  "Lauda"
 ];
 
 export default function AboutMeSection({ isActive }: { isActive: boolean }) {
@@ -23,16 +24,16 @@ export default function AboutMeSection({ isActive }: { isActive: boolean }) {
 
   const textVariants = {
     hidden: { y: 30, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { delay: 0.3, duration: 0.8, ease: "easeOut" } 
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { delay: 0.3, duration: 0.8, ease: "easeOut" }
     }
   };
 
   return (
     <section className="about-me-section">
-      <motion.div 
+      <motion.div
         className="about-me-container"
         variants={containerVariants}
         initial="hidden"
@@ -46,7 +47,7 @@ export default function AboutMeSection({ isActive }: { isActive: boolean }) {
         </motion.div>
 
         {/* The Infinite Marquee */}
-        <motion.div 
+        <motion.div
           className="marquee-container"
           variants={{
             hidden: { opacity: 0 },
