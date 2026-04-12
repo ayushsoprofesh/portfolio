@@ -9,8 +9,7 @@ const MARQUEE_ITEMS = [
   "Motion Folio (Video Placeholder)",
   "Alcheringa Theme Video (Video Placeholder)",
   "Photos with Friends",
-  "My Photo",
-  "Lauda"
+  "My Photo"
 ];
 
 export default function AboutMeSection({ isActive }: { isActive: boolean }) {
