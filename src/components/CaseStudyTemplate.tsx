@@ -8,10 +8,12 @@ import InteractiveBackground from "@/components/InteractiveBackground";
 
 type CaseStudyTemplateProps = {
   study: CaseStudyContent;
+  children?: React.ReactNode;
 };
 
 export default function CaseStudyTemplate({
   study,
+  children,
 }: CaseStudyTemplateProps) {
   const [activeSection, setActiveSection] = useState(study.sections[0]?.id ?? "");
   const contentPanelRef = useRef<HTMLElement | null>(null);
@@ -119,7 +121,7 @@ export default function CaseStudyTemplate({
             </header>
 
             <div className="case-study-sections">
-              {study.sections.map((section) => (
+              {children || study.sections.map((section) => (
                 <article
                   key={section.id}
                   id={section.id}

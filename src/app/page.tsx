@@ -179,7 +179,17 @@ export default function Home() {
                             muted
                             playsInline
                             className="profile-image"
-                            style={{ objectFit: "cover", width: "100%", height: "100%" }}
+                            style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "inherit" }}
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              inset: 0,
+                              backgroundColor: "#71FF18",
+                              mixBlendMode: "color-burn",
+                              pointerEvents: "none",
+                              borderRadius: "inherit",
+                            }}
                           />
                         </motion.div>
                       </div>
