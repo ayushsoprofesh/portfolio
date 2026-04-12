@@ -174,7 +174,16 @@ export default function Home() {
       </AnimatePresence>
 
       <div style={{ opacity: showLoader ? 0 : 1, transition: "opacity 0.6s ease-in" }}>
-        <GlobalNav activeSection={activeSection} />
+        <GlobalNav 
+          activeSection={activeSection} 
+          isLoaded={!showLoader}
+          onNavigate={(idx) => {
+             const vh = window.innerHeight;
+             const targetVh = ScrollConfig.navTargetsVh[idx];
+             const targetY = idx === 5 ? vh * ScrollConfig.maxScrollVh : vh * targetVh;
+             rawScrollY.set(targetY);
+          }}
+        />
 
         {/* Index Scroll Bar */}
         <div
@@ -356,7 +365,7 @@ export default function Home() {
                               style={{
                                 position: "absolute",
                                 inset: 0,
-                                backgroundColor: "#71FF18",
+                                backgroundColor: "#71ff186b",
                                 mixBlendMode: "color-burn",
                                 pointerEvents: "none",
                                 borderRadius: "inherit",

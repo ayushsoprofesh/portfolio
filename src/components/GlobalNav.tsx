@@ -6,11 +6,13 @@ import { usePathname, useRouter } from "next/navigation";
 
 interface GlobalNavProps {
   activeSection: number;
+  isLoaded?: boolean;
+  onNavigate?: (index: number) => void;
 }
 
 const FULL_TEXT = "Ayush's Portfolio";
 
-export default function GlobalNav({ activeSection }: GlobalNavProps) {
+export default function GlobalNav({ activeSection, isLoaded = true, onNavigate }: GlobalNavProps) {
   const pathname = usePathname();
   const router = useRouter();
   const isHomePage = pathname === "/";
@@ -22,6 +24,9 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // Wait until loader finishes if on homepage
+    if (isHomePage && !isLoaded) return;
+
     let i = 0;
     setDisplayed("");
     setTypingDone(false);
@@ -42,14 +47,9 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
     return () => {
       if (typingRef.current) clearTimeout(typingRef.current);
     };
-  }, []);
+  }, [isLoaded, isHomePage]);
 
-  // After typing finishes, keep cursor blinking but hide after 3 s
-  useEffect(() => {
-    if (!typingDone) return;
-    const timer = setTimeout(() => setShowCursor(false), 3000);
-    return () => clearTimeout(timer);
-  }, [typingDone]);
+  // The cursor blinks indefinitely.
 
 
 
@@ -59,17 +59,10 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
       router.push("/");
       return;
     }
-
-    const vh = window.innerHeight;
-    const scrollTargets: Record<number, number> = {
-      0: 0,           // Hero
-      1: vh * 0.5,    // Experience (WORK)
-      2: vh * 2.5,    // Chosen Works
-      3: vh * 8.2,    // Hire Me For
-      4: vh * 10.1,   // About Me
-      5: vh * 12.1,   // Footer panel
-    };
-    window.scrollTo({ top: scrollTargets[sectionIndex] ?? 0, behavior: "smooth" });
+    
+    if (onNavigate) {
+      onNavigate(sectionIndex);
+    }
   };
 
   const isWorkActive    = activeSection === 1 || activeSection === 2;
@@ -77,8 +70,8 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
   const isContactActive = activeSection === 5;
 
   const navLinks = [
-    { label: "WORK",    active: isWorkActive,    onClick: () => handleScrollTo(1) },
-    { label: "ABOUT",   active: isAboutActive,   onClick: () => handleScrollTo(3) },
+    { label: "WORK",    active: isWorkActive,    onClick: () => handleScrollTo(1) },     // Index 1 = Experience
+    { label: "ABOUT",   active: isAboutActive,   onClick: () => handleScrollTo(4) },     // Index 4 = About Me
     {
       label: "CONTACT",
       active: isContactActive,
