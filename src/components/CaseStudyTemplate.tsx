@@ -33,20 +33,16 @@ export default function CaseStudyTemplate({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleEntries = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (!visibleEntries.length) {
-          return;
-        }
-
-        setActiveSection(visibleEntries[0].target.id);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
       },
       {
         root: contentPanelRef.current,
-        rootMargin: "-18% 0px -50% 0px",
-        threshold: [0.2, 0.4, 0.65],
+        rootMargin: "-25% 0px -70% 0px",
+        threshold: 0,
       },
     );
 
@@ -62,6 +58,8 @@ export default function CaseStudyTemplate({
         <div className="case-study-background-layer">
           <InteractiveBackground showChevron={false} activeSection={2} />
         </div>
+
+
 
         <div className="case-study-grid">
           <aside className="case-study-panel case-study-sidebar">

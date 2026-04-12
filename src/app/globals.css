@@ -16,12 +16,16 @@
   padding: 0;
 }
 
+html,
+body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
 body {
   background-color: var(--bg-color);
   color: var(--matrix-green);
-  overflow-x: hidden;
-  min-height: 100vh;
-  width: 100vw;
 }
 
 /* ==============================================================
@@ -744,18 +748,18 @@ body {
 /* Frame progress indicators */
 .frame-indicators {
   position: absolute;
-  bottom: 5%;
+  bottom: 20%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 15;
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .frame-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: 12px;
+  height: 4px;
+  border-radius: 30%;
   background-color: rgba(255, 255, 255, 0.15);
   transition: all 0.4s ease;
 }
@@ -1346,6 +1350,7 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
+  /* padding-left: 8%; */
   gap: 0.55rem;
 }
 
@@ -1368,6 +1373,13 @@ body {
   height: 100%;
   overflow-y: auto;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.case-study-content-panel::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 .case-study-topbar {

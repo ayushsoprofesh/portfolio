@@ -300,20 +300,23 @@ export default function ChosenWorksSection({
                   </div>
                 );
               })}
+
+              <div
+                className="frame-indicators"
+                style={{ bottom: "4.5%", zIndex: 20 }}
+              >
+                {[1, 2, 3, 4].map((caseIdx) => (
+                  <div
+                    key={caseIdx}
+                    className={`frame-dot ${activeFrame === caseIdx && isActive ? "active" : ""}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
         <div className="scanlines"></div>
-
-        <div className="frame-indicators">
-          {FRAMES.map((_, i) => (
-            <div
-              key={i}
-              className={`frame-dot ${activeFrame === i && isActive ? "active" : ""}`}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );

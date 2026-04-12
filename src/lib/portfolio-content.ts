@@ -87,7 +87,7 @@ export const CASE_STUDIES: Record<
     sections: [
       {
         id: "problem",
-        label: "1. The Problem",
+        label: "The Problem",
         eyebrow: "Context",
         title: "Modernizing a Legacy ERP",
         body: "",
@@ -96,7 +96,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "architecture",
-        label: "2. The Architecture Battle",
+        label: "The Architecture Battle",
         eyebrow: "Systems Thinking",
         title: "Single vs Multi Charge",
         body: "",
@@ -105,7 +105,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "mass-actions",
-        label: "3. Taming the Data Weight",
+        label: "Taming the Data Weight",
         eyebrow: "Solution",
         title: "Mass Actions",
         body: "",
@@ -114,7 +114,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "escape-hatch",
-        label: "4. The Escape Hatch",
+        label: "The Escape Hatch",
         eyebrow: "UX Solution",
         title: "Data Grid",
         body: "",
@@ -123,7 +123,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "constraints",
-        label: "5. Constraints & Tech Debt",
+        label: "Constraints & Tech Debt",
         eyebrow: "Process",
         title: "Killing Technical Debt",
         body: "",
@@ -149,7 +149,7 @@ export const CASE_STUDIES: Record<
     sections: [
       {
         id: "problem",
-        label: "1. The Problem",
+        label: "The Problem",
         eyebrow: "Context",
         title: "Moving Fast in a Giant Corporation",
         body: "",
@@ -158,7 +158,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "rapid-execution",
-        label: "2. Rapid Execution",
+        label: "Rapid Execution",
         eyebrow: "Execution",
         title: "Reusing Patterns",
         body: "",
@@ -167,7 +167,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "scrappy-design",
-        label: "3. Scrappy Design",
+        label: "Scrappy Design",
         eyebrow: "Future Proofing",
         title: "Saving Rejected Work & Pitching",
         body: "",
@@ -176,7 +176,7 @@ export const CASE_STUDIES: Record<
       },
       {
         id: "cross-team",
-        label: "4. The Cross Team Battle",
+        label: "The Cross Team Battle",
         eyebrow: "Coordination",
         title: "Rate Plans",
         body: "",

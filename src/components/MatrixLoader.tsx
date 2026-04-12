@@ -88,7 +88,7 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
       <motion.div
         className="matrix-loader-iframe-container"
         animate={{
-          scale: loaderState === "zooming" || loaderState === "blackout" || loaderState === "done" ? 10 : 1,
+          scale: loaderState === "zooming" || loaderState === "blackout" ? 10 : 1,
           opacity: loaderState === "blackout" ? 0 : 1
         }}
         transition={{
@@ -140,8 +140,8 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
         className="loader-blackout-radial"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ 
-          scale: loaderState === "blackout" || loaderState === "done" ? 25 : 0,
-          opacity: loaderState === "blackout" || loaderState === "done" ? 1 : 0 
+          scale: loaderState === "blackout" ? 25 : 0,
+          opacity: loaderState === "blackout" ? 1 : 0 
         }}
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         style={{
