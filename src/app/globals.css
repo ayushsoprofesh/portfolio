@@ -1,0 +1,954 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+:root {
+  --matrix-green: #39ff14; 
+  --matrix-dark-green: #0a2e0a;
+  --bg-color: #000000;
+  --nav-height: 48px;
+  --section-height: calc(100vh - var(--nav-height));
+  /* Tuned zoom to 1.68 per user instruction */
+  --zoom-level: 1.68; 
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--matrix-green);
+  overflow-x: hidden;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* ==============================================================
+   GLOBAL TOP NAVIGATION BAR
+   ============================================================== */
+
+.global-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 48px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  background: #000000;
+  border-bottom: 1px solid rgba(57, 255, 20, 0.12);
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+}
+
+/* Left — Logo */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-logo-text {
+  font-size: 0.95rem;
+  color: var(--matrix-green);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 4px rgba(57, 255, 20, 0.4);
+  line-height: 1;
+}
+
+.nav-cursor {
+  display: inline-block;
+  font-size: 0.95rem;
+  color: var(--matrix-green);
+  animation: cursor-blink 1s steps(2, start) infinite;
+  margin-left: 1px;
+  line-height: 1;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.6);
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Center — Nav Links */
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--matrix-green);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+}
+
+.nav-link-active {
+  color: var(--matrix-green);
+  text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+}
+
+/* Right — Resume Button */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  padding: 0.32rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.nav-resume-btn:hover {
+  color: var(--matrix-green);
+  border-color: var(--matrix-green);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.15);
+  text-shadow: 0 0 4px rgba(57, 255, 20, 0.3);
+}
+
+.resume-arrow {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* Mobile nav adjustments */
+@media (max-width: 600px) {
+  .global-nav {
+    padding: 0 1.25rem;
+  }
+  .nav-center {
+    gap: 1.5rem;
+  }
+  .nav-link {
+    font-size: 0.72rem;
+  }
+  .nav-logo-text {
+    font-size: 0.8rem;
+  }
+}
+
+.hero-section {
+  position: relative;
+  width: 100vw;
+  height: var(--section-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* The scaled wrapper */
+.matrix-container {
+  position: relative;
+  width: 100vw;
+  aspect-ratio: 16 / 9;
+  transform: scale(var(--zoom-level));
+  transform-origin: center center;
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .matrix-container {
+    width: auto;
+    height: var(--section-height);
+  }
+}
+
+.background-img-wrapper {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  filter: contrast(1.1) brightness(0.85); 
+}
+
+/* The 4x3 Grid mapping overlay */
+.precise-grid {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid-cell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Targeting the specific active monitors with independent paddings for perfect edge alignment */
+.cell-2-2 { 
+  grid-column: 2; 
+  grid-row: 2; 
+  /* Top, Right, Bottom, Left */
+  padding: 25% 11% 10% 13%; 
+}
+
+.cell-2-3 { 
+  grid-column: 3; 
+  grid-row: 2; 
+  /* Left edge nudged inward */
+  padding: 24% 10% 10% 15%; 
+}
+
+/* The container fitting exactly inside the glass */
+.inner-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Responsive radius that scales with the background image on zoom */
+  border-radius: 2.8vw / 2.2vw; 
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base style for the text to fit cleanly inside */
+.text-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 5%;
+  /* Force text to scale strictly with its physical bounds, not the viewport! */
+  container-type: inline-size;
+}
+
+.matrix-text {
+  /* Using container query width ensures the text perfectly survives responsive resizes without detaching from the background TV bounds */
+  font-size: 5cqw; 
+  line-height: 1.5;
+  text-shadow: 0 0 2px var(--matrix-green), 0 0 4px rgba(57, 255, 20, 0.5);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.1rem;
+}
+
+.matrix-text.intro { font-size: 6cqw; }
+
+/* Profile Styles */
+.profile-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px / 30px;
+  overflow: hidden;
+}
+
+.profile-image {
+  object-fit: cover;
+}
+
+/* Global scanlines overlay unaffected by scale */
+.scanlines {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.7;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 6px 100%;
+}
+
+/* ==============================================================
+   SECTION 2: EXPERIENCE
+   ============================================================== */
+.experience-section {
+  width: 100vw;
+  height: var(--section-height);
+  background-color: transparent;
+  padding: 5rem 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.experience-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-title {
+  font-size: 3.5rem;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  will-change: transform, opacity;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.glass-panel {
+  background: rgba(18, 18, 18, 0.35);
+  backdrop-filter: blur(40px) saturate(120%);
+  -webkit-backdrop-filter: blur(40px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.experience-card {
+  border-radius: 16px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  will-change: transform, opacity, box-shadow, border-color, background-color;
+}
+
+/* Tier 1: Company — largest, boldest */
+.card-company {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* Tier 2: Designation — smaller, lighter weight */
+.card-designation {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #c0c0c0;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.01em;
+}
+
+/* Tier 3: Tenure/Location — smallest, matrix green accent */
+.card-tenure {
+  font-size: 0.9rem;
+  color: var(--matrix-green);
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.card-body {
+  font-size: 1rem;
+  color: #a3a3a3;
+  line-height: 1.65;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .experience-section { padding: 4rem 6%; }
+  .cards-grid { gap: 1.5rem; }
+  .experience-card { padding: 2rem 1.5rem; }
+  .card-company { font-size: 1.4rem; }
+  .card-designation { font-size: 1rem; }
+  .card-body { font-size: 0.95rem; }
+}
+
+@media (max-width: 768px) {
+  .experience-section { 
+    padding: 3rem 5%; 
+    justify-content: flex-start;
+  }
+  .cards-grid { grid-template-columns: 1fr; }
+  .experience-title { font-size: 2.5rem; margin-bottom: 2rem; }
+}
+
+/* ==============================================================
+   SECTION 3: CHOSEN WORKS
+   ============================================================== */
+.chosen-section {
+  width: 100vw;
+  height: var(--section-height);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Section 3: Override cell paddings to align precisely with CRT bezels */
+.chosen-section .cell-2-2 {
+  /* More height (less top/bottom), tighter right edge */
+  padding: 11% 20% 10% 10%;
+}
+
+.chosen-section .cell-2-3 {
+  /* Left edge pushed inward to narrow the container */
+  padding: 9.5% 17% 9% 18%;
+}
+
+/* Each screen holds all 5 frames stacked absolutely, crossfading via opacity */
+.chosen-screen {
+  position: relative;
+  background-color: #000;
+  overflow: hidden; /* Clip content to CRT glass bounds */
+}
+
+/* Ensure the inner-screen fills the grid cell for chosen screens */
+.chosen-section .inner-screen {
+  width: 100%;
+  height: 100%;
+}
+
+.chosen-frame {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  padding: 8%;
+}
+
+.chosen-frame.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Giant CHOSEN / WORKS title text */
+.chosen-giant-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  container-type: inline-size;
+}
+
+.chosen-giant-text {
+  font-family: var(--font-dot-gothic), monospace;
+  color: var(--matrix-green);
+  font-size: 22cqw;
+  font-weight: 400;
+  line-height: 1;
+  text-shadow: 
+    0 0 5px var(--matrix-green), 
+    0 0 15px rgba(57, 255, 20, 0.5),
+    0 0 40px rgba(57, 255, 20, 0.25);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* Project info styling (Frames 1-4, left screen) */
+.chosen-project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  container-type: inline-size;
+  padding: 0 2%;
+}
+
+/* Tier 1: Title — largest, brightest green, strong presence */
+.chosen-project-title {
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  color: var(--matrix-green);
+  font-size: 6.5cqw;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 3px var(--matrix-green), 0 0 8px rgba(57, 255, 20, 0.4);
+}
+
+/* Tier 2: Product / Timeline — small, dim white metadata */
+.chosen-project-product {
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 3.4cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+/* Tier 3: Tags — medium, muted green for subtle categorization */
+.chosen-project-tags {
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  color: var(--matrix-green);
+  font-size: 3.6cqw;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+  text-shadow: 0 0 2px rgba(57, 255, 20, 0.3);
+  margin-bottom: 0.3rem;
+}
+
+/* Tier 4: Body — comfortable reading, whiter text */
+.chosen-project-body {
+  font-family: var(--font-share-tech), 'Share Tech Mono', monospace;
+  color: #d8d8d8;
+  font-size: 3.8cqw;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.chosen-cta {
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  padding: 0.5em 1.2em;
+  font-size: clamp(0.65rem, 0.9vw, 0.9rem);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  color: #000;
+  background-color: var(--matrix-green);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-shadow: none;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.chosen-cta:hover {
+  background-color: #4dff33;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Image placeholders with green monochrome CRT tint */
+.chosen-image-placeholder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: 
+    linear-gradient(180deg, rgba(57, 255, 20, 0.03) 0%, rgba(57, 255, 20, 0.08) 50%, rgba(57, 255, 20, 0.03) 100%),
+    linear-gradient(135deg, #0a1a0a 0%, #0d200d 50%, #0a1a0a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.chosen-image-placeholder .placeholder-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+}
+
+.placeholder-label {
+  font-family: var(--font-share-tech), monospace;
+  color: var(--matrix-green);
+  opacity: 0.4;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+/* Frame progress indicators */
+.frame-indicators {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: flex;
+  gap: 10px;
+}
+
+.frame-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: all 0.4s ease;
+}
+
+.frame-dot.active {
+  background-color: var(--matrix-green);
+  box-shadow: 0 0 8px var(--matrix-green);
+  transform: scale(1.3);
+}
+
+/* =========================================
+   SECTION 4: TESTIMONIALS
+   ========================================= */
+
+.testimonials-section {
+  width: 100vw;
+  height: var(--section-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.testimonials-title {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.1;
+}
+
+/* Carousel wrapper — extends past right padding for peek card */
+.testimonials-carousel-wrapper {
+  position: relative;
+  overflow: visible;
+  margin-right: calc(-6vw);
+}
+
+/* Draggable card row */
+.testimonials-carousel {
+  display: flex;
+  gap: 1.8rem;
+  position: relative;
+  cursor: grab;
+  user-select: none;
+}
+
+.testimonials-carousel:active {
+  cursor: grabbing;
+}
+
+/* Wire line — inside carousel so it moves with drag.
+   Sits at z-index 1, BEHIND cards (z-index 2).
+   The threading illusion comes from the card ::before overlay. */
+.testimonials-carousel .wire-line {
+  position: absolute;
+  top: 20px;
+  left: -5vw;
+  width: 250vw;
+  height: 3px;
+  background: var(--matrix-green);
+  box-shadow:
+    0 0 6px var(--matrix-green),
+    0 0 14px rgba(57, 255, 20, 0.5),
+    0 0 30px rgba(57, 255, 20, 0.2);
+  z-index: 1;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Individual card — fixed width: 3 visible + partial 4th peek */
+.testimonial-card {
+  flex: 0 0 30%;
+  min-width: 280px;
+  border-radius: 16px;
+  padding: 3rem 1.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  /* Glassmorphism */
+  background: rgba(14, 14, 14, 0.55) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  will-change: transform;
+}
+
+/* LEFT wire overlay — rendered ABOVE the card face.
+   Goes from card left edge to the hole left edge.
+   This creates the threading illusion:
+   - Left of hole: wire visible ON TOP of card (this overlay)
+   - Right of hole: wire hidden BEHIND card (main wire at z:1, card at z:2) */
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: 19px;
+  left: 0;
+  width: calc(50% - 9px);
+  height: 3px;
+  background: var(--matrix-green);
+  box-shadow:
+    0 0 6px var(--matrix-green),
+    0 0 14px rgba(57, 255, 20, 0.5);
+  z-index: 15;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(20, 20, 20, 0.7) !important;
+}
+
+/* The "hole" — above the wire overlay */
+.card-hole-wrapper {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.card-hole {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(57, 255, 20, 0.25);
+}
+
+/* Card content */
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0.5rem;
+}
+
+/* Typography overrides — reuses Section 2 card classes */
+.testimonial-card .card-company {
+  font-size: clamp(1.2rem, 1.6vw, 1.65rem);
+  margin-bottom: 0.15rem;
+}
+
+.testimonial-card .card-tenure {
+  color: var(--matrix-green);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card .card-body {
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  line-height: 1.65;
+}
+
+/* =========================================
+   SECTION 5: HIRE ME FOR
+   ========================================= */
+
+.hire-me-section {
+  width: 100vw;
+  height: var(--section-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hire-me-container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.hire-me-title {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.hire-me-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .hire-me-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.hire-me-card {
+  border-radius: 16px;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+
+/* =========================================
+   SECTION 6: ABOUT ME
+   ========================================= */
+
+.about-me-section {
+  width: 100vw;
+  height: var(--section-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.about-me-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 5vh;
+}
+
+.about-me-text-wrapper {
+  max-width: 800px;
+  margin: 0 auto 4rem auto;
+  text-align: center;
+  padding: 0 6%;
+}
+
+.about-me-title {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.about-me-body {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.8;
+  color: #d8d8d8;
+}
+
+/* Marquee Styling */
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2rem;
+  /* Fading edges */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 35s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 2rem;
+  padding-right: 2rem; /* gap equivalent to preserve spacing between loops */
+}
+
+.marquee-frame {
+  flex-shrink: 0;
+  width: 320px;
+  height: 220px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.marquee-frame:hover {
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.marquee-placeholder-text {
+  font-family: var(--font-share-tech), monospace;
+  color: var(--matrix-green);
+  opacity: 0.6;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
