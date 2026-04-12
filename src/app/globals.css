@@ -1249,6 +1249,16 @@ body {
     transform 0.25s ease, box-shadow 0.25s ease;
 }
 
+@keyframes passwordSubmitGlow {
+  0% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: 75;
+  }
+}
+
 .password-gate-submit {
   position: absolute;
   right: 4%;
@@ -1256,11 +1266,13 @@ body {
   border-radius: 10px;
   padding: 10px 16px;
   margin-right: 3px;
-  border: 1px solid rgba(22, 123, 5, 0.951);
+  border: 1px solid rgba(57, 255, 20, 0.5);
   color: var(--matrix-green);
-  background: #39ff140f;
+  background: linear-gradient(270deg, rgba(55, 255, 20, 0.186) 0%, black 51%, black 100%);
+  background-size: 100% 200%;
+  animation: passwordSubmitGlow 1s ease-out infinite;
   font-size: 0.98rem;
-  text-shadow: 0 0 6px #39ff148c;
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.55);
   font-weight: 600;
   cursor: pointer;
   font-family: Share Tech Mono, monospace;

@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   if (password !== PASSWORDS[project]) {
     return Response.json(
       {
-        error: `That password ain't right, try`,
+        error: `That password ain't right, keep trying`,
       },
       { status: 401 },
     );
