@@ -27,6 +27,11 @@ export default function FooterSection() {
 
   const handleVideoEnd = () => {
     window.open("resume.pdf", "_blank");
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+    setIsPlaying(false);
   };
 
   return (
@@ -140,7 +145,7 @@ export default function FooterSection() {
         ) : (
           <video 
             ref={videoRef}
-            src="/footer.webm"
+            src="/Footer_video.mp4"
             onEnded={handleVideoEnd}
             style={{
               width: "100%",
