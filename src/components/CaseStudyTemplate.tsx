@@ -56,7 +56,7 @@ export default function CaseStudyTemplate({
       <GlobalNav activeSection={2} />
       <main className="case-study-page">
         <div className="case-study-background-layer">
-          <InteractiveBackground showChevron={false} activeSection={2} />
+          <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
         </div>
 
 

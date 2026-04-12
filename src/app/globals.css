@@ -1203,7 +1203,7 @@ body {
 
 .password-gate-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.9rem;
 }
 
@@ -1215,7 +1215,7 @@ body {
 .password-gate-input {
   width: 100%;
   padding: 1rem 1.1rem;
-  border-radius: 18px;
+  border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
   color: #fff;
@@ -1237,6 +1237,7 @@ body {
 
 .password-gate-error {
   color: #ff8d8d;
+  position: relative;
   font-size: 0.95rem;
 }
 
@@ -1249,16 +1250,22 @@ body {
 }
 
 .password-gate-submit {
-  align-self: flex-start;
-  padding: 0.95rem 1.5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(57, 255, 20, 0.28);
-  background: #39ff14;
-  color: #041104;
+  position: absolute;
+  right: 4%;
+  align-self: center;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-right: 3px;
+  border: 1px solid rgba(22, 123, 5, 0.951);
+  color: var(--matrix-green);
+  background: #39ff140f;
   font-size: 0.98rem;
-  font-weight: 700;
+  text-shadow: 0 0 6px #39ff148c;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 24px rgba(57, 255, 20, 0.18);
+  font-family: Share Tech Mono, monospace;
+  /* box-shadow: 0 0 24px rgba(57, 255, 20, 0.18); */
+  /* z-index: 2; */
 }
 
 .password-gate-submit:hover,

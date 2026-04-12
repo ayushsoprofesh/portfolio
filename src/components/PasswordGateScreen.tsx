@@ -77,54 +77,53 @@ export default function PasswordGateScreen() {
       <GlobalNav activeSection={2} />
       <main className="password-gate-page">
         <div className="password-gate-background-layer">
-          <InteractiveBackground showChevron={false} activeSection={2} />
+          <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
         </div>
 
         <div className="password-gate-shell">
           <div className="password-gate-badge">
-            Protected route
+            Case Study
             {target ? ` | ${target.label}` : ""}
           </div>
 
           <div className="password-gate-copy">
-            <p className="password-gate-kicker">Restricted Access</p>
-            <h1 className="password-gate-title">Restricted Access</h1>
+            <p className="password-gate-kicker">Oops..</p>
+            <h1 className="password-gate-title">Project Locked</h1>
             <p className="password-gate-description">
-              This project contains sensitive enterprise data under NDA. Please
+              This project contains sensitive data under NDA. Please
               enter the password to proceed.
             </p>
           </div>
 
           <form className="password-gate-form" onSubmit={handleSubmit}>
-            <label className="password-gate-label" htmlFor="project-password">
+            {/* <label className="password-gate-label" htmlFor="project-password">
               Password
-            </label>
+            </label> */}
+
             <input
               id="project-password"
               className="password-gate-input"
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Enter password"
+              placeholder="Password here..."
               autoComplete="current-password"
               disabled={isSubmitting}
             />
-
-            {error ? (
-              <p className="password-gate-error" role="alert">
-                {error}
-              </p>
-            ) : null}
-
             <button
               className="password-gate-submit"
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Checking..." : "Unlock Project"}
+              {isSubmitting ? "Checking..." : "Enter"}
             </button>
-          </form>
 
+          </form>
+          {error ? (
+            <p className="password-gate-error" role="alert">
+              {error}
+            </p>
+          ) : null}
           <p className="password-gate-helper">
             Don&apos;t have a password? Reach out:{" "}
             <a href={`mailto:${CONTACT_LINKS.email}`}>{CONTACT_LINKS.email}</a>

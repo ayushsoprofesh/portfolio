@@ -19,7 +19,7 @@ type ChevronCell = {
   row: number;
 };
 
-export default function InteractiveBackground({ showChevron, activeSection }: { showChevron: boolean, activeSection?: number }) {
+export default function InteractiveBackground({ showChevron, activeSection, isNotFuckedUpPage = false }: { showChevron: boolean, activeSection?: number, isNotFuckedUpPage?: boolean }) {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [snappedPos, setSnappedPos] = useState({ x: -1000, y: -1000 });
   const [ripples, setRipples] = useState<Ripple[]>([]);
@@ -260,7 +260,7 @@ export default function InteractiveBackground({ showChevron, activeSection }: { 
         style={{
           position: "absolute",
           left: snappedPos.x,
-          top: snappedPos.y - 2 * GRID_H,
+          top: isNotFuckedUpPage ? snappedPos.y : snappedPos.y - 2 * GRID_H,
           width: GRID_W,
           height: GRID_H,
           backgroundColor: "rgba(57, 255, 20, 0.8)",

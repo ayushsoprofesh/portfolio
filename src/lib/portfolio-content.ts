@@ -14,21 +14,21 @@ export const EXTERNAL_CASE_STUDY_LINKS = {
 
 export const PASSWORD_TARGETS = {
   "case-study-1": {
-    label: "Project 1",
+    label: "Designing for Enterprise Scale",
     success: {
       type: "internal" as const,
       href: "/case-study-1",
     },
   },
   "case-study-2": {
-    label: "Project 2",
+    label: "Fast Execution and Cross_Team Design",
     success: {
       type: "internal" as const,
       href: "/case-study-2",
     },
   },
   "project-3": {
-    label: "Project 3",
+    label: "Visualising Segment Analytics",
     success: {
       type: "external" as const,
       href: EXTERNAL_CASE_STUDY_LINKS.figma,
