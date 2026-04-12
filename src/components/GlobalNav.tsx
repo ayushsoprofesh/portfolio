@@ -13,21 +13,21 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
       0: 0,                // Hero
       1: vh * 0.5,         // Experience (WORK)
       2: vh * 2.5,         // Chosen Works
-      3: vh * 8,           // Testimonials
-      4: vh * 10,          // Hire Me For (ABOUT)
-      5: vh * 12,          // About Me
+      // 3: vh * 8,        // Testimonials (HIDDEN)
+      3: vh * 8,           // Hire Me For (ABOUT) - was 4, mapped up
+      4: vh * 10,          // About Me - was 5, mapped up
     };
     window.scrollTo({ top: scrollTargets[sectionIndex] ?? 0, behavior: "smooth" });
   };
 
   // WORK is active during Experience (1) and Chosen Works (2)
   const isWorkActive = activeSection === 1 || activeSection === 2;
-  // ABOUT is active during Hire Me For (4) and About Me (5)
-  const isAboutActive = activeSection === 4 || activeSection === 5;
+  // ABOUT is active during Hire Me For (3) and About Me (4) [Testimonials hidden]
+  const isAboutActive = activeSection === 3 || activeSection === 4;
 
   const navLinks = [
     { label: "WORK", active: isWorkActive, onClick: () => handleScrollTo(1) },
-    { label: "ABOUT", active: isAboutActive, onClick: () => handleScrollTo(4) },
+    { label: "ABOUT", active: isAboutActive, onClick: () => handleScrollTo(3) },
     {
       label: "CONTACT",
       active: false,

@@ -142,9 +142,36 @@ export default function TestimonialsSection({
   useEffect(() => {
     const measure = () => {
       const el = carouselRef.current;
-      if (el) {
-        const overflow = el.scrollWidth - el.clientWidth;
-        if (overflow > 0) setDragLeft(-overflow);
+      if (el && el.parentElement) {
+        // Because cards have entrance animations (x: 800), el.scrollWidth will be 
+        // artificially stretched while animating. 
+        // We find the true resting width by measuring the children's offsetLeft.
+        const cards = el.querySelectorAll('.testimonial-card');
+        let contentWidth = el.scrollWidth; // fallback
+        
+        if (cards.length > 0) {
+          let maxRight = 0;
+          cards.forEach((card) => {
+            const htmlCard = card as HTMLElement;
+            const rightEdge = htmlCard.offsetLeft + htmlCard.offsetWidth;
+            if (rightEdge > maxRight) maxRight = rightEdge;
+          });
+          // Include any padding-right on the track if you want it to pad out
+          contentWidth = maxRight;
+        }
+
+        // Determine the horizontal starting position of the carousel track
+        const parentLeft = el.parentElement.getBoundingClientRect().left;
+        const totalWidth = el.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        
+        // Overflow is how much the right edge extends past the viewport
+        const overflow = (parentLeft + totalWidth) - viewportWidth;
+        if (overflow > 0) {
+          setDragLeft(-overflow);
+        } else {
+          setDragLeft(0);
+        }
       }
     };
     const timer = setTimeout(measure, 200);
@@ -182,14 +209,16 @@ export default function TestimonialsSection({
         {/* Carousel area */}
         <div className="testimonials-carousel-wrapper">
           <motion.div
+            // style={{ border: "1px solid red" }}
             ref={carouselRef}
             className="testimonials-carousel"
             drag="x"
             dragConstraints={{ left: dragLeft, right: 0 }}
             dragElastic={0.08}
             dragTransition={{ bounceStiffness: 300, bounceDamping: 30 }}
+
             onDragStart={() => setIsDragging(true)}
-            onDragEnd={() => setTimeout(() => setIsDragging(false), 50)}
+            onDragEnd={() => setTimeout(() => setIsDragging(false), 510)}
           >
             {/* Wire line — inside carousel so it moves with drag */}
             <div className="wire-line" />

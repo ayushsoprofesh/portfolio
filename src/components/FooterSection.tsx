@@ -93,9 +93,9 @@ export default function FooterSection() {
       {/* Center Media Container */}
       <div 
         style={{
-          position: "relative",
-          width: "90%",
-          maxWidth: "1200px",
+          position: "absolute",
+          width: "100%",
+          maxWidth: "1",
           height: "auto",
           aspectRatio: "16 / 9",
           display: "flex",

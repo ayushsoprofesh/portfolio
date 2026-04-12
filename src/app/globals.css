@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 :root {
-  --matrix-green: #39ff14; 
+  --matrix-green: #39ff14;
   --matrix-dark-green: #0a2e0a;
   --bg-color: #000000;
   --nav-height: 48px;
   --section-height: calc(100vh - var(--nav-height));
   /* Tuned zoom to 1.68 per user instruction */
-  --zoom-level: 1.68; 
+  --zoom-level: 1.68;
 }
 
 * {
@@ -72,8 +72,15 @@ body {
 }
 
 @keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Center — Nav Links */
@@ -149,12 +156,15 @@ body {
   .global-nav {
     padding: 0 1.25rem;
   }
+
   .nav-center {
     gap: 1.5rem;
   }
+
   .nav-link {
     font-size: 0.72rem;
   }
+
   .nav-logo-text {
     font-size: 0.8rem;
   }
@@ -188,15 +198,21 @@ body {
 
 .background-img-wrapper {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 1;
-  filter: contrast(1.1) brightness(0.85); 
+  filter: contrast(1.1) brightness(0.85);
 }
 
 /* The 4x3 Grid mapping overlay */
 .precise-grid {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 5;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -211,18 +227,18 @@ body {
 }
 
 /* Targeting the specific active monitors with independent paddings for perfect edge alignment */
-.cell-2-2 { 
-  grid-column: 2; 
-  grid-row: 2; 
+.cell-2-2 {
+  grid-column: 2;
+  grid-row: 2;
   /* Top, Right, Bottom, Left */
-  padding: 25% 11% 10% 13%; 
+  padding: 10% 13% 8% 10%;
 }
 
-.cell-2-3 { 
-  grid-column: 3; 
-  grid-row: 2; 
+.cell-2-3 {
+  grid-column: 3;
+  grid-row: 2;
   /* Left edge nudged inward */
-  padding: 24% 10% 10% 15%; 
+  padding: 9.9% 10% 8.5% 13%;
 }
 
 /* The container fitting exactly inside the glass */
@@ -231,7 +247,7 @@ body {
   width: 100%;
   height: 100%;
   /* Responsive radius that scales with the background image on zoom */
-  border-radius: 2.8vw / 2.2vw; 
+  border-radius: 2.8vw / 2.2vw;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -253,14 +269,16 @@ body {
 
 .matrix-text {
   /* Using container query width ensures the text perfectly survives responsive resizes without detaching from the background TV bounds */
-  font-size: 5cqw; 
+  font-size: 5cqw;
   line-height: 1.5;
   text-shadow: 0 0 2px var(--matrix-green), 0 0 4px rgba(57, 255, 20, 0.5);
   letter-spacing: 0.02em;
   margin-bottom: 0.1rem;
 }
 
-.matrix-text.intro { font-size: 6cqw; }
+.matrix-text.intro {
+  font-size: 6cqw;
+}
 
 /* Profile Styles */
 .profile-screen {
@@ -287,12 +305,15 @@ body {
 /* Global scanlines overlay unaffected by scale */
 .scanlines {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 10;
   pointer-events: none;
   opacity: 0.7;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-              linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
   background-size: 100% 4px, 6px 100%;
 }
 
@@ -389,21 +410,45 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-  .experience-section { padding: 4rem 6%; }
-  .cards-grid { gap: 1.5rem; }
-  .experience-card { padding: 2rem 1.5rem; }
-  .card-company { font-size: 1.4rem; }
-  .card-designation { font-size: 1rem; }
-  .card-body { font-size: 0.95rem; }
+  .experience-section {
+    padding: 4rem 6%;
+  }
+
+  .cards-grid {
+    gap: 1.5rem;
+  }
+
+  .experience-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .card-company {
+    font-size: 1.4rem;
+  }
+
+  .card-designation {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .experience-section { 
-    padding: 3rem 5%; 
+  .experience-section {
+    padding: 3rem 5%;
     justify-content: flex-start;
   }
-  .cards-grid { grid-template-columns: 1fr; }
-  .experience-title { font-size: 2.5rem; margin-bottom: 2rem; }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
 }
 
 /* ==============================================================
@@ -422,19 +467,20 @@ body {
 /* Section 3: Override cell paddings to align precisely with CRT bezels */
 .chosen-section .cell-2-2 {
   /* More height (less top/bottom), tighter right edge */
-  padding: 11% 20% 10% 10%;
+  padding: 10% 13% 8% 10%;
 }
 
 .chosen-section .cell-2-3 {
   /* Left edge pushed inward to narrow the container */
-  padding: 9.5% 17% 9% 18%;
+  padding: 9.9% 10% 8.5% 13%;
 }
 
 /* Each screen holds all 5 frames stacked absolutely, crossfading via opacity */
 .chosen-screen {
   position: relative;
   background-color: #000;
-  overflow: hidden; /* Clip content to CRT glass bounds */
+  overflow: hidden;
+  /* Clip content to CRT glass bounds */
 }
 
 /* Ensure the inner-screen fills the grid cell for chosen screens */
@@ -476,8 +522,8 @@ body {
   font-size: 22cqw;
   font-weight: 400;
   line-height: 1;
-  text-shadow: 
-    0 0 5px var(--matrix-green), 
+  text-shadow:
+    0 0 5px var(--matrix-green),
     0 0 15px rgba(57, 255, 20, 0.5),
     0 0 40px rgba(57, 255, 20, 0.25);
   letter-spacing: 0.05em;
@@ -570,7 +616,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  background: 
+  background:
     linear-gradient(180deg, rgba(57, 255, 20, 0.03) 0%, rgba(57, 255, 20, 0.08) 50%, rgba(57, 255, 20, 0.03) 100%),
     linear-gradient(135deg, #0a1a0a 0%, #0d200d 50%, #0a1a0a 100%);
   display: flex;
@@ -583,13 +629,11 @@ body {
 .chosen-image-placeholder .placeholder-scanlines {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.15) 2px,
-    rgba(0, 0, 0, 0.15) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.15) 2px,
+      rgba(0, 0, 0, 0.15) 4px);
   pointer-events: none;
 }
 
@@ -681,14 +725,18 @@ body {
   cursor: grabbing;
 }
 
+.wire-line {
+  position: sticky;
+}
+
 /* Wire line — inside carousel so it moves with drag.
    Sits at z-index 1, BEHIND cards (z-index 2).
    The threading illusion comes from the card ::before overlay. */
 .testimonials-carousel .wire-line {
   position: absolute;
   top: 20px;
-  left: -5vw;
-  width: 250vw;
+  left: -20vw;
+  width: 200vw;
   height: 3px;
   background: var(--matrix-green);
   box-shadow:
@@ -917,7 +965,8 @@ body {
 .marquee-content {
   display: flex;
   gap: 2rem;
-  padding-right: 2rem; /* gap equivalent to preserve spacing between loops */
+  padding-right: 2rem;
+  /* gap equivalent to preserve spacing between loops */
 }
 
 .marquee-frame {
@@ -949,6 +998,11 @@ body {
 }
 
 @keyframes marquee-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } 
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }

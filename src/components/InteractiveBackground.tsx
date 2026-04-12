@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Dimensions for the tall skinny LED rectangles
 const GRID_W = 12;
-const GRID_H = 26;
+const GRID_H = 20;
 const GAP = 2; // black grid line width
 
 type Ripple = {
@@ -20,7 +20,7 @@ type ChevronCell = {
 };
 
 export default function InteractiveBackground({ showChevron, activeSection }: { showChevron: boolean, activeSection?: number }) {
-  const [mousePos, setMousePos] = useState({ x: -1000, y: 0 });
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [snappedPos, setSnappedPos] = useState({ x: -1000, y: -1000 });
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const chevronCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -245,7 +245,7 @@ export default function InteractiveBackground({ showChevron, activeSection }: { 
         ))}
       </AnimatePresence>
 
-      {/* LAYER 3: Chevron sweep canvas */}
+      {/* LAYER 3: Chevron sweep canvas
       <canvas
         ref={chevronCanvasRef}
         style={{
@@ -253,14 +253,14 @@ export default function InteractiveBackground({ showChevron, activeSection }: { 
           inset: 0,
           pointerEvents: "none"
         }}
-      />
+      /> */}
 
       {/* LAYER 4: Single LED spotlight */}
       <div
         style={{
           position: "absolute",
           left: snappedPos.x,
-          top: snappedPos.y,
+          top: snappedPos.y - 2 * GRID_H,
           width: GRID_W,
           height: GRID_H,
           backgroundColor: "rgba(57, 255, 20, 0.8)",

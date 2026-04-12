@@ -255,3 +255,30 @@ Write the state logic or vanilla JS for the hotspot button:
 # The Bottom Bar
 *   **Absolute Positioning:** Pin a text element to the absolute bottom center of the screen (`bottom-0`, `w-full`, `text-center`, `pb-4`).
 *   **Text Content:** "Made with love for The Matrix, Antigravity and Panic!!!"
+
+We need to add a Global Top Navigation bar to the Landing Page. **Override any previous instructions that said "no top navigation."** 
+
+# Global Layout & Styling
+*   **Positioning:** The navigation must be `position: sticky; top: 0; z-index: 100;` so it always stays visible above all the complex scroll sections.
+*   **Background:** Deep solid black (`bg-black`) or dark frosted glass to ensure readability. 
+*   **Typography:** The entire navbar MUST use the `DotGothic16` font. 
+*   **Layout:** A wide flexbox container (`justify-between`, `items-center`, `px-8`, `py-4`). It has 3 distinct zones: Left, Center, and Right.
+
+# 1. Left Zone: The Typewriter Logo
+*   **Content:** "Ayush's Portfolio" followed by a block cursor "█" or "|".
+*   **Color:** Neon terminal green (`#39FF14`).
+*   **Animation:** Implement a CSS typewriter effect. The text should reveal letter-by-letter (using `width` and `steps()` or a JS string reveal). The cursor must blink infinitely using a CSS keyframe animation (`opacity: 1` to `opacity: 0`).
+
+# 2. Center Zone: The ScrollSpy Links
+*   **Content:** Three text links aligned horizontally with a gap: "WORK", "ABOUT", and "CONTACT".
+*   **Interaction (Click):** Clicking these links should smoothly scroll the page to the corresponding sections.
+*   **Interaction (ScrollSpy Logic):** Write an `IntersectionObserver` to track the user's scroll position and light up the active link (Neon Green `#39FF14`) while the inactive links stay a muted gray (`#555555`).
+    *   **WORK lights up when:** Section 2 (Experience) OR Section 3 (Chosen Works) are in the viewport.
+    *   **ABOUT lights up when:** Section 4 (Hire Me For) OR Section 5 (About Me) are in the viewport.
+    *   **CONTACT lights up when:** Section 6 (The Footer) is in the viewport.
+
+# 3. Right Zone: The Resume Button
+*   **Content:** A button that says "Resume".
+*   **Styling:** Neon green text (`#39FF14`), a thin neon green rounded border (`rounded-md border border-[#39FF14]`), and a subtle green outer glow/shadow. Transparent background.
+*   **Interaction (Click):** On click, execute `window.open('resume.pdf', '_blank')`.
+*   **Interaction (Hide on Footer):** Using the same `IntersectionObserver` mentioned above, when Section 6 (The Footer) enters the viewport, this Resume button must smoothly fade out and become unclickable (`opacity-0 pointer-events-none`). When the user scrolls back up, it should fade back in.
