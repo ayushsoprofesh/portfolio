@@ -9,7 +9,7 @@ export const EXTERNAL_CASE_STUDY_LINKS = {
   figma:
     process.env.NEXT_PUBLIC_CASE_STUDY_3_URL ?? "https://www.figma.com/",
   behance:
-    process.env.NEXT_PUBLIC_CASE_STUDY_4_URL ?? "https://www.behance.net/",
+    process.env.NEXT_PUBLIC_CASE_STUDY_4_URL ?? "https://www.behance.net/gallery/145955879/Eventdeck-Event-management-platform",
 } as const;
 
 export const PASSWORD_TARGETS = {
