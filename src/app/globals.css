@@ -1760,3 +1760,41 @@ body {
   z-index: 20;
   pointer-events: none;
 }
+
+/* CV Print Button Animation */
+.cv-print-hotspot {
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  background: transparent;
+  /* Feather the edges of the entire box into the background */
+  -webkit-mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
+  mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
+}
+
+.cv-print-hotspot::before {
+  content: '';
+  position: absolute;
+  inset: -20px; /* More room for heavy blur */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(57, 255, 20, 0.4) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: cv-gradient-sweep 6s linear infinite;
+  mix-blend-mode: color-burn;
+  pointer-events: none;
+  opacity: 0.35;
+  filter: blur(8px); /* Thicker feathering for the sweep itself */
+}
+
+@keyframes cv-gradient-sweep {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

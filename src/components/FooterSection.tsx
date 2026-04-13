@@ -127,13 +127,13 @@ export default function FooterSection() {
             {/* Positioned on the right side. Adjust these percentages to perfectly match the physical "PRINT CV" button in the artwork */}
             <button
               onClick={handlePrintTrigger}
+              className="cv-print-hotspot"
               style={{
                 position: "absolute",
-                top: "50%",   // Estimate: bottom third
-                right: "27.5%", // Estimate: right margin
-                width: "15%",
-                height: "15%",
-                background: "transparent",
+                top: "48%",
+                right: "27.5%",
+                width: "16%",
+                height: "17.7%",
                 border: "none",
                 cursor: "pointer",
                 zIndex: 1000
