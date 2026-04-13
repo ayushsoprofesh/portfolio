@@ -7,10 +7,10 @@ interface MatrixLoaderProps {
   onComplete: () => void;
 }
 
-type LoaderState = "loading" | "ready" | "zooming" | "blackout" | "done";
+type LoaderState = "init" | "loading" | "ready" | "zooming" | "blackout" | "done";
 
 export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
-  const [loaderState, setLoaderState] = useState<LoaderState>("loading");
+  const [loaderState, setLoaderState] = useState<LoaderState>("init");
   const [dots, setDots] = useState("");
 
   // Blinking dots logic
@@ -29,8 +29,12 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
 
   // Main flow logic
   useEffect(() => {
-    // 1. Wait for assets to "load" (simulated min time + actual window load if possible)
     let isMounted = true;
+
+    // Small delay before showing "Loading..." text
+    const textDelay = setTimeout(() => {
+      if (isMounted) setLoaderState("loading");
+    }, 1000);
 
     const startSequence = () => {
       if (!isMounted) return;
@@ -57,7 +61,7 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
             }, 800); // Wait for blackout to cover entirely
           }, 300); // 300ms after zoom starts
         }, 1500); // Wait in "ready" state
-      }, 3000); // Minimum loading time
+      }, 4000); // Increased minimum loading time to account for text delay
     };
 
     // If document is already complete, just start the sequence.
@@ -72,11 +76,13 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
         isMounted = false;
         window.removeEventListener("load", startSequence);
         clearTimeout(fallbackTimer);
+        clearTimeout(textDelay);
       };
     }
 
     return () => {
       isMounted = false;
+      clearTimeout(textDelay);
     };
   }, [onComplete]);
 
