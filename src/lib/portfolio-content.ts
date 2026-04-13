@@ -2,7 +2,7 @@ export const CONTACT_LINKS = {
   email: "ayush.singh451@gmail.com",
   linkedin:
     process.env.NEXT_PUBLIC_LINKEDIN_URL ??
-    "https://www.linkedin.com/in/ayush-singh/",
+    "https://www.linkedin.com/in/ayush-singh-5065881a1/",
 } as const;
 
 export const EXTERNAL_CASE_STUDY_LINKS = {
