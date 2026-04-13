@@ -184,9 +184,11 @@ function ProjectFrame({
 export default function ChosenWorksSection({
   isActive,
   activeFrame,
+  onFrameDotClick,
 }: {
   isActive: boolean;
   activeFrame: number;
+  onFrameDotClick?: (frameIndex: number) => void;
 }) {
   const router = useRouter();
   // Track which frame pair is being hovered (by frame index)
@@ -305,12 +307,21 @@ export default function ChosenWorksSection({
                 className="frame-indicators"
                 style={{ bottom: "4.5%", zIndex: 20 }}
               >
-                {[1, 2, 3, 4].map((caseIdx) => (
-                  <div
-                    key={caseIdx}
-                    className={`frame-dot ${activeFrame === caseIdx && isActive ? "active" : ""}`}
-                  />
-                ))}
+                {[1, 2, 3, 4].map((caseIdx, dotIdx) => {
+                  const isDotActive = activeFrame === caseIdx && isActive;
+                  const isSweeping = activeFrame === 0 && isActive;
+                  return (
+                    <div
+                      key={caseIdx}
+                      className={`frame-dot ${isDotActive ? "active" : ""} ${isSweeping ? "sweep" : ""}`}
+                      style={isSweeping ? { animationDelay: `calc(var(--dot-stagger, 0.5s) * ${dotIdx})` } : undefined}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (onFrameDotClick) onFrameDotClick(caseIdx);
+                      }}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>

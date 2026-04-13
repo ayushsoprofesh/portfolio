@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Dimensions for the tall skinny LED rectangles
 const GRID_W = 12;
 const GRID_H = 20;
-const GAP = 2; // black grid line width
+const GAP = 3; // black grid line width
 
 type Ripple = {
   id: number;
@@ -275,8 +275,8 @@ export default function InteractiveBackground({ showChevron, activeSection, isNo
           position: "absolute",
           inset: 0,
           backgroundImage: `
-            linear-gradient(#000 2px, transparent 2px),
-            linear-gradient(90deg, #000 2px, transparent 2px)
+            linear-gradient(#000 ${GAP}px, transparent ${GAP}px),
+            linear-gradient(90deg, #000 ${GAP}px, transparent ${GAP}px)
           `,
           backgroundSize: `${GRID_W}px ${GRID_H}px, ${GRID_W}px ${GRID_H}px`
         }}

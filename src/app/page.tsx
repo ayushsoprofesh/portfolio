@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValueEvent, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import ExperienceSection from "@/components/ExperienceSection";
 import ChosenWorksSection from "@/components/ChosenWorksSection";
@@ -18,6 +18,22 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState(0);
   const [activeFrame, setActiveFrame] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
+  const [counterZoom, setCounterZoom] = useState(1);
+  const baselineDpr = useRef(1);
+
+  // Track browser zoom: compare current DPR to the baseline and invert it
+  useEffect(() => {
+    baselineDpr.current = window.devicePixelRatio;
+
+    const check = () => {
+      const ratio = baselineDpr.current / window.devicePixelRatio;
+      setCounterZoom(ratio);
+    };
+
+    // Poll for changes since there's no reliable cross-browser zoom event
+    const interval = setInterval(check, 500);
+    return () => clearInterval(interval);
+  }, []);
 
   const rawScrollY = useMotionValue(0);
   const scrollY = useSpring(rawScrollY, ScrollConfig.spring);
@@ -185,18 +201,17 @@ export default function Home() {
           }}
         />
 
-        {/* Index Scroll Bar */}
+        {/* Index Scroll Bar — zoom-independent via counter-scale */}
         <div
           style={{
             position: "fixed",
-            right: "24px",
+            right: "12px",
             top: "50%",
-            transform: "translateY(-50%)",
+            transform: `translateY(-50%) scale(${counterZoom})`,
+            transformOrigin: "right center",
             display: "flex",
             flexDirection: "column",
-            gap: "12px",
             zIndex: 9000,
-
           }}
         >
           {[0, 1, 2, 3, 4, 5].map((idx) => (
@@ -204,23 +219,31 @@ export default function Home() {
               key={idx}
               onClick={() => {
                 const vh = window.innerHeight;
-                // Grab the configured target for this dot index
                 const targetVh = ScrollConfig.navTargetsVh[idx];
-                // For the last index, ensure we use maxScrollVh as a fallback if not configured well
                 const targetY = idx === 5 ? vh * ScrollConfig.maxScrollVh : vh * targetVh;
-
                 rawScrollY.set(targetY);
               }}
               style={{
-                width: "4px",
-                height: activeSection === idx ? "32px" : "12px",
-                backgroundColor: activeSection === idx ? "var(--matrix-green)" : "rgba(255,255,255,0.2)",
-                borderRadius: "4px",
+                /* Hit area: generous padding around the tiny visual dot */
+                padding: "6px 20px",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
-                boxShadow: activeSection === idx ? "0 0 10px rgba(57,255,20,0.4)" : "none"
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
               }}
-            />
+            >
+              {/* Visual dot — fixed px sizes */}
+              <div
+                style={{
+                  width: "4px",
+                  height: activeSection === idx ? "32px" : "12px",
+                  backgroundColor: activeSection === idx ? "var(--matrix-green)" : "rgba(255,255,255,0.2)",
+                  borderRadius: "4px",
+                  transition: "all 0.3s ease",
+                  boxShadow: activeSection === idx ? "0 0 10px rgba(57,255,20,0.4)" : "none",
+                }}
+              />
+            </div>
           ))}
         </div>
 
@@ -440,7 +463,17 @@ export default function Home() {
                   }}
                   transition={{ duration: 1.0, ease: [0.32, 0.72, 0, 1] }}
                 >
-                  <ChosenWorksSection isActive={activeSection === 2} activeFrame={activeFrame} />
+                  <ChosenWorksSection 
+                    isActive={activeSection === 2} 
+                    activeFrame={activeFrame} 
+                    onFrameDotClick={(frameIdx) => {
+                      const vh = window.innerHeight;
+                      // snapPointsVh: Idx 2 is Frame 0, Idx 3 is Frame 1, etc.
+                      const targetSnapIdx = 2 + frameIdx; 
+                      const targetVh = ScrollConfig.snapPointsVh[targetSnapIdx];
+                      rawScrollY.set(vh * targetVh);
+                    }}
+                  />
                 </motion.div>
 
               </motion.div>

@@ -84,28 +84,21 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
 
   return (
     <div className="matrix-loader">
-      {/* Background Iframe */}
+      {/* LAYER 1: Solid black background */}
+      <div className="matrix-loader-bg" />
+
+      {/* LAYER 2: Text (sandwiched between rain and black bg) */}
       <motion.div
-        className="matrix-loader-iframe-container"
+        className="loader-text-container"
         animate={{
-          scale: loaderState === "zooming" || loaderState === "blackout" ? 10 : 1,
+          scale: loaderState === "zooming" || loaderState === "blackout" ? 6 : 1,
           opacity: loaderState === "blackout" ? 0 : 1
         }}
         transition={{
-          scale: { duration: 1.2, ease: "easeIn" },
-          opacity: { duration: 0.6, ease: "easeOut" }
+          scale: { duration: 1.5, ease: "easeIn" },   // Slower than iframe's 1.2s → parallax lag
+          opacity: { duration: 0.4, ease: "easeOut" }
         }}
       >
-        <iframe
-          className="matrix-loader-iframe"
-          src="https://rezmason.github.io/matrix/?skipIntro=false&numColumns=110&bloomSize=0.6&bloomStrength=0.85"
-          title="Matrix Rain Background"
-          tabIndex={-1}
-        />
-      </motion.div>
-
-      {/* Text Overlay */}
-      <div className="loader-text-container">
         <AnimatePresence mode="wait">
           {loaderState === "loading" && (
             <motion.div
@@ -133,7 +126,27 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
+
+      {/* LAYER 3: Matrix rain iframe (on top, transparent bg) */}
+      <motion.div
+        className="matrix-loader-iframe-container"
+        animate={{
+          scale: loaderState === "zooming" || loaderState === "blackout" ? 10 : 1,
+          opacity: loaderState === "blackout" ? 0 : 1
+        }}
+        transition={{
+          scale: { duration: 1.2, ease: "easeIn" },
+          opacity: { duration: 0.6, ease: "easeOut" }
+        }}
+      >
+        <iframe
+          className="matrix-loader-iframe"
+          src="https://rezmason.github.io/matrix/?skipIntro=false&numColumns=110&bloomSize=0.6&bloomStrength=0.85"
+          title="Matrix Rain Background"
+          tabIndex={-1}
+        />
+      </motion.div>
 
       {/* Radial Blackout/Blur Overlay */}
       <motion.div
