@@ -1805,3 +1805,49 @@ body {
     background-position: -200% 0;
   }
 }
+
+/* TV Channel Glitch Effects */
+.tv-noise-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.8'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+
+.tv-noise-overlay.active {
+  animation: tv-static-burst 0.35s steps(4) forwards;
+}
+
+@keyframes tv-static-burst {
+  0% { opacity: 0; filter: contrast(1) brightness(1); }
+  20% { opacity: 0.9; filter: contrast(2.5) brightness(1.5); }
+  40% { opacity: 0.6; filter: contrast(3) brightness(2); }
+  60% { opacity: 0.9; filter: contrast(1.5) brightness(1.2); }
+  80% { opacity: 0.4; filter: contrast(2) brightness(1.5); }
+  100% { opacity: 0; filter: contrast(1) brightness(1); }
+}
+
+.tv-scanline-glitch {
+  position: absolute;
+  inset: 0;
+  z-index: 51;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0, rgba(0,0,0,0) 4px, rgba(255, 255, 255, 0.3) 4px, rgba(255, 255, 255, 0.3) 6px);
+  opacity: 0;
+}
+
+.tv-scanline-glitch.active {
+  animation: tv-scanline-burst 0.35s steps(5) forwards;
+}
+
+@keyframes tv-scanline-burst {
+  0% { opacity: 0; background-position: 0 0; }
+  20% { opacity: 1; background-position: 0 40px; }
+  40% { opacity: 0.5; background-position: 0 -20px; }
+  60% { opacity: 0.8; background-position: 0 60px; }
+  80% { opacity: 0.4; background-position: 0 -40px; }
+  100% { opacity: 0; background-position: 0 0; }
+}

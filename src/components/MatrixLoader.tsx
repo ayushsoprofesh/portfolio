@@ -31,57 +31,52 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
   useEffect(() => {
     let isMounted = true;
 
+    // If document is already complete, skip the loader entirely.
+    if (document.readyState === "complete") {
+      setLoaderState("done");
+      onComplete();
+      return;
+    }
+
     // Small delay before showing "Loading..." text
     const textDelay = setTimeout(() => {
       if (isMounted) setLoaderState("loading");
-    }, 1000);
+    }, 500);
 
-    const startSequence = () => {
+    const finishLoading = () => {
       if (!isMounted) return;
+      clearTimeout(textDelay);
 
-      // Minimum loading time so users see the cool animation
+      setLoaderState("ready");
+
+      // Transition times
       setTimeout(() => {
         if (!isMounted) return;
-        setLoaderState("ready");
+        setLoaderState("zooming");
 
-        // Transition times
+        // Blackout starts a few moments after zooming
         setTimeout(() => {
           if (!isMounted) return;
-          setLoaderState("zooming");
+          setLoaderState("blackout");
 
-          // Blackout starts a few moments after zooming
           setTimeout(() => {
             if (!isMounted) return;
-            setLoaderState("blackout");
-
-            setTimeout(() => {
-              if (!isMounted) return;
-              setLoaderState("done");
-              onComplete();
-            }, 800); // Wait for blackout to cover entirely
-          }, 300); // 300ms after zoom starts
-        }, 1500); // Wait in "ready" state
-      }, 4000); // Increased minimum loading time to account for text delay
+            setLoaderState("done");
+            onComplete();
+          }, 800); // Wait for blackout to cover entirely
+        }, 300); // 300ms after zoom starts
+      }, 1500); // Wait in "ready" state
     };
 
-    // If document is already complete, just start the sequence.
-    // Otherwise wait for window load.
-    if (document.readyState === "complete") {
-      startSequence();
-    } else {
-      window.addEventListener("load", startSequence);
-      // Fallback in case load event already fired or takes too long
-      const fallbackTimer = setTimeout(startSequence, 5000);
-      return () => {
-        isMounted = false;
-        window.removeEventListener("load", startSequence);
-        clearTimeout(fallbackTimer);
-        clearTimeout(textDelay);
-      };
-    }
+    window.addEventListener("load", finishLoading);
+    
+    // Fallback in case load event already fired or takes too long
+    const fallbackTimer = setTimeout(finishLoading, 10000);
 
     return () => {
       isMounted = false;
+      window.removeEventListener("load", finishLoading);
+      clearTimeout(fallbackTimer);
       clearTimeout(textDelay);
     };
   }, [onComplete]);

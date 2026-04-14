@@ -20,6 +20,13 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   const [counterZoom, setCounterZoom] = useState(1);
   const baselineDpr = useRef(1);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!showLoader && videoRef.current) {
+      videoRef.current.play().catch(console.error);
+    }
+  }, [showLoader]);
 
   // Track browser zoom: compare current DPR to the baseline and invert it
   useEffect(() => {
@@ -300,7 +307,7 @@ export default function Home() {
                   initial={false}
                   animate={{
                     x: activeSection >= 1 ? "-20vw" : "0vw",
-                    filter: activeSection >= 1 ? "blur(30px) brightness(0)" : "blur(0px) brightness(1)",
+                    filter: activeSection >= 1 ? "blur(30px) brightness(0)" : "none",
                     opacity: activeSection >= 1 ? 0 : 1
                   }}
                   transition={{
@@ -330,22 +337,21 @@ export default function Home() {
                               hidden: { opacity: 1 },
                               visible: {
                                 opacity: 1,
-                                transition: { staggerChildren: 0.03, delayChildren: 0.2 },
+                                transition: { staggerChildren: 0.03, delayChildren: 0.6 },
                               },
                             }}
                             initial="hidden"
-                            animate="visible"
+                            animate={showLoader ? "hidden" : "visible"}
                             className="text-screen"
                           >
                             {[
                               { text: "Hi.", className: "matrix-text intro" },
                               { text: "I'm Ayush.", className: "matrix-text intro" },
                               { text: "", className: "" },
-                              { text: "A UX designer who turns heavy", className: "matrix-text bio" },
-                              { text: "enterprise data into simple,", className: "matrix-text bio" },
-                              { text: "scalable products. I recently", className: "matrix-text bio" },
-                              { text: "spent over a year at Oracle", className: "matrix-text bio" },
-                              { text: "modernizing complex ERP systems.", className: "matrix-text bio" }
+                              { text: "a UX Designer who turns data", className: "matrix-text bio" },
+                              { text: "into simple, scalable products.", className: "matrix-text bio" },
+                              { text: "I've spent close to 2 years at", className: "matrix-text bio" },
+                              { text: "Oracle designing ERP systems.", className: "matrix-text bio" }
                             ].map((line, lineIndex) => (
                               line.text === "" ? <br key={`br-${lineIndex}`} /> : (
                                 <p key={`line-${lineIndex}`} className={line.className}>
@@ -376,20 +382,29 @@ export default function Home() {
                             className="profile-image-container"
                           >
                             <video
-                              src="/Profile.mp4"
-                              autoPlay
+                              ref={videoRef}
                               loop
                               muted
                               playsInline
+                              preload="auto"
                               className="profile-image"
-                              style={{ objectFit: "cover", width: "100%", height: "100%", borderRadius: "inherit" }}
-                            />
+                              style={{ 
+                                objectFit: "cover", 
+                                width: "100%", 
+                                height: "100%", 
+                                borderRadius: "inherit",
+                                transform: "translateZ(0)",
+                                willChange: "transform"
+                              }}
+                            >
+                              <source src="/Profile.mp4" type="video/mp4" />
+                            </video>
                             <div
                               style={{
                                 position: "absolute",
                                 inset: 0,
-                                backgroundColor: "#71ff186b",
-                                mixBlendMode: "color-burn",
+                                backgroundColor: "rgba(113, 255, 24, 0.3)",
+                                mixBlendMode: "multiply",
                                 pointerEvents: "none",
                                 borderRadius: "inherit",
                               }}
@@ -427,7 +442,7 @@ export default function Home() {
                   initial={false}
                   animate={{
                     x: activeSection >= 2 ? "-20vw" : "0vw",
-                    filter: activeSection >= 2 ? "blur(30px) brightness(0)" : "blur(0px) brightness(1)",
+                    filter: activeSection >= 2 ? "blur(30px) brightness(0)" : "none",
                     opacity: activeSection >= 2 ? 0 : 1
                   }}
                   transition={{ duration: 1.0, ease: [0.32, 0.72, 0, 1] }}
@@ -458,7 +473,7 @@ export default function Home() {
                   initial={false}
                   animate={{
                     y: activeSection >= 3 ? "-20vh" : "0vh",
-                    filter: activeSection >= 3 ? "blur(30px) brightness(0)" : "blur(0px) brightness(1)",
+                    filter: activeSection >= 3 ? "blur(30px) brightness(0)" : "none",
                     opacity: activeSection >= 3 ? 0 : 1
                   }}
                   transition={{ duration: 1.0, ease: [0.32, 0.72, 0, 1] }}

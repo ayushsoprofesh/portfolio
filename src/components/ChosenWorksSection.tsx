@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { EXTERNAL_CASE_STUDY_LINKS } from "@/lib/portfolio-content";
 
@@ -25,7 +25,7 @@ const FRAMES = [
         href: "/password-gate?project=case-study-1",
       },
     },
-    right: { type: "image" as const, label: "Oracle Pricing Engine" },
+    right: { type: "image" as const, src: "/Chosen works/Case study 1 and 2.png", alt: "Oracle Pricing Engine" },
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const FRAMES = [
         href: "/password-gate?project=case-study-2",
       },
     },
-    right: { type: "image" as const, label: "Cross-Team Design" },
+    right: { type: "image" as const, src: "/Chosen works/Case study 1 and 2.png", alt: "Cross-Team Design" },
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const FRAMES = [
         href: "/password-gate?project=project-3",
       },
     },
-    right: { type: "image" as const, label: "Unity CDP Analytics" },
+    right: { type: "image" as const, src: "/Chosen works/Case study 3.jpg", alt: "Unity CDP Analytics" },
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ const FRAMES = [
         href: EXTERNAL_CASE_STUDY_LINKS.behance,
       },
     },
-    right: { type: "image" as const, label: "Eventdeck Platform" },
+    right: { type: "image" as const, src: "/Chosen works/Case Study 4.png", alt: "Eventdeck Platform" },
   },
 ];
 
@@ -194,6 +194,20 @@ export default function ChosenWorksSection({
   // Track which frame pair is being hovered (by frame index)
   const [hoveredFrame, setHoveredFrame] = useState<number | null>(null);
 
+  const [isSwitching, setIsSwitching] = useState(false);
+  const prevFrameRef = useRef(activeFrame);
+
+  useEffect(() => {
+    if (activeFrame !== prevFrameRef.current) {
+      setIsSwitching(true);
+      prevFrameRef.current = activeFrame;
+      const timer = setTimeout(() => {
+        setIsSwitching(false);
+      }, 350); // duration of the glitch animation
+      return () => clearTimeout(timer);
+    }
+  }, [activeFrame]);
+
   const handleFrameClick = (frame: (typeof FRAMES)[number]) => {
     if (frame.left.type !== "project") return;
     const { cta } = frame.left;
@@ -220,9 +234,9 @@ export default function ChosenWorksSection({
           />
         </div>
 
-        <div className="precise-grid">
+        <div className="precise-grid" style={{ zIndex: "auto" }}>
           {/* LEFT SCREEN — project info */}
-          <div className="grid-cell cell-2-2">
+          <div className="grid-cell cell-2-2" style={{ zIndex: 5 }}>
             <div className="inner-screen chosen-screen">
               {FRAMES.map((frame, i) => {
                 const frameIsActive = activeFrame === i && isActive;
@@ -262,7 +276,7 @@ export default function ChosenWorksSection({
           </div>
 
           {/* RIGHT SCREEN — image placeholder */}
-          <div className="grid-cell cell-2-3">
+          <div className="grid-cell cell-2-3" style={{ zIndex: 20 }}>
             <div className="inner-screen chosen-screen">
               {FRAMES.map((frame, i) => {
                 const frameIsActive = activeFrame === i && isActive;
@@ -282,13 +296,29 @@ export default function ChosenWorksSection({
                     role={isClickable ? "button" : undefined}
                   >
                     {frame.right.type === "title" ? (
-                      <div className="chosen-giant-wrapper">
-                        <h2 className="chosen-giant-text">{frame.right.text}</h2>
-                      </div>
+                      <>
+                        <div className="chosen-giant-wrapper">
+                          <h2 className="chosen-giant-text">{frame.right.text}</h2>
+                        </div>
+                        <div className="scanlines"></div>
+                      </>
                     ) : (
-                      <div className="chosen-image-placeholder">
-                        <div className="placeholder-scanlines" />
-                        <span className="placeholder-label">{frame.right.label}</span>
+                      <div className="chosen-image-placeholder relative w-full h-full">
+                        <div className={`tv-noise-overlay ${isSwitching ? "active" : ""}`} style={{ zIndex: 30 }} />
+                        <div className={`tv-scanline-glitch ${isSwitching ? "active" : ""}`} style={{ zIndex: 31 }} />
+                        {frame.right.src ? (
+                          <Image
+                            src={frame.right.src}
+                            alt={frame.right.alt || "Project Image"}
+                            fill
+                            style={{ objectFit: "cover" }}
+                          />
+                        ) : (
+                          <>
+                            <div className="placeholder-scanlines" />
+                            <span className="placeholder-label">{frame.right.alt}</span>
+                          </>
+                        )}
 
                         {/* Hover overlay */}
                         <div
