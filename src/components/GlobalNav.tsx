@@ -119,7 +119,7 @@ export default function GlobalNav({ activeSection, isLoaded = true, onNavigate }
         style={{ pointerEvents: isContactActive ? "none" : "auto" }}
       >
         <a
-          href="/Resume.pdf"
+          href="/Resume updated.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-resume-btn nav-resume-btn--glow"

@@ -26,7 +26,7 @@ export default function FooterSection() {
   }, [isPlaying]);
 
   const handleVideoEnd = () => {
-    window.open("Resume.pdf", "_blank");
+    window.open("/Resume updated.pdf", "_blank");
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
