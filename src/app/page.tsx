@@ -20,13 +20,6 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true);
   const [counterZoom, setCounterZoom] = useState(1);
   const baselineDpr = useRef(1);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (!showLoader && videoRef.current) {
-      videoRef.current.play().catch(console.error);
-    }
-  }, [showLoader]);
 
   // Track browser zoom: compare current DPR to the baseline and invert it
   useEffect(() => {
@@ -382,7 +375,7 @@ export default function Home() {
                             className="profile-image-container"
                           >
                             <video
-                              ref={videoRef}
+                              autoPlay
                               loop
                               muted
                               playsInline
@@ -393,8 +386,7 @@ export default function Home() {
                                 width: "100%", 
                                 height: "100%", 
                                 borderRadius: "inherit",
-                                transform: "translateZ(0)",
-                                willChange: "transform"
+                                transform: "translateZ(0)"
                               }}
                             >
                               <source src="/Profile.mp4" type="video/mp4" />

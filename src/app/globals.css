@@ -376,7 +376,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 40px / 30px;
+  border-radius: inherit;
   overflow: hidden;
 }
 

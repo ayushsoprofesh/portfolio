@@ -17,47 +17,47 @@ const MARQUEE_ITEMS: MarqueeItemData[] = [
     id: "me",
     type: "image-cycle",
     assets: [
-      "/about Me/Me 01.jpg",
-      "/about Me/Me 02.jpg",
-      "/about Me/Me 03.jpg",
-      "/about Me/Me 04.jpg"
+      "/About me/Me 01.jpg",
+      "/About me/Me 02.jpg",
+      "/About me/Me 03.jpg",
+      "/About me/Me 04.jpg"
     ]
   },
   {
     id: "speaker",
     type: "image-cycle",
     assets: [
-      "/about Me/Speaker 1.jpg",
-      "/about Me/Speaker 2.jpg"
+      "/About me/Speaker 1.jpg",
+      "/About me/Speaker 2.jpg"
     ]
   },
   {
     id: "typo",
     type: "image-cycle",
     assets: [
-      "/about Me/Typo.jpg",
-      "/about Me/Typo 2.jpg"
+      "/About me/Typo.jpg",
+      "/About me/Typo 2.jpg"
     ]
   },
   {
     id: "alcher-props",
     type: "image-cycle",
     assets: [
-      "/about Me/alcher props 01.jpg",
-      "/about Me/alcher props 02.jpg"
+      "/About me/alcher props 01.jpg",
+      "/About me/alcher props 02.jpg"
     ]
   },
   {
     id: "graffiti",
     type: "image-cycle",
     assets: [
-      "/about Me/Graffiti.jpg"
+      "/About me/Graffiti.jpg"
     ]
   },
   {
     id: "motionfolio",
     type: "video",
-    videoSrc: "/about Me/Motionfolio.mp4",
+    videoSrc: "/About me/Motionfolio.mp4",
     link: "https://www.behance.net/gallery/150139689/MOTION-FOLIO"
   },
   {
