@@ -87,7 +87,7 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
           {item.assets.map((src, idx) => (
             <img 
               key={src}
-              src={src} 
+              src={encodeURI(src)} 
               alt="About me asset" 
               style={{ 
                 width: "100%", 
@@ -106,7 +106,7 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
       )}
       {item.type === "video" && item.videoSrc && (
         <video 
-          src={item.videoSrc}
+          src={encodeURI(item.videoSrc)}
           autoPlay
           muted
           loop
