@@ -74,7 +74,7 @@ export default function CaseStudyTemplate({
                     return (
                       <li key={section.id}>
                         <a
-                          className={`case-study-toc-link${isActive ? " is-active" : ""}`}
+                          className={`case-study-toc-link${isActive ? " is-active" : ""}${section.isSubSection ? " is-subsection" : ""}`}
                           href={`#${section.id}`}
                         >
                           {section.label}
@@ -100,9 +100,19 @@ export default function CaseStudyTemplate({
             <header className="case-study-hero">
               <p className="case-study-eyebrow">Case Study</p>
               <h1 className="case-study-title">{study.title}</h1>
-              <p className="case-study-subtitle">{study.subtitle}</p>
 
-              <dl className="case-study-meta-grid">
+              <dl
+                className="case-study-meta-grid"
+                style={{
+                  gridTemplateColumns: study.meta.focus
+                    ? "repeat(3, minmax(0, 1fr))"
+                    : "repeat(2, minmax(0, 1fr))",
+                }}
+              >
+                <div className="case-study-meta-card" style={{ gridColumn: '1 / -1' }}>
+                  <dt>Product</dt>
+                  <dd>{study.subtitle}</dd>
+                </div>
                 <div className="case-study-meta-card">
                   <dt>Role</dt>
                   <dd>{study.meta.role}</dd>
@@ -111,10 +121,18 @@ export default function CaseStudyTemplate({
                   <dt>Timeline</dt>
                   <dd>{study.meta.timeline}</dd>
                 </div>
-                <div className="case-study-meta-card">
-                  <dt>Focus</dt>
-                  <dd>{study.meta.focus}</dd>
-                </div>
+                {study.meta.focus && (
+                  <div className="case-study-meta-card">
+                    <dt>Focus</dt>
+                    <dd>{study.meta.focus}</dd>
+                  </div>
+                )}
+                {study.meta.constraint && (
+                  <div className="case-study-meta-card" style={{ gridColumn: '1 / -1' }}>
+                    <dt>Constraint</dt>
+                    <dd>{study.meta.constraint}</dd>
+                  </div>
+                )}
               </dl>
             </header>
 

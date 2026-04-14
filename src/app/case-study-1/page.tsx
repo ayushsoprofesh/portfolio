@@ -5,128 +5,176 @@ export default function CaseStudyOnePage() {
   const content = CASE_STUDIES["case-study-1"];
   const study = {
     ...content,
-    title: "Designing the Oracle Pricing Engine for Scale",
-    meta: {
-      ...content.meta,
-      role: "UX Designer",
-      timeline: "6 Release Cycles (25B to 26C)",
-    }
   };
 
   return (
     <CaseStudyTemplate study={study}>
-      <article id="problem" className="case-study-section-block">
-        <p className="case-study-section-eyebrow">Context</p>
-        <h2 className="case-study-section-title">1. The Problem</h2>
-        <h3 className="case-study-section-subtitle">Modernizing a Legacy ERP</h3>
+      <article id="phase-1" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Phase 1</p>
+        <h2 className="case-study-section-title">Auditing the Challenge</h2>
         <div className="case-study-prose">
-          <p>
-            Oracle Pricing is the main engine for all Fusion transaction apps. The old UI was called ADF. It was built by engineers just to move database queries around. It was actually made hard to use on purpose so customers would stick to Oracle ERP solutions. But leadership realized they needed a good user experience to keep existing customers and win new ones. My job was to <strong style={{ color: "#39FF14" }}>move the experience to the Redwood Design System</strong>.
-          </p>
-          <p>
-            The data scale was huge. I worked in a two person design team with my manager. Before designing, I had to drop my chaotic college file habits and learn his strict file management and common component library system. This saved me because the pricing ecosystem was massive to keep track of.
-          </p>
-          <br/>
-          <p><strong>The Complexity of Price Lists:</strong></p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Massive Volume:</strong> An average Price List has anywhere from <strong>600k to over 1 million items</strong>.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Deep Combinations:</strong> A single price line is not just a number. It is a combination of the Item, the Unit of Measure (UOM), the Charge, and the Date.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Cross App Dependencies:</strong> A price list does not live alone. It fetches base prices from Cost Lists and pulls math from Formula Management.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Multiple Item Types:</strong> Users had to manage Standard items, Subscription items, Coverages, and Models all in one place. I designed a tab layout to separate these item types and <strong>reduce the cognitive load</strong> on the user.</li>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Challenge Statement</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>Oracle’s legacy ERP database interfaces are risking customer retention against modern competitors. The Pricing ecosystem must be migrated to the new <strong style={{ color: "#FFFFFF" }}>Redwood design system</strong> while supporting <strong style={{ color: "#FFFFFF" }}>massive data volumes</strong>, flattening <strong style={{ color: "#FFFFFF" }}>complex hierarchies</strong>, and adding user-requested enhancements without <strong style={{ color: "#FFFFFF" }}>direct user research</strong>.</p>
+          
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>Unpacking the Unknowns (The Audit)</h4>
+          <ul className="case-study-bullets" style={{ paddingLeft: '1.5rem', listStyleType: 'disc', lineHeight: 1.7 }}>
+            <li style={{ marginBottom: '0.75rem' }}><strong>Redwood design system:</strong> Requires mapping granular enterprise components into complex, interconnected pricing workflows.</li>
+            <li style={{ marginBottom: '0.75rem' }}><strong>Massive data volumes:</strong> Customers maintain up to 1 million item lines per Price List (Central pricing application). Standard CRUD operations are slow and adds to the user&apos;s cognitive load.</li>
+            <li style={{ marginBottom: '0.75rem' }}><strong>Complex hierarchies:</strong> Legacy systems force horizontal scrolling through up to 4 levels of depth (List {">"} Item {">"} Benefit/Charge {">"} Tier/Matrix).</li>
+            <li style={{ marginBottom: '0.75rem' }}><strong>No direct user research:</strong> Design decisions must be reverse-engineered from PM feedback, legacy system bottlenecks, and enterprise UX best practices.</li>
           </ul>
         </div>
       </article>
 
-      <article id="architecture" className="case-study-section-block">
-        <p className="case-study-section-eyebrow">Systems Thinking</p>
-        <h2 className="case-study-section-title">2. The Architecture Battle</h2>
-        <h3 className="case-study-section-subtitle">Single vs Multi Charge</h3>
-        <div className="case-study-prose">
-          <p>
-            Early on, the Product team told us that Price Lists should only handle a single charge.
-          </p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The UX Pushback:</strong> We argued that having different price lists for every single charge would be too much for users to manage. Our users have complex setups. Some use location based pricing, while others use the exact same price list but change the item lines for different dates.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The Compromise:</strong> I built a <strong>Proof of Concept (POC)</strong> for a Multi Charge Price List to show it was more efficient. The PMs liked the UX but cited dev constraints. They went ahead with Single Charge for the next three cycles (25B, 25C, and 25D).</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The Final Win:</strong> We did not give up. We brought it up again later, and the product team finally agreed. I designed a hybrid setup where customers decide during their initiation phase if they want to use Single Charge or Multi Charge. This <strong>kept parity for older customers</strong> while giving a <strong>better option for growth</strong>.</li>
-          </ul>
+      <article id="phase-2" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Phase 2</p>
+        <h2 className="case-study-section-title">The Data-to-Design Framework</h2>
+        <h3 className="case-study-section-subtitle">Mapping data and system constraints directly to design features to ensure every UI decision solves a specific business problem.</h3>
+        
+        <div className="case-study-prose" style={{ marginTop: '2rem', overflowX: 'auto', width: '100%' }}>
+          <table className="case-study-table" style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', marginTop: '1rem', lineHeight: 1.6 }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                 <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>Metric / Information</th>
+                 <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>Business Problem</th>
+                 <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>User Need</th>
+                 <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>Opportunity / Feature</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}><strong>Average 600k–1M item lines per Price List.</strong></td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>Legacy 1-by-1 item addition causes severe operational bottlenecks and customer churn risk.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>An efficient, high speed method to manipulate thousands of price lines simultaneously.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}>ESS (background) jobs for mass actions combined with the <strong>&quot;The Escape Hatch&quot;:</strong> An Excel-like grid UI for bulk pasting</td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}><strong>Pricing data is highly sensitive and interconnected.</strong></td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>Pricing errors during transaction fulfillment cause critical business failures for customers.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>A clear mental model that prevents accidental edits across deep, horizontal data structures.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}><strong>Drill-Down Architecture:</strong> Converting horizontal scrolls into distinct, manageable drill-down levels and dedicated tabs.</td>
+              </tr>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}><strong>Customers duplicate rules across multiple lists.</strong></td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>Formulas and Rate Plans locked inside specific Price Lists create massive technical debt and repetitive work.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top', color: '#aaa' }}>Write-once, use-anywhere management for complex pricing rules and formulas.</td>
+                <td style={{ padding: '1rem', verticalAlign: 'top' }}><strong>Global Centralization:</strong> Dedicated shell environments for Formula Management and Rate Plan Templates.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </article>
 
-      <article id="mass-actions" className="case-study-section-block">
-        <p className="case-study-section-eyebrow">Solution</p>
-        <h2 className="case-study-section-title">3. Taming the Data Weight</h2>
-        <h3 className="case-study-section-subtitle">Mass Actions</h3>
+      <article id="phase-3" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Phase 3</p>
+        <h2 className="case-study-section-title">Execution</h2>
         <div className="case-study-prose">
-          <p>
-            Pricing admins need to define and maintain prices so downstream apps can use them. Usually, they just want to select certain items, bump the prices up by a set percent for the next quarter, and move on. Doing this line by line in the old ADF system was tedious.
-          </p>
-          <p>
-            I designed a Mass Actions flow to make this a <strong>simple, one click process</strong>.
-          </p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The Flow Steps:</strong> Users select their items, choose the charges they want to update, pick the operation, decide if they want to base the new price on a cost list, set the effective date, and hit submit.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>System Performance:</strong> Manipulating 1 million rows in real time would lag the system. I worked with the devs to use Oracle ESS. Users submit their request, it becomes a <strong>background batch job</strong>, and the <strong>UI stays unlocked</strong>.</li>
-          </ul>
-        </div>
-
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: 'rgba(255,255,255,0.05)' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#aaa' }}>[EMBED FIGMA PROTOTYPE: Interactive flow for Mass Actions WITHIN a single Price List, showing the drawer UI and batch job status]</span>
-           </div>
-        </div>
-
-        <div className="case-study-prose">
-          <p>
-            Down the line, users also needed a way to update prices across multiple different price lists at the same time. The easy route would have been to just copy and paste the first flow. But we stopped and looked at the bigger picture.
-          </p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Scoping the Logic:</strong> We realized that letting users update multiple different charges across multiple different price lists would create way too many failure points. I asked the PMs specific questions about user habits and confirmed our theory. Users rarely do tasks that way. We <strong>scoped the design down</strong> so users only update a single charge across their SKUs during a cross list change.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The Impact:</strong> Because we focused on making this heavy process simple and reliable, <strong>Mass Actions became a standard feature</strong>. We took the pattern we created for Price Lists and <strong>rolled it out across all other high volume pricing applications</strong> like Discount Lists, Cost Lists, and Shipping Charge Lists.</li>
-          </ul>
-        </div>
-
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: 'rgba(255,255,255,0.05)' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#aaa' }}>[EMBED FIGMA PROTOTYPE: Interactive flow for Mass Actions ACROSS multiple Price Lists]</span>
-           </div>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>With the proxy data mapped to business and user needs, the focus shifted to executing scalable UI architecture. Because direct user testing was restricted, every design choice had to trace back to the data framework to secure stakeholder buy-in. The following five cases demonstrate how these requirements were translated into high-fidelity, interconnected workflows.</p>
         </div>
       </article>
 
-      <article id="escape-hatch" className="case-study-section-block">
-        <p className="case-study-section-eyebrow">UX Solution</p>
-        <h2 className="case-study-section-title">4. The Escape Hatch</h2>
-        <h3 className="case-study-section-subtitle">Data Grid</h3>
+      <article id="story-1" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Case 1</p>
+        <h2 className="case-study-section-title">Flattening the Information Architecture</h2>
         <div className="case-study-prose">
-          <p>
-            Even with mass actions, pricing admins are used to an Excel like grid. Sometimes they just want to make random updates to a bunch of different items.
-          </p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The User Need:</strong> The old system had a basic CSV file import. But users wanted a way to just copy specific price columns from their local Excel files and paste them right into our system for a selection of items.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The UX Solution:</strong> Data grids can have mis entry issues and dev constraints. So instead of making the whole app a grid, I designed an escape hatch. Users select items and move them to an <strong>isolated grid view</strong> where they can paste their Excel data.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>The Compute Logic:</strong> After they are done, the system decides the load. If it is too much, it becomes an ESS batch job. If it is small, it <strong>computes in real time</strong>. This flow was highly successful and slowly became a standard pattern used across other apps.</li>
-          </ul>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Problem</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>The legacy UIs <strong style={{ color: "#FFFFFF" }}>nested up to four levels of data</strong> (List {">"} Item {">"} Charge/Benefit {">"} Tier/Matrix) on a single horizontally scrolling page. This caused severe cognitive overload and increased the risk of catastrophic pricing errors.</p>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Strategy</h4>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>To align with Redwood standards and human cognitive limits, the architecture was restructured into a <strong style={{ color: "#FFFFFF" }}>drill-down navigation model</strong>. In Price Lists, four distinct item types (Standard, Model, Coverage, Subscription) required vastly different pricing setups. These were <strong style={{ color: "#FFFFFF" }}>segregated into dedicated tabs</strong> to isolate workflows and manage task execution efficiently.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: 'rgba(255,255,255,0.05)' }}>
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
+           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: Legacy Horizontal Architecture vs. New Drill-Down Tabbed Architecture]</span>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#aaa' }}>[EMBED FIGMA PROTOTYPE: Interactive flow showing the transition from the standard table view to the isolated Data Grid view]</span>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Discount List Workbench - Drill-down flow from List creation to Matrix Benefit application]</span>
            </div>
         </div>
       </article>
 
-      <article id="constraints" className="case-study-section-block">
-        <p className="case-study-section-eyebrow">Process</p>
-        <h2 className="case-study-section-title">5. Constraints and Killing Technical Debt</h2>
+      <article id="story-2" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Case 2</p>
+        <h2 className="case-study-section-title">Designing for 1 Million Rows</h2>
         <div className="case-study-prose">
-          <p>
-            Oracle is a large tech giant, so every action had to go through strict channels.
-          </p>
-          <ul className="case-study-bullets" style={{ marginTop: '1rem', paddingLeft: '1.5rem', listStyleType: 'disc' }}>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Design System Rules:</strong> We were <strong style={{ color: "#39FF14" }}>bound to the Redwood Design System</strong>. I attended Redwood office hours constantly to explain our use cases and understand the rules. For SCM specific components that had no support channels, I had to build a POC and get it tested and approved before moving ahead.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>User Access:</strong> Designers never had one on one calls with the users. The users talked to the PMs and the legal team, and then we asked the PMs questions. I had to learn how to ask very specific questions so information was not lost in translation. To make sure my designs were built correctly, I produced <strong style={{ color: "#39FF14" }}>detailed spec sheets for the developers</strong>.</li>
-            <li style={{ marginBottom: '0.5rem' }}><strong style={{ color: "#39FF14" }}>Fixing Rogue Components:</strong> For the main price list, I suggested using tabs to separate the different item types. The devs and stakeholders were against tabs. They ignored the UX recommendation and built a custom component that broke our patterns. It stayed in the app for three cycles. Later, while looking at components for another project, I found a standard Redwood part that solved their issue perfectly. I took it to my manager for approval, got the PM to make a POC, and finally broke down the flawed component, <strong style={{ color: "#39FF14" }}>replacing it with the standard design</strong>.</li>
-          </ul>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Problem</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>Customers manage <strong style={{ color: "#FFFFFF" }}>up to 1 million items</strong> per Price List. The legacy system required adding items and charges one by one, an impossible task at scale.</p>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Strategy</h4>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>A multi-step <strong style={{ color: "#FFFFFF" }}>Mass Action framework</strong> was designed. Users select items in bulk, apply operations (e.g., markups/markdowns based on external database fetches), and execute. To protect system performance, limits were set triggering <strong style={{ color: "#FFFFFF" }}>ESS (background) jobs</strong> that notify the user upon completion.</p>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>To cater to enterprise users heavily reliant on spreadsheet workflows, an <strong style={{ color: "#FFFFFF" }}>&quot;Escape Hatch&quot; Grid UI</strong> was introduced to directly paste column values from Excel.</p>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
+           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Price List Mass Action Flow - Selecting items, applying bulk charges, and triggering the ESS background job notification]</span>
+           </div>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
+           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: The &quot;Escape Hatch&quot; Grid UI - Pasting Excel data directly into the pricing grid]</span>
+           </div>
+        </div>
+      </article>
+
+      <article id="story-3" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Case 3</p>
+        <h2 className="case-study-section-title">Anticipating Scale Against PM Pushback</h2>
+        <div className="case-study-prose">
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Problem</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>Initial PM requirements for the Price List migration mandated single-charge support per item, under the assumption that customers preferred maintaining multiple single-charge Price Lists.</p>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Strategy</h4>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Relying on enterprise UX patterns, it was evident that forcing users to manage multiple lists for a single item would <strong style={{ color: "#FFFFFF" }}>exponentially increase error rates</strong>. Despite PM pushback, parallel explorations for a <strong style={{ color: "#FFFFFF" }}>Multi-Charge Price List</strong> were designed.</p>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Three releases later, PMs returned with customer demands for multi-charge support. Because the architectural exploration was already completed, the feature was <strong style={{ color: "#FFFFFF" }}>rapidly integrated</strong>, allowing customers to choose between single or multi-charge architectures during onboarding based on their specific scale.</p>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
+           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Multi-Charge Price List Flow - Adding and managing multiple charges, tiers, and matrices for a single item line]</span>
+           </div>
+        </div>
+      </article>
+
+      <article id="story-4" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Case 4</p>
+        <h2 className="case-study-section-title">Centralizing Assets for Global Scale</h2>
+        <div className="case-study-prose">
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Problem</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>Pricing elements like Formulas and Rate Plans were built and stored within specific Price Lists. If a customer wanted to use the same formula across 50 regional lists, they had to build and maintain it 50 times.</p>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Strategy</h4>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Pushed to extract these elements from isolated lists into <strong style={{ color: "#FFFFFF" }}>centralized, global libraries</strong>.</p>
+          <ol className="case-study-bullets" style={{ paddingLeft: '1.5rem', listStyleType: 'decimal', lineHeight: 1.7 }}>
+            <li style={{ marginBottom: '0.75rem' }}><strong>Formula Management:</strong> Designed a central workbench to create, edit, and activate formulas, including a <strong style={{ color: "#FFFFFF" }}>&quot;Show Where Used&quot; feature</strong> to push global updates instantly.</li>
+            <li style={{ marginBottom: '0.75rem' }}><strong>Rate Plan Templates:</strong> Created global shell templates for subscription rate plans, allowing cross-list application and <strong style={{ color: "#FFFFFF" }}>massive reductions in repetitive data entry</strong>.</li>
+          </ol>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
+           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: Isolated List Architecture vs. Centralized Global Library Architecture]</span>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
+           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Formula Management Workbench - Creation, global edit, and &quot;Push to Where Used&quot; flow]</span>
+           </div>
+        </div>
+      </article>
+
+      <article id="story-5" className="case-study-section-block">
+        <p className="case-study-section-eyebrow">Case 5</p>
+        <h2 className="case-study-section-title">Establishing the Pricing Component Library</h2>
+        <div className="case-study-prose">
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Problem</h4>
+          <p style={{ marginBottom: "1.5rem", lineHeight: 1.7 }}>Redwood provided standard granular components, but the Pricing ecosystem required highly <strong style={{ color: "#FFFFFF" }}>complex, repeated patterns</strong> (mass-action tables, tiered-pricing drawers, grid interfaces) across 8 different applications.</p>
+          <h4 style={{ color: "#39FF14", marginBottom: "0.5rem", fontSize: "1.125rem", fontWeight: 600 }}>The Strategy</h4>
+          <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>A <strong style={{ color: "#FFFFFF" }}>centralized Component Library</strong> specific to Oracle Pricing was established. By standardizing the macro-components (e.g., the Add Charge Drawer, Main Table Containers, Page Headers), it <strong style={{ color: "#FFFFFF" }}>reduced development friction and guaranteed UI parity</strong> across Discount Lists, Price Lists, Shipping Charge Lists, and Cost Lists.</p>
+        </div>
+
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
+           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
+              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Pricing Component Library - Showcase of modular Mass Action Tables, Grid Interfaces, and Creation Drawers used across the ecosystem]</span>
+           </div>
         </div>
       </article>
     </CaseStudyTemplate>

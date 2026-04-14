@@ -52,6 +52,7 @@ export type CaseStudySection = {
   body: string;
   bullets: string[];
   imageLabel: string;
+  isSubSection?: boolean;
 };
 
 export type CaseStudyContent = {
@@ -61,7 +62,8 @@ export type CaseStudyContent = {
   meta: {
     role: string;
     timeline: string;
-    focus: string;
+    focus?: string;
+    constraint?: string;
   };
   sections: CaseStudySection[];
   nextProject: {
@@ -76,59 +78,91 @@ export const CASE_STUDIES: Record<
 > = {
   "case-study-1": {
     slug: "case-study-1",
-    title: "Oracle Fusion Pricing",
+    title: "Designing Oracle Fusion Pricing Products for Scale",
     subtitle:
-      "Designing mass-action workflows that reduced friction across dense enterprise pricing operations.",
+      "Oracle Fusion Pricing Ecosystem (Price Lists, Discount Lists, Currency Conversion List, Shipping Charge List, Currency Conversion List, Rate Plans and more)",
     meta: {
       role: "UX Designer",
-      timeline: "6 Release Cycles (25B to 26C)",
-      focus: "Scalability, batch actions, engineering-ready specs",
+      timeline: "20 months",
+      constraint: "Zero direct user contact (legal restrictions); reliant on PM data, analytics and assumption-mapping.",
     },
     sections: [
       {
-        id: "problem",
-        label: "The Problem",
-        eyebrow: "Context",
-        title: "Modernizing a Legacy ERP",
+        id: "phase-1",
+        label: "Phase 1: Auditing",
+        eyebrow: "Phase 1",
+        title: "Auditing the Challenge",
         body: "",
         bullets: [],
         imageLabel: "",
       },
       {
-        id: "architecture",
-        label: "The Architecture Battle",
-        eyebrow: "Systems Thinking",
-        title: "Single vs Multi Charge",
+        id: "phase-2",
+        label: "Phase 2: Framework",
+        eyebrow: "Phase 2",
+        title: "The Data-to-Design Framework",
         body: "",
         bullets: [],
         imageLabel: "",
       },
       {
-        id: "mass-actions",
-        label: "Taming the Data Weight",
-        eyebrow: "Solution",
-        title: "Mass Actions",
+        id: "phase-3",
+        label: "Phase 3: Execution",
+        eyebrow: "Phase 3",
+        title: "Execution",
         body: "",
         bullets: [],
         imageLabel: "",
       },
       {
-        id: "escape-hatch",
-        label: "The Escape Hatch",
-        eyebrow: "UX Solution",
-        title: "Data Grid",
+        id: "story-1",
+        label: "Flattening the IA",
+        eyebrow: "Case 1",
+        title: "Flattening the Information Architecture",
         body: "",
         bullets: [],
         imageLabel: "",
+        isSubSection: true,
       },
       {
-        id: "constraints",
-        label: "Constraints & Tech Debt",
-        eyebrow: "Process",
-        title: "Killing Technical Debt",
+        id: "story-2",
+        label: "Designing for 1 million rows",
+        eyebrow: "Case 2",
+        title: "Designing for 1 Million Rows",
         body: "",
         bullets: [],
         imageLabel: "",
+        isSubSection: true,
+      },
+      {
+        id: "story-3",
+        label: "Anticipating Scale",
+        eyebrow: "Case 3",
+        title: "Anticipating Scale Against PM Pushback",
+        body: "",
+        bullets: [],
+        imageLabel: "",
+        isSubSection: true,
+      },
+      {
+        id: "story-4",
+        label: "Centralising Assets",
+        eyebrow: "Case 4",
+        title: "Centralizing Assets for Global Scale",
+        body: "",
+        bullets: [],
+        imageLabel: "",
+        isSubSection: true,
+      },
+      {
+        id: "story-5",
+        label: "Establishing Component Library",
+        eyebrow: "Case 5",
+        title: "Establishing the Pricing Component Library",
+        body: "",
+        bullets: [],
+        imageLabel: "",
+        isSubSection: true,
       },
     ],
     nextProject: {

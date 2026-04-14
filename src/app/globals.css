@@ -1451,6 +1451,12 @@ body {
   text-shadow: 0 0 14px rgba(57, 255, 20, 0.2);
 }
 
+.case-study-toc-link.is-subsection {
+  margin-left: 1.5rem;
+  font-size: 0.88rem;
+  opacity: 0.85;
+}
+
 .case-study-content-panel {
   padding: 2.25rem 3rem 3rem;
   height: 100%;
@@ -1560,9 +1566,9 @@ body {
 
 .case-study-prose {
   margin-top: 1rem;
-  max-width: 68ch;
+  max-width: 100%;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 1.02rem;
+  font-size: clamp(0.95rem, 1.2vw + 0.4rem, 1.15rem);
   line-height: 1.9;
 }
 
@@ -1573,6 +1579,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+  font-size: clamp(0.95rem, 1.2vw + 0.4rem, 1.15rem);
 }
 
 .case-study-bullets li::marker {
