@@ -134,9 +134,8 @@ export default function FooterSection() {
                 right: "27.5%",
                 width: "16%",
                 height: "17.7%",
-                border: "none",
                 cursor: "pointer",
-                zIndex: 1000
+                zIndex: 1000,
               }}
               type="button"
               aria-label="Print CV"

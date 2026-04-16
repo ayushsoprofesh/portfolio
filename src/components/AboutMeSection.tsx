@@ -28,7 +28,9 @@ const MARQUEE_ITEMS: MarqueeItemData[] = [
     type: "image-cycle",
     assets: [
       "/About me/Speaker 1.jpg",
-      "/About me/Speaker 2.jpg"
+      "/About me/Speaker 2.jpg",
+      "/About me/Speaker%3.jpg",
+      "/About me/Speaker%4.jpg"
     ]
   },
   {
@@ -65,6 +67,18 @@ const MARQUEE_ITEMS: MarqueeItemData[] = [
     type: "youtube",
     youtubeId: "byhtsRBr2VY",
     link: "https://www.youtube.com/watch?v=byhtsRBr2VY"
+  },
+  {
+    id: "life",
+    type: "image-cycle",
+    assets: [
+      "/About me/life01.jpg",
+      "/About me/life02.jpg",
+      "/About me/life03.jpg",
+      "/About me/life04.jpg",
+      "/About me/life05.jpg",
+      "/About me/life06.jpg"
+    ]
   }
 ];
 
@@ -85,14 +99,14 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
       {item.type === "image-cycle" && item.assets && (
         <>
           {item.assets.map((src, idx) => (
-            <img 
+            <img
               key={src}
-              src={encodeURI(src)} 
-              alt="About me asset" 
-              style={{ 
-                width: "100%", 
-                height: "100%", 
-                objectFit: "cover", 
+              src={encodeURI(src)}
+              alt="About me asset"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
                 display: "block",
                 position: "absolute",
                 top: 0,
@@ -105,7 +119,7 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
         </>
       )}
       {item.type === "video" && item.videoSrc && (
-        <video 
+        <video
           src={encodeURI(item.videoSrc)}
           autoPlay
           muted
@@ -116,10 +130,10 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
       )}
       {item.type === "youtube" && item.youtubeId && (
         <div style={{ width: "100%", height: "100%", background: "#000", pointerEvents: "none", overflow: "hidden", position: "relative" }}>
-          <iframe 
-            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${item.youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`} 
-            frameBorder="0" 
-            allow="autoplay; encrypted-media" 
+          <iframe
+            src={`https://www.youtube.com/embed/${item.youtubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${item.youtubeId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1`}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
             style={{ width: "150%", height: "150%", position: "absolute", top: "-25%", left: "-25%", pointerEvents: "none" }}
           />
         </div>
@@ -153,11 +167,11 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
 
   if (item.link) {
     return (
-      <a 
-        href={item.link} 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        className="marquee-frame glass-panel" 
+      <a
+        href={item.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="marquee-frame glass-panel"
         style={{ display: "block", textDecoration: "none", padding: 0, cursor: "pointer", overflow: "hidden" }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -188,16 +202,16 @@ export default function AboutMeSection({ isActive }: { isActive: boolean }) {
 
   const textVariants = {
     hidden: { y: 30, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { delay: 0.3, duration: 0.8, ease: textEase } 
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { delay: 0.3, duration: 0.8, ease: textEase }
     }
   };
 
   return (
     <section className="about-me-section">
-      <motion.div 
+      <motion.div
         className="about-me-container"
         variants={containerVariants}
         initial="hidden"
@@ -211,7 +225,7 @@ export default function AboutMeSection({ isActive }: { isActive: boolean }) {
         </motion.div>
 
         {/* The Infinite Marquee */}
-        <motion.div 
+        <motion.div
           className="marquee-container"
           variants={{
             hidden: { opacity: 0 },

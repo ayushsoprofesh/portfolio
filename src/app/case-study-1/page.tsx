@@ -1,5 +1,6 @@
 import CaseStudyTemplate from "@/components/CaseStudyTemplate";
 import { CASE_STUDIES } from "@/lib/portfolio-content";
+import Image from "next/image";
 
 export default function CaseStudyOnePage() {
   const content = CASE_STUDIES["case-study-1"];
@@ -23,6 +24,16 @@ export default function CaseStudyOnePage() {
             <li style={{ marginBottom: '0.75rem' }}><strong>Complex hierarchies:</strong> Legacy systems force horizontal scrolling through up to 4 levels of depth (List {">"} Item {">"} Benefit/Charge {">"} Tier/Matrix).</li>
             <li style={{ marginBottom: '0.75rem' }}><strong>No direct user research:</strong> Design decisions must be reverse-engineered from PM feedback, legacy system bottlenecks, and enterprise UX best practices.</li>
           </ul>
+          <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0' }}>
+            <Image 
+              src="/Case Study/Pricingflow.jpg" 
+              alt="Pricing Workflow" 
+              width={1600} 
+              height={900} 
+              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+              priority
+            />
+          </div>
         </div>
       </article>
 
@@ -31,8 +42,8 @@ export default function CaseStudyOnePage() {
         <h2 className="case-study-section-title">The Data-to-Design Framework</h2>
         <h3 className="case-study-section-subtitle">Mapping data and system constraints directly to design features to ensure every UI decision solves a specific business problem.</h3>
         
-        <div className="case-study-prose" style={{ marginTop: '2rem', overflowX: 'auto', width: '100%' }}>
-          <table className="case-study-table" style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', marginTop: '1rem', lineHeight: 1.6 }}>
+        <div className="case-study-prose" style={{ marginTop: '2rem', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+          <table className="case-study-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', marginTop: '1rem', lineHeight: 1.6 }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
                  <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>Metric / Information</th>
@@ -83,14 +94,42 @@ export default function CaseStudyOnePage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>To align with Redwood standards and human cognitive limits, the architecture was restructured into a <strong style={{ color: "#FFFFFF" }}>drill-down navigation model</strong>. In Price Lists, four distinct item types (Standard, Model, Coverage, Subscription) required vastly different pricing setups. These were <strong style={{ color: "#FFFFFF" }}>segregated into dedicated tabs</strong> to isolate workflows and manage task execution efficiently.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
-           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: Legacy Horizontal Architecture vs. New Drill-Down Tabbed Architecture]</span>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', margin: '2.5rem 0' }}>
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <p style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>1) Price List IA</p>
+              <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                 <Image 
+                   src="/Case Study/IA.jpg" 
+                   alt="Price List IA" 
+                   width={800} 
+                   height={600} 
+                   style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                 />
+              </div>
+           </div>
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <p style={{ color: '#aaa', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>2) Price List legacy UI</p>
+              <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                 <Image 
+                   src="/Case Study/Case1Image.jpg" 
+                   alt="Price List legacy UI" 
+                   width={800} 
+                   height={600} 
+                   style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+                 />
+              </div>
+           </div>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Discount List Workbench - Drill-down flow from List creation to Matrix Benefit application]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 1 Price List drill down hierarchy</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=174-56184&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=174%3A56184&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -105,16 +144,24 @@ export default function CaseStudyOnePage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>To cater to enterprise users heavily reliant on spreadsheet workflows, an <strong style={{ color: "#FFFFFF" }}>&quot;Escape Hatch&quot; Grid UI</strong> was introduced to directly paste column values from Excel.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Price List Mass Action Flow - Selecting items, applying bulk charges, and triggering the ESS background job notification]</span>
-           </div>
-        </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 2.1 Mass Action</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, marginBottom: '1.5rem', backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16112&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A16112&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: The &quot;Escape Hatch&quot; Grid UI - Pasting Excel data directly into the pricing grid]</span>
-           </div>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 2.2 Pricing grid</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-196003&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A196003&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -129,10 +176,15 @@ export default function CaseStudyOnePage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Three releases later, PMs returned with customer demands for multi-charge support. Because the architectural exploration was already completed, the feature was <strong style={{ color: "#FFFFFF" }}>rapidly integrated</strong>, allowing customers to choose between single or multi-charge architectures during onboarding based on their specific scale.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Multi-Charge Price List Flow - Adding and managing multiple charges, tiers, and matrices for a single item line]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 3 Multi-charge Setup</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-39164&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A39164&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -150,14 +202,16 @@ export default function CaseStudyOnePage() {
           </ol>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
-           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: Isolated List Architecture vs. Centralized Global Library Architecture]</span>
-        </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Formula Management Workbench - Creation, global edit, and &quot;Push to Where Used&quot; flow]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 4 Formula Management</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=183-80692&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=183%3A80692&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -171,10 +225,14 @@ export default function CaseStudyOnePage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>A <strong style={{ color: "#FFFFFF" }}>centralized Component Library</strong> specific to Oracle Pricing was established. By standardizing the macro-components (e.g., the Add Charge Drawer, Main Table Containers, Page Headers), it <strong style={{ color: "#FFFFFF" }}>reduced development friction and guaranteed UI parity</strong> across Discount Lists, Price Lists, Shipping Charge Lists, and Cost Lists.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Pricing Component Library - Showcase of modular Mass Action Tables, Grid Interfaces, and Creation Drawers used across the ecosystem]</span>
-           </div>
+        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2.5rem 0', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+           <Image 
+             src="/Case Study/Case5image.jpg" 
+             alt="Pricing Component Library" 
+             width={1600} 
+             height={900} 
+             style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+           />
         </div>
       </article>
     </CaseStudyTemplate>

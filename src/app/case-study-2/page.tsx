@@ -31,8 +31,8 @@ export default function CaseStudyTwoPage() {
         <h2 className="case-study-section-title">The Data-to-Design Framework</h2>
         <h3 className="case-study-section-subtitle">Mapping proxy data and system constraints directly to design features to ensure every UI decision solves a specific business problem.</h3>
         
-        <div className="case-study-prose" style={{ marginTop: '2rem', overflowX: 'auto', width: '100%' }}>
-          <table className="case-study-table" style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', marginTop: '1rem', lineHeight: 1.6 }}>
+        <div className="case-study-prose" style={{ marginTop: '2rem', overflowX: 'auto', WebkitOverflowScrolling: 'touch', width: '100%' }}>
+          <table className="case-study-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', marginTop: '1rem', lineHeight: 1.6 }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}>
                  <th style={{ padding: '1rem', color: '#FFFFFF', verticalAlign: 'top', width: '25%' }}>Metric / Information</th>
@@ -83,14 +83,16 @@ export default function CaseStudyTwoPage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Pushed back against cross-functional engineering and PM teams to defend the user experience. Navigated organizational friction to force the Entitlements setup <strong style={{ color: "#FFFFFF" }}>inside</strong> the Rate Plan creation flow. Furthermore, actively guided the Subscriptions team to align their UI fragments with the established Pricing Design Standards to prevent jarring visual shifts for the end-user.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
-           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: External Team Proposed Architecture vs. User-Centric Rate Plan Architecture]</span>
-        </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Rate Plan Creation Flow - Integrating the Subscriptions Entitlement UI inside the specific Rate Plan shell]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>case 1 Rate Plan Setup</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=184-127551&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=184%3A127551&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -104,10 +106,24 @@ export default function CaseStudyTwoPage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Intentionally broke established Pricing UI patterns to serve contextual needs. Collaborated with external PMs and designers to adapt the <strong style={{ color: "#FFFFFF" }}>&quot;Negotiation&quot; fragments</strong> to flawlessly mirror the distinct UX practices of OM and CPQ, ensuring the user never felt like they were jumping between disparate enterprise software systems.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Negotiation Fragments - Side-by-side comparison of the Rate Plan UI adapted for Order Management vs. CPQ]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 2.1 Negotiation CPQ</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, marginBottom: '1.5rem', backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-196672&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A196672&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
+
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 2.2 Negotiation FOM</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16606&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A16606&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -121,10 +137,15 @@ export default function CaseStudyTwoPage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Bypassed the legacy logic entirely. Designed a high-speed creation pattern allowing users to select a single base currency and instantly map it to multiple targets in one click. Additionally, integrated a <strong style={{ color: "#FFFFFF" }}>1-click feature</strong> to source conversion rates directly from the General Ledger, turning a tedious multi-step process into a rapid, one-shot operation.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Currency Conversion List - 1-to-many mapping flow and General Ledger integration]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 3 Currency conversion setup</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-228733&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A228733&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -138,10 +159,15 @@ export default function CaseStudyTwoPage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Leveraged the centralized Pricing Component Library established in previous quarters. Quickly redesigned the Promotions benefits section by adapting existing tier/matrix components. For the Shipping Charge List, successfully <strong style={{ color: "#FFFFFF" }}>&quot;injected&quot;</strong> the complex Mass Action and Grid Pricing patterns built for Price Lists, applying them seamlessly to UOMs and shipping methods without reinventing the wheel.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Shipping Charge List - Showcasing the injection of the Mass Action/Grid components adapted for shipping metrics]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 4 Shipping charge setup</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-233988&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A233988&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
 
@@ -155,14 +181,16 @@ export default function CaseStudyTwoPage() {
           <p style={{ marginBottom: "1rem", lineHeight: 1.7 }}>Instead of just executing on assigned tickets, proactively pitched a solution to the business: <strong style={{ color: "#FFFFFF" }}>Templatized Mass Actions</strong>. Designed a management flow where users could create, store, and manage structural templates for mass updates, which could then be instantly applied across any Price List. The pitch was successful and adopted as a core future enhancement.</p>
         </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', padding: '1.5rem', backgroundColor: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #E0E0E0' }}>
-           <span style={{ color: '#888', fontFamily: 'monospace', textAlign: 'center' }}>[Flow Diagram: The repetition of manual mass updates vs. The streamlined Templatized Mass Action flow]</span>
-        </div>
 
-        <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', paddingBottom: '56.25%', position: 'relative', backgroundColor: '#1E1E1E', border: '2px dashed #FFFFFF' }}>
-           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '1rem' }}>
-              <span style={{ color: '#FFFFFF', fontFamily: 'monospace' }}>[Figma Embed: Mass Action Templates - Management and creation flow for global price update structures]</span>
-           </div>
+        <div style={{ marginBottom: '2rem' }}>
+          <p style={{ color: '#aaa', fontSize: '0.75rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Case 5 Across list mass action</p>
+          <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
+            <iframe 
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-250422&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185-250422&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              allowFullScreen
+            />
+          </div>
         </div>
       </article>
     </CaseStudyTemplate>

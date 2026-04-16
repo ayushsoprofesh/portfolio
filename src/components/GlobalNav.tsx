@@ -56,7 +56,7 @@ export default function GlobalNav({ activeSection, isLoaded = true, onNavigate }
   // ── Scroll helpers ──────────────────────────────────────────────────────
   const handleScrollTo = (sectionIndex: number) => {
     if (!isHomePage) {
-      router.push("/");
+      router.push(`/?section=${sectionIndex}`);
       return;
     }
     
@@ -97,7 +97,7 @@ export default function GlobalNav({ activeSection, isLoaded = true, onNavigate }
         {navLinks.map(({ label, active, onClick }) => (
           <motion.button
             key={label}
-            className={`nav-link${active ? " nav-link-active" : ""}${label === "CONTACT" && active ? " nav-contact-lit" : ""}`}
+            className={`nav-link${active ? " nav-link-active nav-link-lit" : ""}${label === "CONTACT" && active ? " nav-contact-lit" : ""}`}
             onClick={onClick}
             whileHover={{ color: "#39ff14" }}
             transition={{ duration: 0.2 }}

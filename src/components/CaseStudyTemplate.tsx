@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CaseStudyContent } from "@/lib/portfolio-content";
 import GlobalNav from "@/components/GlobalNav";
+import MobileGlobalNav from "@/components/mobile/MobileGlobalNav";
 import InteractiveBackground from "@/components/InteractiveBackground";
+import MobileInteractiveBackground from "@/components/mobile/MobileInteractiveBackground";
 
 type CaseStudyTemplateProps = {
   study: CaseStudyContent;
@@ -17,6 +19,11 @@ export default function CaseStudyTemplate({
 }: CaseStudyTemplateProps) {
   const [activeSection, setActiveSection] = useState(study.sections[0]?.id ?? "");
   const contentPanelRef = useRef<HTMLElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
+  }, []);
 
   useEffect(() => {
     if (!contentPanelRef.current) {
@@ -53,10 +60,14 @@ export default function CaseStudyTemplate({
 
   return (
     <>
-      <GlobalNav activeSection={2} />
+      {isMobile ? <MobileGlobalNav /> : <GlobalNav activeSection={2} />}
       <main className="case-study-page">
         <div className="case-study-background-layer">
-          <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
+          {isMobile ? (
+            <div style={{ position: "absolute", inset: 0, background: "#000" }} />
+          ) : (
+            <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
+          )}
         </div>
 
 
@@ -101,15 +112,8 @@ export default function CaseStudyTemplate({
               <p className="case-study-eyebrow">Case Study</p>
               <h1 className="case-study-title">{study.title}</h1>
 
-              <dl
-                className="case-study-meta-grid"
-                style={{
-                  gridTemplateColumns: study.meta.focus
-                    ? "repeat(3, minmax(0, 1fr))"
-                    : "repeat(2, minmax(0, 1fr))",
-                }}
-              >
-                <div className="case-study-meta-card" style={{ gridColumn: '1 / -1' }}>
+              <dl className="case-study-meta-grid">
+                <div className="case-study-meta-card">
                   <dt>Product</dt>
                   <dd>{study.subtitle}</dd>
                 </div>
@@ -128,7 +132,7 @@ export default function CaseStudyTemplate({
                   </div>
                 )}
                 {study.meta.constraint && (
-                  <div className="case-study-meta-card" style={{ gridColumn: '1 / -1' }}>
+                  <div className="case-study-meta-card">
                     <dt>Constraint</dt>
                     <dd>{study.meta.constraint}</dd>
                   </div>

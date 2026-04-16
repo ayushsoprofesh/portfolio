@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, useEffect } from "react";
 import {
   CONTACT_LINKS,
   PASSWORD_TARGETS,
   type PasswordTargetKey,
 } from "@/lib/portfolio-content";
 import GlobalNav from "@/components/GlobalNav";
+import MobileGlobalNav from "@/components/mobile/MobileGlobalNav";
 import InteractiveBackground from "@/components/InteractiveBackground";
+import MobileInteractiveBackground from "@/components/mobile/MobileInteractiveBackground";
 
 export default function PasswordGateScreen() {
   const router = useRouter();
@@ -17,6 +19,11 @@ export default function PasswordGateScreen() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(max-width: 1024px)").matches);
+  }, []);
 
   const project = searchParams.get("project") as PasswordTargetKey | null;
 
@@ -74,10 +81,13 @@ export default function PasswordGateScreen() {
 
   return (
     <>
-      <GlobalNav activeSection={2} />
+      {isMobile ? <MobileGlobalNav /> : <GlobalNav activeSection={2} />}
       <main className="password-gate-page">
         <div className="password-gate-background-layer">
-          <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
+          {isMobile
+            ? <MobileInteractiveBackground fixed={false} />
+            : <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
+          }
         </div>
 
         <div className="password-gate-shell">

@@ -21,6 +21,13 @@ body {
   overflow: hidden;
   height: 100vh;
   width: 100vw;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -191,7 +198,15 @@ body {
   }
 }
 
-/* CONTACT lit up when footer is in view */
+/* Active link lit state for all sections */
+.nav-link-lit {
+  color: var(--matrix-green) !important;
+  text-shadow:
+    0 0 6px rgba(57, 255, 20, 0.7),
+    0 0 14px rgba(57, 255, 20, 0.4) !important;
+}
+
+/* CONTACT specific flicker when footer is in view */
 .nav-contact-lit {
   color: var(--matrix-green) !important;
   text-shadow:
@@ -1046,6 +1061,7 @@ body {
   }
 }
 
+
 .hire-me-card {
   border-radius: 16px;
   padding: 3rem 2.5rem;
@@ -1187,6 +1203,10 @@ body {
 
 .password-gate-page {
   padding-top: var(--nav-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .case-study-page {
@@ -1217,14 +1237,22 @@ body {
 .password-gate-shell {
   position: relative;
   z-index: 1;
-  min-height: calc(100vh - var(--nav-height));
-  width: min(100%, 680px);
+  width: min(92%, 640px);
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1.5rem;
+  /* Glassmorphism */
+  background: rgba(14, 14, 14, 0.4);
+  backdrop-filter: blur(28px) saturate(120%);
+  -webkit-backdrop-filter: blur(28px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 32px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .password-gate-badge {
@@ -1266,6 +1294,7 @@ body {
 }
 
 .password-gate-form {
+  position: relative;
   display: flex;
   flex-direction: row;
   gap: 0.9rem;
@@ -1278,25 +1307,43 @@ body {
 
 .password-gate-input {
   width: 100%;
-  padding: 1rem 1.1rem;
+  padding: 1rem 5.5rem 1rem 1.1rem;
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #fff;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease,
-    background-color 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.2), 
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 .password-gate-input::placeholder {
-  color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .password-gate-input:focus {
-  border-color: rgba(57, 255, 20, 0.9);
-  box-shadow: 0 0 0 1px rgba(57, 255, 20, 0.75), 0 0 24px rgba(57, 255, 20, 0.16);
+  border-color: rgba(57, 255, 20, 0.6);
   background: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 0 0 1px rgba(57, 255, 20, 0.4),
+    0 0 20px rgba(57, 255, 20, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Prevent Chrome from turning autofilled password background white */
+.password-gate-input:-webkit-autofill,
+.password-gate-input:-webkit-autofill:hover,
+.password-gate-input:-webkit-autofill:focus,
+.password-gate-input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
 .password-gate-error {
@@ -1319,29 +1366,49 @@ body {
   }
 
   100% {
-    background-position: 75;
+    background-position: 200% 0%;
   }
+}
+
+.cv-print-hotspot {
+  background: linear-gradient(90deg, 
+    rgba(57, 255, 20, 0) 0%, 
+    rgba(57, 255, 20, 0.2) 50%, 
+    rgba(57, 255, 20, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: passwordSubmitGlow 3s linear infinite;
+  transition: all 0.3s ease;
+  border: none !important;
+  
+  /* Edge feathering */
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.cv-print-hotspot:hover {
+  background-color: rgba(57, 255, 20, 0.1);
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.2), inset 0 0 10px rgba(57, 255, 20, 0.1);
+  border: none !important;
 }
 
 .password-gate-submit {
   position: absolute;
-  right: 4%;
+  right: 6px;
   align-self: center;
   border-radius: 10px;
   padding: 10px 16px;
   margin-right: 3px;
   border: 1px solid rgba(57, 255, 20, 0.5);
   color: var(--matrix-green);
-  background: linear-gradient(270deg, rgba(55, 255, 20, 0.186) 0%, black 51%, black 100%);
-  background-size: 100% 200%;
+  background: linear-gradient(90deg, black 0%, rgba(55, 255, 20, 0.15) 50%, black 100%);
+  background-size: 200% 100%;
   animation: passwordSubmitGlow 1s ease-out infinite;
   font-size: 0.98rem;
   text-shadow: 0 0 6px rgba(57, 255, 20, 0.55);
   font-weight: 600;
   cursor: pointer;
   font-family: Share Tech Mono, monospace;
-  /* box-shadow: 0 0 24px rgba(57, 255, 20, 0.18); */
-  /* z-index: 2; */
 }
 
 .password-gate-submit:hover,
@@ -1400,7 +1467,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(4px);
-  /* -webkit-backdrop-filter: blur(28px); */
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
@@ -1433,7 +1499,6 @@ body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  /* padding-left: 8%; */
   gap: 0.55rem;
 }
 
@@ -1463,12 +1528,10 @@ body {
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
-  /* Firefox */
 }
 
 .case-study-content-panel::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari and Opera */
 }
 
 .case-study-topbar {
@@ -1513,6 +1576,10 @@ body {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.case-study-meta-grid > :first-child {
+  grid-column: 1 / -1;
 }
 
 .case-study-meta-card {
@@ -1619,25 +1686,133 @@ body {
   font-size: 1rem;
 }
 
-@media (max-width: 960px) {
-  .case-study-grid {
-    grid-template-columns: 1fr;
-    height: auto;
-    padding: 1.2rem;
+@media (max-width: 1024px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    width: 100% !important;
+    position: relative !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .global-nav {
+    display: none !important;
+  }
+
+  .portfolio-main {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .nav-center {
+    display: none !important;
+  }
+
+  .password-gate-badge {
+    display: none !important;
+  }
+
+  .password-gate-shell {
+    width: 92vw !important;
+    padding: 2.5rem 1.5rem !important;
+    margin: 1.5rem auto !important;
+    min-height: auto !important;
+    justify-content: center !important;
+  }
+
+  .password-gate-form {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .password-gate-input {
+    width: 100% !important;
+    text-align: left !important;
+    padding-right: 1rem !important;
+  }
+
+  .password-gate-submit {
+    position: static !important;
+    width: 100% !important;
+    align-self: stretch !important;
+    margin: 0 !important;
+    padding: 12px 20px !important;
+    border-radius: 10px !important;
+    background: #000 !important;
+    animation: none !important;
   }
 
   .case-study-sidebar {
-    height: auto;
+    display: none !important;
+  }
+
+  .case-study-grid {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    padding: 0 !important;
   }
 
   .case-study-content-panel {
-    height: auto;
-    overflow: visible;
-    padding: 1.5rem;
+    width: 100% !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    padding-top: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .case-study-section-block,
+  .case-study-meta-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    padding: 1.25rem !important;
+    border-radius: 20px !important;
+    width: 100% !important;
   }
 
   .case-study-meta-grid {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .case-study-title {
+    font-size: 2.2rem !important;
+    line-height: 1.1 !important;
+    word-wrap: break-word !important;
+  }
+
+  .case-study-table {
+    min-width: 100% !important;
+    font-size: 0.8rem !important;
+  }
+
+  .case-study-table th, .case-study-table td {
+    padding: 0.75rem 0.5rem !important;
+    width: auto !important;
+  }
+
+  .case-study-sections iframe,
+  .case-study-section-block div[style*="paddingBottom"] {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
@@ -1676,7 +1851,6 @@ body {
   background: transparent;
 }
 
-/* LAYER 1 (bottom): Solid black background */
 .matrix-loader-bg {
   position: absolute;
   inset: 0;
@@ -1684,9 +1858,6 @@ body {
   background: var(--bg-color);
 }
 
-/* LAYER 3 (top): Iframe container — mix-blend-mode: screen makes
-   the iframe's own black background invisible while keeping the
-   green rain characters visible over the text layer below */
 .matrix-loader-iframe-container {
   position: absolute;
   inset: 0;
@@ -1697,7 +1868,6 @@ body {
   mix-blend-mode: screen;
 }
 
-/* The actual iframe hosting Rezmason's Matrix */
 .matrix-loader-iframe {
   width: 100%;
   height: 100%;
@@ -1706,7 +1876,6 @@ body {
   filter: contrast(1.1) brightness(0.9);
 }
 
-/* LAYER 2 (middle): Text sits between rain and black bg */
 .loader-text-container {
   position: absolute;
   z-index: 2;
@@ -1722,7 +1891,6 @@ body {
   font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 700;
   color: #fff;
-  /* Multi-layered glow halo — burns through the rain */
   text-shadow:
     0 0 8px rgba(57, 255, 20, 1),
     0 0 20px rgba(57, 255, 20, 0.9),
@@ -1733,7 +1901,6 @@ body {
   text-transform: uppercase;
 }
 
-/* Soft radial vignette behind text — dims rain around the text area */
 .loader-text::before {
   content: '';
   position: absolute;
@@ -1759,51 +1926,12 @@ body {
   background-size: 100% 4px, 6px 100%;
 }
 
-/* Blackout layer for transition */
 .loader-blackout {
   position: absolute;
   inset: 0;
   background: var(--bg-color);
   z-index: 20;
   pointer-events: none;
-}
-
-/* CV Print Button Animation */
-.cv-print-hotspot {
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px;
-  background: transparent;
-  /* Feather the edges of the entire box into the background */
-  -webkit-mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
-  mask-image: radial-gradient(circle, black 50%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
-}
-
-.cv-print-hotspot::before {
-  content: '';
-  position: absolute;
-  inset: -20px; /* More room for heavy blur */
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(57, 255, 20, 0.4) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: cv-gradient-sweep 6s linear infinite;
-  mix-blend-mode: color-burn;
-  pointer-events: none;
-  opacity: 0.35;
-  filter: blur(8px); /* Thicker feathering for the sweep itself */
-}
-
-@keyframes cv-gradient-sweep {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
 }
 
 /* TV Channel Glitch Effects */
