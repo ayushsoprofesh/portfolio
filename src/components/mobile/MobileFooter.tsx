@@ -1,10 +1,10 @@
 "use client";
 
 const CONTACT_LINKS = [
-  { label: "Email",    desc: "ayush.singh451@gmail.com",   href: "mailto:ayush.singh451@gmail.com" },
-  { label: "Phone",    desc: "+91 7357442395",              href: "tel:+917357442395" },
-  { label: "LinkedIn", desc: "Connect with me",             href: "https://www.linkedin.com/in/ayush-singh-5065881a1/" },
-  { label: "Behance",  desc: "View college design work",       href: "https://www.behance.net/ayushsingh83" },
+  { label: "Email", desc: "ayush.singh451@gmail.com", href: "mailto:ayush.singh451@gmail.com" },
+  { label: "Phone", desc: "+91 7357442395", href: "tel:+917357442395" },
+  { label: "LinkedIn", desc: "Connect with me", href: "https://www.linkedin.com/in/ayush-singh-5065881a1/" },
+  { label: "Behance", desc: "View college design work", href: "https://www.behance.net/ayushsingh83" },
 ];
 
 export default function MobileFooter({ px = "1.25rem" }: { px?: string }) {
