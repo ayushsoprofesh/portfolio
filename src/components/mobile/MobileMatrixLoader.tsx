@@ -17,18 +17,12 @@ export default function MobileMatrixLoader({ onComplete }: { onComplete: () => v
 
   useEffect(() => {
     let isMounted = true;
-    if (document.readyState === "complete") {
-      setLoaderState("done");
-      onComplete();
-      return;
-    }
-
-    const textDelay = setTimeout(() => {
-      if (isMounted) setLoaderState("loading");
-    }, 500);
+    let loadFired = false;
 
     const finishLoading = () => {
-      if (!isMounted) return;
+      if (!isMounted || loadFired) return;
+      loadFired = true;
+      
       clearTimeout(textDelay);
       setLoaderState("ready");
       setTimeout(() => {
@@ -42,7 +36,17 @@ export default function MobileMatrixLoader({ onComplete }: { onComplete: () => v
       }, 1500);
     };
 
-    window.addEventListener("load", finishLoading);
+    const textDelay = setTimeout(() => {
+      if (isMounted) setLoaderState("loading");
+    }, 100);
+
+    if (document.readyState === "complete") {
+      // Show loader for at least 1.5s even if assets are loaded
+      setTimeout(finishLoading, 1500);
+    } else {
+      window.addEventListener("load", finishLoading);
+    }
+
     const fallbackTimer = setTimeout(finishLoading, 8000);
 
     return () => {
@@ -62,7 +66,7 @@ export default function MobileMatrixLoader({ onComplete }: { onComplete: () => v
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 100,
+        zIndex: 99999,
         backgroundColor: "#000",
         display: "flex",
         alignItems: "center",

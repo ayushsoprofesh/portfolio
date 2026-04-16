@@ -32,6 +32,10 @@ export default function MobileHero() {
           background: "rgba(0,0,0,0.4)",
           backdropFilter: "blur(8px)",
           flexShrink: 0,
+          /* Fix for corner radius loss on some mobile browsers */
+          WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+          transform: "translateZ(0)",
+          WebkitTransform: "translateZ(0)",
         }}
       >
         <video
@@ -44,6 +48,7 @@ export default function MobileHero() {
             height: "100%",
             objectFit: "cover",
             display: "block",
+            borderRadius: "inherit",
           }}
         >
           <source src="/Profile.mp4" type="video/mp4" />
@@ -54,6 +59,7 @@ export default function MobileHero() {
           background: "rgba(113,255,24,0.15)",
           mixBlendMode: "multiply",
           pointerEvents: "none",
+          borderRadius: "inherit",
         }} />
       </motion.div>
 

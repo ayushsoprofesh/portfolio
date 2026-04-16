@@ -30,31 +30,20 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
   // Main flow logic
   useEffect(() => {
     let isMounted = true;
-
-    // If document is already complete, skip the loader entirely.
-    if (document.readyState === "complete") {
-      setLoaderState("done");
-      onComplete();
-      return;
-    }
-
-    // Small delay before showing "Loading..." text
-    const textDelay = setTimeout(() => {
-      if (isMounted) setLoaderState("loading");
-    }, 500);
+    let loadFired = false;
 
     const finishLoading = () => {
-      if (!isMounted) return;
+      if (!isMounted || loadFired) return;
+      loadFired = true;
+      
       clearTimeout(textDelay);
-
       setLoaderState("ready");
 
-      // Transition times
+      // Transition sequence
       setTimeout(() => {
         if (!isMounted) return;
         setLoaderState("zooming");
 
-        // Blackout starts a few moments after zooming
         setTimeout(() => {
           if (!isMounted) return;
           setLoaderState("blackout");
@@ -63,14 +52,25 @@ export default function MatrixLoader({ onComplete }: MatrixLoaderProps) {
             if (!isMounted) return;
             setLoaderState("done");
             onComplete();
-          }, 800); // Wait for blackout to cover entirely
-        }, 300); // 300ms after zoom starts
-      }, 1500); // Wait in "ready" state
+          }, 900); // Wait for blackout to cover entirely (matches transition duration)
+        }, 300);
+      }, 1500); 
     };
 
-    window.addEventListener("load", finishLoading);
+    // Small delay before showing "Loading..." text
+    const textDelay = setTimeout(() => {
+      if (isMounted) setLoaderState("loading");
+    }, 100); // Reduced from 500 to show text sooner
+
+    // Check if已经 loaded
+    if (document.readyState === "complete") {
+      // Even if already loaded, show the loader for at least 1.5s to give it a feel
+      setTimeout(finishLoading, 1500);
+    } else {
+      window.addEventListener("load", finishLoading);
+    }
     
-    // Fallback in case load event already fired or takes too long
+    // Fallback in case load event takes too long
     const fallbackTimer = setTimeout(finishLoading, 10000);
 
     return () => {

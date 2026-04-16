@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { EXTERNAL_CASE_STUDY_LINKS } from "@/lib/portfolio-content";
 
 const PROJECTS = [
@@ -36,16 +36,6 @@ const PROJECTS = [
 ];
 
 export default function MobileChosenWorks() {
-  const router = useRouter();
-
-  const handleFrameClick = (cta: { type: string, href: string }) => {
-    if (cta.type === "external") {
-      window.open(cta.href, "_blank", "noreferrer noopener");
-    } else {
-      router.push(cta.href);
-    }
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <h2 style={{
@@ -60,77 +50,108 @@ export default function MobileChosenWorks() {
       }}>Chosen Works</h2>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-        {PROJECTS.map((project) => (
-          <div
-            key={project.id}
-            onClick={() => handleFrameClick(project.cta)}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: "16px",
-              overflow: "hidden",
-              background: "rgba(0,0,0,0.4)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              backdropFilter: "blur(10px)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
-              cursor: "pointer",
-            }}
-          >
-            {/* Image wrapper — must be relative + explicit height for Next.js fill */}
-            <div style={{
-              position: "relative",
-              width: "100%",
-              paddingTop: "56.25%", /* 16:9 aspect ratio */
-              background: "#050505",
-              borderBottom: "1px solid rgba(255,255,255,0.08)",
-              overflow: "hidden",
-            }}>
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                sizes="(max-width: 1024px) 100vw"
-                style={{ objectFit: "cover" }}
-              />
+        {PROJECTS.map((project) => {
+          const isExternal = project.cta.type === "external";
+          
+          const cardContent = (
+            <div
+              className="mobile-card-press"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: "16px",
+                overflow: "hidden",
+                background: "rgba(0,0,0,0.4)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+                cursor: "pointer",
+                transition: "transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s ease",
+                WebkitTapHighlightColor: "transparent",
+                width: "100%",
+              }}
+            >
+              {/* Image wrapper — must be relative + explicit height for Next.js fill */}
               <div style={{
-                position: "absolute",
-                inset: 0,
-                background: "rgba(57,255,20,0.04)",
-                mixBlendMode: "multiply",
-                pointerEvents: "none",
-              }} />
-            </div>
+                position: "relative",
+                width: "100%",
+                paddingTop: "56.25%", /* 16:9 aspect ratio */
+                background: "#050505",
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                overflow: "hidden",
+              }}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw"
+                  style={{ objectFit: "cover" }}
+                />
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "rgba(57,255,20,0.04)",
+                  mixBlendMode: "multiply",
+                  pointerEvents: "none",
+                }} />
+              </div>
 
-            <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              <h3 style={{
-                color: "#ffffff",
-                fontWeight: 700,
-                fontSize: "1.05rem",
-                lineHeight: 1.4,
-                fontFamily: "var(--font-inter), system-ui, sans-serif",
-              }}>{project.title}</h3>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "4px" }}>
-                {project.tags.map(tag => (
-                  <span key={tag} style={{
-                    padding: "3px 8px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "4px",
-                    fontSize: "10px",
-                    color: "rgba(57,255,20,0.8)",
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    fontFamily: "var(--font-share-tech), monospace",
-                    whiteSpace: "nowrap",
-                  }}>
-                    {tag}
-                  </span>
-                ))}
+              <div style={{ padding: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <h3 style={{
+                  color: "#ffffff",
+                  fontWeight: 700,
+                  fontSize: "1.05rem",
+                  lineHeight: 1.4,
+                  fontFamily: "var(--font-inter), system-ui, sans-serif",
+                }}>{project.title}</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "4px" }}>
+                  {project.tags.map(tag => (
+                    <span key={tag} style={{
+                      padding: "3px 8px",
+                      background: "rgba(255,255,255,0.05)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "4px",
+                      fontSize: "10px",
+                      color: "rgba(57,255,20,0.8)",
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      fontFamily: "var(--font-share-tech), monospace",
+                      whiteSpace: "nowrap",
+                    }}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+
+          if (isExternal) {
+            return (
+              <a 
+                key={project.id}
+                href={project.cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", color: "inherit", display: "block" }}
+              >
+                {cardContent}
+              </a>
+            );
+          }
+
+          return (
+            <Link 
+              key={project.id}
+              href={project.cta.href}
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              {cardContent}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
 }
+
