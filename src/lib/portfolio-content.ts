@@ -7,7 +7,7 @@ export const CONTACT_LINKS = {
 
 export const EXTERNAL_CASE_STUDY_LINKS = {
   figma:
-    process.env.NEXT_PUBLIC_CASE_STUDY_3_URL ?? "https://www.figma.com/",
+    process.env.NEXT_PUBLIC_CASE_STUDY_3_URL ?? "https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=401-82901&p=f&viewport=505%2C9%2C0.08&t=UkW17W2GLhvz7cjj-1&scaling=contain&content-scaling=fixed&starting-point-node-id=401%3A82901&page-id=401%3A2&show-proto-sidebar=1",
   behance:
     process.env.NEXT_PUBLIC_CASE_STUDY_4_URL ?? "https://www.behance.net/gallery/145955879/Eventdeck-Event-management-platform",
 } as const;
@@ -177,8 +177,8 @@ export const CASE_STUDIES: Record<
       "Oracle Fusion Pricing (Rate Plans, Currency Conversion, Promotions, Shipping, Mass Actions)",
     meta: {
       role: "UX Designer",
-      timeline: "2 Years",
-      constraint: "Strict delivery deadlines (1-3 weeks), cross-team dependencies (OM, CPQ, Subscriptions), and no direct access to end-users.",
+      timeline: "20 Months",
+      constraint: "Fast delivery deadlines (1-3 weeks), cross-team dependencies and no direct access to end-users.",
     },
     sections: [
       {

@@ -61,6 +61,7 @@ export default function MobileGlobalNav() {
           display: "flex",
           alignItems: "center",
           gap: "2px",
+          whiteSpace: "nowrap",
         }}
       >
         <span>{displayed}</span>
@@ -69,49 +70,6 @@ export default function MobileGlobalNav() {
           animation: "cursor-blink 1s steps(2,start) infinite",
           opacity: 0.7,
         }}>▌</span>
-      </div>
-
-      <div style={{
-        display: "flex",
-        gap: "1rem",
-        alignItems: "center"
-      }}>
-        {[
-          { label: "WORK",    idx: 1 },
-          { label: "ABOUT",   idx: 4 },
-          { label: "CONTACT", idx: 5 },
-        ].map((item) => (
-          <div
-            key={item.label}
-            onClick={() => {
-              if (!isHomePage) {
-                window.location.href = `/?section=${item.idx}`;
-              } else {
-                const sectionMap: Record<string, string> = {
-                  "1": "experience",
-                  "4": "about-me",
-                  "5": "footer"
-                };
-                const id = sectionMap[item.idx];
-                const el = document.getElementById(id);
-                if (el) {
-                  const navHeight = 56;
-                  const top = el.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                  window.scrollTo({ top, behavior: "smooth" });
-                }
-              }
-            }}
-            style={{
-              color: "rgba(255, 255, 255, 0.7)",
-              fontSize: "0.65rem",
-              fontFamily: "var(--font-share-tech), monospace",
-              letterSpacing: "0.1em",
-              cursor: "pointer",
-            }}
-          >
-            {item.label}
-          </div>
-        ))}
       </div>
 
       <a

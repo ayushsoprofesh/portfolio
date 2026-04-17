@@ -17,7 +17,7 @@ const FRAMES = [
     left: {
       type: "project" as const,
       title: "Designing for Enterprise Scale",
-      product: "Oracle Fusion Pricing | Timeline: 8 Release Cycles",
+      product: "Oracle Fusion Pricing | Timeline: 20 Months",
       tags: "Scalability / Complex Systems",
       body: "Increased system efficiency and significantly reduced cognitive load by designing mass-action workflows for repetitive tasks. Maintained a strict user-centric approach while solving complex edge cases and delivering detailed engineering specifications.",
       cta: {
@@ -32,7 +32,7 @@ const FRAMES = [
     left: {
       type: "project" as const,
       title: "Fast Execution and Cross-Team Design",
-      product: "Oracle Fusion Pricing | Timeline: 5 Release Cycles",
+      product: "Oracle Fusion Pricing | Timeline: 20 Months",
       tags: "Rapid Execution / Cross-Functional",
       body: "Designed and delivered multiple cross-application features within accelerated timelines. Collaborated effectively across different product teams to ensure seamless integration, while pitching and documenting strategic enhancements for future roadmaps.",
       cta: {

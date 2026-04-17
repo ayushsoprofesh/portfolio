@@ -114,48 +114,58 @@ export default function FooterSection() {
           alignItems: "center",
         }}
       >
-        {!isPlaying ? (
-          <>
-            <Image
-              src="/Footer.jpg"
-              alt="Terminal CV Output"
-              fill
-              style={{ objectFit: "contain" }}
-              priority
-            />
-            {/* The Invisible Hotspot */}
-            {/* Positioned on the right side. Adjust these percentages to perfectly match the physical "PRINT CV" button in the artwork */}
-            <button
-              onClick={handlePrintTrigger}
-              className="cv-print-hotspot"
-              style={{
-                position: "absolute",
-                top: "48%",
-                right: "27.5%",
-                width: "16%",
-                height: "17.7%",
-                cursor: "pointer",
-                zIndex: 1000,
-              }}
-              type="button"
-              aria-label="Print CV"
-            />
-          </>
-        ) : (
-          <video
-            ref={videoRef}
-            src="/Footer_Video.mp4"
-            onEnded={handleVideoEnd}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain"
-            }}
-            autoPlay
-            playsInline
-            muted={false} // Adjust based on whether video requires audio
+        {/* Image and Hotspot - Hidden when video is playing */}
+        <div 
+          style={{ 
+            position: "absolute", 
+            inset: 0, 
+            opacity: isPlaying ? 0 : 1,
+            pointerEvents: isPlaying ? "none" : "auto",
+            transition: "opacity 0.3s ease"
+          }}
+        >
+          <Image
+            src="/Footer.jpg"
+            alt="Terminal CV Output"
+            fill
+            style={{ objectFit: "contain" }}
+            priority
           />
-        )}
+          {/* The Invisible Hotspot */}
+          <button
+            onClick={handlePrintTrigger}
+            className="cv-print-hotspot"
+            style={{
+              position: "absolute",
+              top: "48%",
+              right: "27.5%",
+              width: "16%",
+              height: "17.7%",
+              cursor: "pointer",
+              zIndex: 1000,
+            }}
+            type="button"
+            aria-label="Print CV"
+          />
+        </div>
+
+        {/* Video - Always in DOM for preloading, visible when playing */}
+        <video
+          ref={videoRef}
+          src="/Footer_Video.mp4"
+          onEnded={handleVideoEnd}
+          preload="auto"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            opacity: isPlaying ? 1 : 0,
+            pointerEvents: isPlaying ? "auto" : "none",
+            transition: "opacity 0.3s ease"
+          }}
+          playsInline
+          muted={false}
+        />
       </div>
 
       {/* Bottom Center Bar */}
