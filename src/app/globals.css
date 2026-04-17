@@ -1757,16 +1757,26 @@ body {
     display: none !important;
   }
 
+  .case-study-page {
+    height: auto !important;
+    overflow-y: visible !important;
+    min-height: 100vh !important;
+    position: relative !important;
+    touch-action: pan-y !important;
+  }
+
   .case-study-grid {
     grid-template-columns: 1fr !important;
     height: auto !important;
     padding: 0 !important;
+    overflow-y: visible !important;
   }
 
   .case-study-content-panel {
     width: 100% !important;
     height: auto !important;
     overflow-y: visible !important;
+    overscroll-behavior: auto !important;
     margin: 0 !important;
     border: none !important;
     background: transparent !important;

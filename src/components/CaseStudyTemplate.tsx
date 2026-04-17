@@ -47,8 +47,8 @@ export default function CaseStudyTemplate({
         });
       },
       {
-        root: contentPanelRef.current,
-        rootMargin: "-25% 0px -70% 0px",
+        root: isMobile ? null : contentPanelRef.current,
+        rootMargin: isMobile ? "-10% 0px -60% 0px" : "-25% 0px -70% 0px",
         threshold: 0,
       },
     );
@@ -56,7 +56,7 @@ export default function CaseStudyTemplate({
     sectionElements.forEach((element) => observer.observe(element));
 
     return () => observer.disconnect();
-  }, [study.sections]);
+  }, [study.sections, isMobile]);
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function CaseStudyTemplate({
       <main className="case-study-page">
         <div className="case-study-background-layer">
           {isMobile ? (
-            <div style={{ position: "absolute", inset: 0, background: "#000" }} />
+            <div style={{ position: "absolute", inset: 0, background: "#000", pointerEvents: "none" }} />
           ) : (
             <InteractiveBackground showChevron={false} activeSection={2} isNotFuckedUpPage={true} />
           )}
