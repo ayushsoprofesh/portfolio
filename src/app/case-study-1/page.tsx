@@ -158,7 +158,7 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-196003&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A196003&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16606&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A16606&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
               allowFullScreen
             />
           </div>
