@@ -15,7 +15,10 @@ const interFont = Inter({
 
 export const metadata: Metadata = {
   title: "Ayush - UX Designer",
-  description: "The Matrix Theme Portfolio",
+  description: "A compilation of Ayush's work",
+  icons: {
+    icon: "/Website Icon.png"
+  }
 };
 
 export default function RootLayout({

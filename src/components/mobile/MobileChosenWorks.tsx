@@ -9,14 +9,14 @@ const PROJECTS = [
     id: 1,
     title: "Designing for Enterprise Scale",
     tags: ["Oracle Fusion Pricing", "Scalability / Complex Systems"],
-    image: "/Chosen works/Case study 1 and 2.png",
+    image: "/Chosen works/Case Study 1.jpg",
     cta: { type: "internal", href: "/password-gate?project=case-study-1" },
   },
   {
     id: 2,
     title: "Fast Execution and Cross-Team Design",
     tags: ["Oracle Fusion Pricing", "Rapid Execution"],
-    image: "/Chosen works/Case study 1 and 2.png",
+    image: "/Chosen works/Case Study 2.png",
     cta: { type: "internal", href: "/password-gate?project=case-study-2" },
   },
   {

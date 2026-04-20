@@ -25,7 +25,7 @@ const FRAMES = [
         href: "/password-gate?project=case-study-1",
       },
     },
-    right: { type: "image" as const, src: "/Chosen works/Case study 1 and 2.png", alt: "Oracle Pricing Engine" },
+    right: { type: "image" as const, src: "/Chosen works/Case Study 1.jpg", alt: "Oracle Pricing Engine" },
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const FRAMES = [
         href: "/password-gate?project=case-study-2",
       },
     },
-    right: { type: "image" as const, src: "/Chosen works/Case study 1 and 2.png", alt: "Cross-Team Design" },
+    right: { type: "image" as const, src: "/Chosen works/Case Study 2.png", alt: "Cross-Team Design" },
   },
   {
     id: 3,
