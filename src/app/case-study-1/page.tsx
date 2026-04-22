@@ -1,5 +1,6 @@
 import CaseStudyTemplate from "@/components/CaseStudyTemplate";
 import { CASE_STUDIES } from "@/lib/portfolio-content";
+import { CASE_STUDY_1_LINKS, getFigmaEmbedUrl } from "@/lib/figma-links";
 import Image from "next/image";
 
 export default function CaseStudyOnePage() {
@@ -126,8 +127,9 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=174-56184&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=174%3A56184&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_1_LINKS.case1)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -149,8 +151,9 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, marginBottom: '1.5rem', backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16112&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A16112&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_1_LINKS.case2_1)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
 
@@ -158,8 +161,9 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16606&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A16606&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_1_LINKS.case2_2)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -181,8 +185,9 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-39164&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=180%3A39164&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_1_LINKS.case3)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -208,8 +213,9 @@ export default function CaseStudyOnePage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=183-80692&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=183%3A80692&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_1_LINKS.case4)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>

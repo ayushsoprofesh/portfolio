@@ -1,5 +1,6 @@
 import CaseStudyTemplate from "@/components/CaseStudyTemplate";
 import { CASE_STUDIES } from "@/lib/portfolio-content";
+import { CASE_STUDY_2_LINKS, getFigmaEmbedUrl } from "@/lib/figma-links";
 
 export default function CaseStudyTwoPage() {
   const content = CASE_STUDIES["case-study-2"];
@@ -89,8 +90,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=184-127551&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=184%3A127551&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case1)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -111,8 +113,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, marginBottom: '1.5rem', backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-196672&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A196672&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case2_1)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
 
@@ -120,8 +123,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-196003&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A196003&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case2_2)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -142,8 +146,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-228733&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A228733&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case3)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -164,8 +169,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-233988&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185%3A233988&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case4)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
@@ -187,8 +193,9 @@ export default function CaseStudyTwoPage() {
           <div style={{ width: 'calc(100% + 2rem)', marginLeft: '-1rem', marginRight: '-1rem', borderRadius: '12px', overflow: 'hidden', position: 'relative', paddingBottom: '60%', height: 0, backgroundColor: '#000' }}>
             <iframe 
               style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }} 
-              src="https://embed.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=185-250422&p=f&viewport=556%2C182%2C0.04&scaling=contain&content-scaling=fixed&starting-point-node-id=185-250422&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1&footer=0&hotspot-hints=0" 
+              src={getFigmaEmbedUrl(CASE_STUDY_2_LINKS.case5)} 
               allowFullScreen
+              loading="lazy"
             />
           </div>
         </div>
