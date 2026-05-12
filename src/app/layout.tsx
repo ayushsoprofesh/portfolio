@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Share_Tech_Mono, Inter } from "next/font/google";
-import "./globals.css";
+import { Instrument_Serif, DM_Sans, JetBrains_Mono } from "next/font/google";
+import "./minimal/minimal.css";
 
-const matrixFont = Share_Tech_Mono({
-  weight: "400",
+const instrumentSerif = Instrument_Serif({
+  weight: ["400"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
-  variable: "--font-share-tech",
+  variable: "--serif",
 });
 
-const interFont = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--mono",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${matrixFont.className} ${matrixFont.variable} ${interFont.variable}`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );

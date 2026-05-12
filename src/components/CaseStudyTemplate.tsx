@@ -103,7 +103,7 @@ export default function CaseStudyTemplate({
             className="case-study-panel case-study-content-panel"
           >
             <div className="case-study-topbar">
-              <Link className="case-study-back-link" href="/">
+              <Link className="case-study-back-link" href="/matrix">
                 {"<- Back to Home"}
               </Link>
             </div>
