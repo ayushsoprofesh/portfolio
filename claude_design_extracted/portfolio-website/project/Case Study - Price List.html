@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Redesigning the Price List — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --ink-soft:#1a1a1a;
+    --ink-dim:#5a5a5a;
+    --ink-faint:#8a8a8a;
+    --paper:#ffffff;
+    --rule:#e6e6e6;
+    --panel-bg: var(--paper);
+    --panel-border: transparent;
+    --panel-radius: 28px;
+    --shadow-flush: 0 0 0 0 rgba(0,0,0,0);
+    --shadow-pop:  0 0 40px 0 rgba(0,0,0,0.10), 0 0 4px 0 rgba(0,0,0,0.04);
+    --lift-offset: 0px;
+    --max: 1120px;
+    --pad-x: 64px;
+    --pad-y: 56px;
+    --serif: "Instrument Serif", serif;
+    --sans:  "DM Sans", system-ui, sans-serif;
+    --mono:  "JetBrains Mono", monospace;
+    --display-font: var(--serif);
+    --display-style: normal;
+    --body-font:    var(--sans);
+    --label-font:   var(--mono);
+  }
+  /* Mood palettes */
+  html[data-mood="ivory"]{
+    --ink:#1a1410; --ink-soft:#2a201a; --ink-dim:#665a4f; --ink-faint:#9b8e80;
+    --paper:#f6f1e9; --rule:#e1d8c9;
+  }
+  html[data-mood="graphite"]{
+    --ink:#f3f3f1; --ink-soft:#e2e2df; --ink-dim:#a8a8a4; --ink-faint:#6f6f6c;
+    --paper:#141414; --rule:#2a2a2a;
+    --shadow-pop: 0 0 60px 0 rgba(0,0,0,0.55), 0 0 4px 0 rgba(0,0,0,0.6);
+  }
+  /* Voice */
+  html[data-voice="sans"]{ --display-font: var(--sans); --display-style: normal; }
+  html[data-voice="mono"]{ --display-font: var(--mono); --display-style: normal; --label-font: var(--sans); }
+  /* Panel character */
+  html[data-panel-feel="bordered"]{ --panel-border: var(--rule); }
+  html[data-panel-feel="floating"]{
+    --shadow-pop: 0 30px 80px -20px rgba(0,0,0,0.22), 0 6px 18px rgba(0,0,0,0.06);
+    --lift-offset: -6px;
+  }
+  html[data-mood="graphite"][data-panel-feel="floating"]{
+    --shadow-pop: 0 30px 80px -20px rgba(0,0,0,0.7), 0 6px 18px rgba(0,0,0,0.4);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink); transition: background .35s ease, color .35s ease;}
+  body{
+    font-family: var(--body-font);
+    font-size: 17px;
+    line-height: 1.62;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection{ background:var(--ink); color:var(--paper); }
+
+  .topnav{
+    position: sticky; top:0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: color-mix(in oklab, var(--paper) 78%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s ease;
+  }
+  .topnav.scrolled{ border-bottom-color: var(--rule); }
+  .topnav-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 14px;
+  }
+  .topnav a{ color: var(--ink); text-decoration: none; }
+  .topnav .home{ font-weight: 500; letter-spacing: -0.01em; }
+  .topnav .crumb{ color: var(--ink-dim); }
+  .topnav .crumb b{ color: var(--ink); font-weight: 500; }
+
+  main{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 64px 32px 160px;
+  }
+
+  /* unified panel — same horizontal padding on every section */
+  .panel{
+    position: relative;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--panel-radius);
+    padding: var(--pad-y) var(--pad-x);
+    margin: 28px 0;
+    box-shadow: var(--shadow-flush);
+    transform: translateY(0);
+    transition: box-shadow .55s cubic-bezier(.2,.6,.2,1), transform .55s cubic-bezier(.2,.6,.2,1), background .35s ease, border-color .35s ease;
+  }
+  .panel.lifted{ box-shadow: var(--shadow-pop); transform: translateY(var(--lift-offset)); }
+
+  .hero{
+    padding: 72px var(--pad-x) 64px;
+    margin-top: 8px;
+  }
+  .hero .eyebrow{
+    font-family: var(--label-font);
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 28px;
+  }
+  .hero h1{
+    font-family: var(--display-font);
+    font-style: var(--display-style);
+    font-weight: 400;
+    font-size: clamp(48px, 7.4vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    text-wrap: balance;
+  }
+  .hero h1 em{ font-style: italic; color: var(--ink-soft); }
+  .hero .lede{
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 780px;
+    text-wrap: pretty;
+    margin: 0 0 56px;
+    letter-spacing: -0.01em;
+  }
+  .meta{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .meta dt{
+    font-family: var(--label-font);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .meta dd{ margin: 0; font-size: 16px; color: var(--ink); }
+
+  .sec-label{
+    font-family: var(--label-font);
+    font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .sec-label .num{ color: var(--ink); }
+  .sec-label .bar{ flex: 0 0 36px; height: 1px; background: var(--ink); }
+
+  h2.sec-h{
+    font-family: var(--display-font);
+    font-style: var(--display-style);
+    font-weight: 400;
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin: 0 0 36px;
+    text-wrap: balance;
+  }
+  h3.sub-h{
+    font-family: var(--display-font);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 48px 0 18px;
+  }
+  h4.minor-h{
+    font-family: var(--body-font);
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    margin: 36px 0 8px;
+  }
+  .panel p{ margin: 0 0 18px; max-width: 72ch; }
+  .panel p:last-child{ margin-bottom: 0; }
+  .panel strong{ font-weight: 600; color: var(--ink); }
+  .panel em{ font-style: italic; }
+  .panel ol, .panel ul{
+    margin: 0 0 18px;
+    padding-left: 22px;
+    max-width: 72ch;
+  }
+  .panel li{ margin-bottom: 6px; }
+  .panel .rule{
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 56px 0;
+  }
+
+  /* numbered context blocks */
+  .context-grid{ display: grid; gap: 40px; }
+  .ctx-item{
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+  }
+  .ctx-item:first-child{ border-top: 0; padding-top: 0;}
+  .ctx-num{
+    font-family: var(--display-font);
+    font-style: var(--display-style);
+    font-size: 44px;
+    line-height: 1;
+  }
+  .ctx-h{
+    font-family: var(--body-font);
+    font-weight: 600;
+    font-size: 19px;
+    margin: 6px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  .ctx-body{ color: var(--ink-soft); max-width: 68ch; }
+
+  /* Layouts for image-bearing content */
+
+  /* (1) UI screenshot → full-width figure stacked below the paragraph */
+  .figure-full{ margin: 28px 0; }
+  .figure-full .placeholder{ aspect-ratio: 21/9; }
+
+  /* (2) Flow chart / diagram → 50% right, 50% left,
+        with the paragraph vertically centered on the left */
+  .row-flow{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;       /* centre-align paragraph */
+    margin: 28px 0;
+  }
+  .row-flow .text p:last-child{ margin-bottom: 0; }
+
+  .placeholder{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        color-mix(in oklab, var(--ink) 3%, var(--paper)) 0,
+        color-mix(in oklab, var(--ink) 3%, var(--paper)) 8px,
+        color-mix(in oklab, var(--ink) 7%, var(--paper)) 8px,
+        color-mix(in oklab, var(--ink) 7%, var(--paper)) 16px
+      );
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+  }
+  .placeholder.diagram{ aspect-ratio: 4 / 3; }
+  .placeholder.ui{ aspect-ratio: 21/9; }
+  .placeholder .label{
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    background: var(--paper);
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
+    max-width: 92%;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .placeholder .label::before{
+    content: "▸ image";
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .placeholder.ui .label::before{ content: "▸ ui screenshot"; }
+  .placeholder.diagram .label::before{ content: "▸ diagram"; }
+
+  /* responsibility timeline */
+  .resp-card{ padding: var(--pad-y) var(--pad-x) 48px; }
+  .resp-card .resp-intro{ color: var(--ink-soft); max-width: 64ch; margin: 0 0 40px; }
+  /* two-state cross-fade: each state occupies the same box; CSS grid stacks them */
+  .resp-states{ display:grid; grid-template-areas: "stack"; }
+  .resp-state{
+    grid-area: stack;
+    transition: opacity .55s ease, filter .55s ease, transform .55s ease;
+    will-change: opacity, filter, transform;
+  }
+  .resp-state[data-active="false"]{
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(6px);
+    pointer-events: none;
+  }
+  .resp-state[data-active="true"]{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  .resp-intro-pos{ min-height: 1.6em; }
+  .resp-diagram{
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 8px;
+  }
+  .timeline{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    padding-top: 100px;
+  }
+  .timeline::before{
+    content:"";
+    position: absolute;
+    left: 5%; right: 5%;
+    top: 124px;
+    height: 1px;
+    background: var(--ink);
+  }
+  .stage{ position: relative; text-align: center; padding: 0 8px; }
+  .stage .dot{
+    position: absolute;
+    top: -16px; left: 50%;
+    transform: translateX(-50%);
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+  .stage-name{
+    position: absolute;
+    top: -78px; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--body-font);
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+  }
+  .stage-owner{
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    background: var(--paper);
+  }
+  .stage-owner.you{ background: var(--ink); color: var(--paper); }
+  .stage-owner small{
+    font-family: var(--label-font);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .stage-owner.you small{ color: #c2c2c2; }
+
+  /* how-i cards */
+  .howi-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 28px;
+  }
+  .howi{
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--panel-radius);
+    padding: 28px;
+    box-shadow: var(--shadow-flush);
+    transition: box-shadow .55s cubic-bezier(.2,.6,.2,1);
+  }
+  .howi.lifted{ box-shadow: var(--shadow-pop); }
+  .howi .ph{
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 14px;
+    background:
+      repeating-linear-gradient(135deg,
+        color-mix(in oklab, var(--ink) 3%, var(--paper)) 0,
+        color-mix(in oklab, var(--ink) 3%, var(--paper)) 8px,
+        color-mix(in oklab, var(--ink) 7%, var(--paper)) 8px,
+        color-mix(in oklab, var(--ink) 7%, var(--paper)) 16px);
+    border: 1px solid var(--rule);
+    margin-bottom: 18px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .howi .ph span{
+    font-family: var(--mono);
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint);
+    background: var(--paper); padding: 6px 10px; border-radius: 6px; border:1px solid var(--rule);
+  }
+  .howi p{ font-size: 15.5px; line-height: 1.55; color: var(--ink); margin: 0; }
+  .howi .tag{
+    font-family: var(--label-font);
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  /* problem/solution/impact — stacked subsections */
+  .triad{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 0;
+  }
+  .triad-row{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 28px 28px 28px 28px;
+    border-radius: 14px;
+    background: var(--surface-2, #f5f3ee);
+    border: 1px solid var(--rule);
+  }
+  .triad-row .triad-tag{
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .triad-row .triad-tag .triad-mark{
+    font-family: var(--label-font);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .triad-row h4{
+    font-family: var(--display-font);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    margin: 0;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .triad-row .triad-body p{
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .impact-list{
+    list-style: none; padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    counter-reset: imp;
+  }
+  .impact-list li{
+    padding: 14px 16px 14px 14px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    font-size: 16px;
+    color: var(--ink);
+    counter-increment: imp;
+  }
+  .impact-list li::before{
+    content: "0" counter(imp);
+    font-family: var(--label-font);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    padding-top: 3px;
+  }
+
+  /* conclusion */
+  .conclusion p{
+    font-family: var(--display-font);
+    font-style: var(--display-style);
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 64ch;
+  }
+  .conclusion p em{ font-style: italic; }
+
+  .pageend{
+    text-align: center;
+    margin-top: 80px;
+    color: var(--ink-faint);
+    font-family: var(--label-font);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px){
+    :root{ --pad-x: 28px; --pad-y: 36px; }
+    main{ padding: 32px 18px 80px; }
+    .panel{ border-radius: 22px; }
+    .hero{ padding: 48px 28px 40px; }
+    .meta{ grid-template-columns: 1fr 1fr; }
+    .row-flow{ grid-template-columns: 1fr; }
+    .ctx-item{ grid-template-columns: 56px 1fr; }
+    .timeline{ grid-template-columns: 1fr; gap: 30px; padding-top: 16px; }
+    .timeline::before{ display:none; }
+    .stage{ text-align: left; padding-left: 22px; border-left: 1px solid var(--ink); }
+    .stage .dot{ top: 10px; left: -6px; transform:none;}
+    .stage-name{ position: static; transform:none; display:block; margin-bottom: 6px;}
+    .stage-owner{ margin-top: 4px; }
+    .howi-grid{ grid-template-columns: 1fr; }
+    .triad-row{ grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <a class="home" href="#">← Portfolio</a>
+    <div class="crumb">Case study · <b>Redesigning the Price List</b></div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- 1. HERO -->
+  <section class="panel hero" data-panel>
+    <div class="eyebrow">Case Study · 01</div>
+    <h1>Redesigning the<br/><em>Price List.</em></h1>
+    <p class="lede">Rebuilding a foundational entity in Oracle's pricing suite for the scale, logic, and recurrence of how pricing teams actually work.</p>
+    <dl class="meta">
+      <div><dt>Timeline</dt><dd>7 release quarters</dd></div>
+      <div><dt>Team</dt><dd>2 : Manager + me</dd></div>
+      <div><dt>Role</dt><dd>UX Designer</dd></div>
+      <div><dt>Surface</dt><dd>Enterprise B2B · Pricing</dd></div>
+    </dl>
+  </section>
+
+  <!-- 2. QUICK SUMMARY: Problem / Solution / Impact — stacked -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">01</span><span>Quick Summary</span></div>
+    <h2 class="sec-h">Problem, Solution and the Impact that followed.</h2>
+
+    <div class="triad">
+      <div class="triad-row" style="background-color: rgb(255, 255, 255); border-width: 0px; padding: 28px 28px 0px 0px; border-radius: 0px">
+        <div class="triad-tag">
+          <span class="triad-mark">01</span>
+          <h4>Problem</h4>
+        </div>
+        <div class="triad-body">
+          <p>A foundational pricing entity, built to store hundreds of thousands to a million items per list, was designed as a UI-fied database. Hierarchy was traversed by scroll, every action repeated per item, and recurring work like cost passthroughs, renewals, regional rollouts  reimposed the same cost on users every time. In B2B contexts, manual price list maintenance routinely runs into weeks or months at scale.</p>
+        </div>
+      </div>
+
+      <div class="triad-row" style="background-color: rgb(255, 255, 255); border-width: 0.833333px 0px 0px; padding: 28px 0px 0px; border-radius: 0px">
+        <div class="triad-tag">
+          <span class="triad-mark">02</span>
+          <h4>Solution</h4>
+        </div>
+        <div class="triad-body">
+          <p>Reframed the price list from a container of data into a surface for manipulating it. Made the smallest unit of work that's Item × UOM × Charge × Date Effectivity into the row. Replaced repetitive single item flows with rule based mass actions, an Excel grade grid escape hatch, and UOM derived pricing logic. Hierarchy moved off the critical path; the work users actually do became first class.</p>
+        </div>
+      </div>
+
+      <div class="triad-row" style="background-color: rgb(255, 255, 255); padding: 28px 28px 0px; border-width: 0.833333px 0px 0px; border-radius: 0px">
+        <div class="triad-tag">
+          <span class="triad-mark">03</span>
+          <h4>Impact</h4>
+        </div>
+        <div class="triad-body">
+          <ul class="impact-list" style="padding: 0px">
+            <li><span>4-level scroll hierarchy → single first-layer surface for the 80% of work users do daily</span></li>
+            <li><span>N-step per-item flow → one rule based action scaling across thousands of priced atoms</span></li>
+            <li><span>Three pricing patterns surfaced and codified like mass action, grid editing, UOM derivation, thus replacing manual re-execution of logic users already kept in their heads</span></li>
+            <li><span>Patterns adopted across other pricing apps in the suite, reducing design and ship time for downstream products</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CONTEXT -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">02</span><span>Context</span></div>
+    <h2 class="sec-h">Context For You</h2>
+
+    <div class="context-grid">
+      <div class="ctx-item">
+        <div class="ctx-num">1</div>
+        <div>
+          <div class="ctx-h">Pricing and the Fusion Ecosystem</div>
+          <p class="ctx-body">Oracle Fusion Pricing is part of a larger quote-to-cash chain the items are mastered in Product Identity Management (PIM), prices are authored in Pricing, then consumed by CPQ, Order Management, and Subscription Management to fulfill quotes, orders, and recurring contracts. The Pricing suite itself spans price lists, cost lists, discount lists, and pricing strategies and the Price List is the entity that carries the actual prices the rest of the chain runs on.</p>
+        </div>
+      </div>
+
+      <div class="ctx-item">
+        <div class="ctx-num">2</div>
+        <div>
+          <div class="ctx-h">What a Price List is</div>
+          <p class="ctx-body">A Price List stores the values that a downstream order fulfillment system uses to price line items at the moment of sale. It's the single source of truth for "what does this cost" and downstream apps can't fulfill orders without it.</p>
+        </div>
+      </div>
+
+      <div class="ctx-item">
+        <div class="ctx-num">3</div>
+        <div>
+          <div class="ctx-h">How complex a Price List actually is</div>
+          <p class="ctx-body">A single line in a price list isn't a row of data it's a combination of Item × UOM × Charge × Date Effectivity, with the Item being one of four fundamentally different types (standard, subscription, coverage, model), each carrying its own charge logic, attributes, and pricing rules. On top of that sit volume and attribute based adjustments, customer specific flex fields configured per implementation, and date effective variants  so a price list with a million "items" actually represents several million distinct priced atoms.</p>
+        </div>
+      </div>
+
+      <div class="ctx-item">
+        <div class="ctx-num">4</div>
+        <div>
+          <div class="ctx-h">Why redesign, not revamp</div>
+          <p class="ctx-body">Lifting the existing UI onto the new design system would have refreshed the visuals while preserving the underlying interaction model that was these actual problem that the data hierarchy mirrored as scroll, the per item flow, the static storage mental model. The redesign brief wasn't about how the price list looked; it was about what a price list should be which is where the real work began.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. REDEFINING THE CORE -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">03</span><span>DEFINING THE STRUCTURE</span></div>
+    <h2 class="sec-h">Redefining the Core</h2>
+
+    <h4 class="minor-h" style="font-size: 24px">The mental model we were really designing for</h4>
+    <p>Pricing admins don't think in tables. They think in <strong>Excel folders that are nested by year, then country, then customer</strong>. The model is a tree of containers, and it exists because the data is too voluminous and too contextual to live any other way. That's the world a pricing admin walks in expecting.</p>
+
+    <p>Legacy mirrored that instinct, but only halfway. It preserved the conceptual hierarchy : Price List → Item → Charge → Adjustment that's then collapsed every level onto a single linear screen. Open a price list, scroll past its details, search for items, click an item to reveal its charges, click a charge to reveal its adjustments. The hierarchy was real, but traversed by scroll. For a list with 500K to a million rows, the screen stops being a screen and becomes a corridor and every task means tracking where you are, what you've touched, and how far you've fallen.</p>
+
+    <figure class="figure-full">
+      <div class="placeholder ui">
+        <div class="label">legacy screenshot with annotations:<br/>Price list details + DFFs / Items in the price list / Charges for selected items</div>
+      </div>
+    </figure>
+
+    <p>The cost isn't theoretical. Manual B2B price list maintenance routinely runs into weeks or months at scale, while properly tooled workflows compress the same work into days. And this work recurs  cost pass-throughs during inflation, contract renewals, regional rollouts, customer specific configurations after every implementation. A UI that treats the entity as static storage taxes admins every single time.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">The obvious move  and why we didn't stop there</h4>
+    <p>The first reframe almost writes itself. If the data is hierarchical and admins think in folders, give them folders. Swap the corridor for a nested drilldown: each level its own page. Cognitive load drops because nothing above or below competes for attention.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>We built that model out, looked at it, and rejected it.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">linear stack → nested drilldown,<br/>"Not this" labeling the move</div>
+      </div>
+    </div>
+
+    <h4 class="minor-h" style="font-size: 24px">Then what?</h4>
+    <p>A nested drilldown is a faithful translation of how the data is stored. It isn't a translation of what users are trying to do. A pricing admin doesn't open a price list to admire its hierarchy they open it to see and change values. So we asked the question legacy never had: what's the smallest unit of work that actually matters?</p>
+
+    <p>Not the price list. Not the item. Not even the charge. It's the specific combination of Item × UOM × Charge × Date Effectivity that carries a value. That combination is what gets reviewed before a renewal, bulk-edited during a cost pass through, and consumed by every downstream order fulfillment system. It's the atom of the domain and legacy had buried it three clicks deep.</p>
+
+    <p><strong style="font-size: 24px">So we made that Atom the row.</strong></p>
+
+    <p>Open a price list now and you land directly in a flat, fully populated table where every row is a priced combination, value inline and actionable from the first layer. Search, filter, and multi select scale with the volume now operations that once required traversing a corridor per item now apply to thousands of rows at once. The hierarchy isn't gone; it's moved off the critical path. Charge attributes that don't fit the table, customer specific DFFs, and volume based adjustments live behind a focused drilldown, one click away for the work that genuinely needs them.</p>
+
+    <p>The trade off is deliberate. Less-frequent operations cost an extra step. In exchange, the work admins actually spend their week on becomes a first class, single surface activity. We stopped designing a UI for the database and started designing one for the job.</p>
+  </section>
+
+  <!-- 5. SETTING UP ITEMS -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">04</span><span>ADDING ITEMS</span></div>
+    <h2 class="sec-h">Setting Up Items: Decoupling "Add" from "Price"</h2>
+
+    <h4 class="minor-h" style="font-size: 24px">The PIM upstream</h4>
+    <p>Before any of this, items live somewhere else. Oracle's PIM (Product Identity Management) is part of the broader Fusion ecosystem it is where items are authored, governed, and maintained. The price list's job isn't to create items; it's to attach values to items that already exist. That distinction matters, because legacy didn't honor it.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">What legacy made users do</h4>
+    <p>Legacy treated "add an item" and "price an item" as a single task and then forced users to repeat that task line by line. The flow: search for an item, pick one from a dropdown, pick a UOM from another dropdown, define the charge, assign a value, save, repeat. The master list of available items wasn't even visible until you started typing. Every item was a fresh round trip.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>For a price list of any meaningful size, the math is brutal. <strong>A flow that's tolerable for one item is unworkable for a thousand.</strong> Unifying the two actions felt efficient at the unit level and ignored the volume of the work entirely.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">flow diagram:<br/>Search → Select Item → Select UOM → Define Charge → Assign Value → Repeat (×N)</div>
+      </div>
+    </div>
+
+    <h4 class="minor-h" style="font-size: 24px">The reframe: separate the questions</h4>
+    <p>We took a breather and asked whether the unified flow actually scaled and decided it didn't. So we split it into two distinct questions, each with its own surface:</p>
+    <ol>
+      <li><strong>Which items belong in this price list?</strong> — This section.</li>
+      <li><strong>What are they priced at?</strong> — Next section.</li>
+    </ol>
+
+    <h4 class="minor-h" style="font-size: 24px">Designing the "add" surface</h4>
+    <p>PIM already has the population so we surfaced it. Click Add Items, and the full PIM catalog appears as an Item × UOM list, browsable upfront, with search and filter across item attributes so users can pull in matching sets in one go instead of one at a time.</p>
+
+    <figure class="figure-full">
+      <div class="placeholder ui">
+        <div class="label">new design screen: Add Items panel with PIM-sourced list, attribute filters, multi-select</div>
+      </div>
+    </figure>
+
+    <p>We also added a new construct: Item Catalogs that's a customer configurable grouping layer set up during pricing app implementation. It lets each customer carve PIM into the slices that match how their business reasons about products (region, brand, line of business, contract type, whatever fits), and add those groups directly into a price list as a unit.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">The result</h4>
+    <p>Adding items goes from N repetitions of a 5-step flow to one selection over a populated, filterable list. The act of pricing is removed from the act of inclusion and pricing now gets its own properly designed surface, which is the next section.</p>
+  </section>
+
+  <!-- 6. PRICING ITEMS: THREE MOVES -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">05</span><span>Pricing Items</span></div>
+    <h2 class="sec-h">Pricing Items: Three Moves</h2>
+
+    <p>Pricing isn't one problem. Once we looked at how analysts actually worked, it resolved into three distinct patterns each with its own logic, its own muscle memory, and its own scale. A single editing surface couldn't serve all three without compromising every one. So we built three.</p>
+
+    <hr class="rule" />
+
+    <h3 class="sub-h">Move 1: Mass Pricing — codifying the rule, not the value</h3>
+
+    <h4 class="minor-h" style="font-size: 24px">What legacy made users do</h4>
+    <p>Legacy gave each line a value field. Users looked at their local records (usually a master Excel) and typed the new price in, line by line, list by list. At a single price list of hundreds of thousands of items, across multiple price lists per customer, country, and time period, this isn't tedious. It's impossible.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">How users actually price</h4>
+    <p>We asked. The answer was the unlock. Analysts almost never invent prices per item per list. They maintain one source-of-truth list usually a base price list or a cost list in Excel and derive every other list from it by rule:</p>
+    <ul>
+      <li>"Take the base list, mark up 5% for next year."</li>
+      <li>"Take the cost list, add a 30% margin for this customer."</li>
+      <li>"Take the current US prices, convert and add 8% for the EU rollout."</li>
+    </ul>
+    <p>The logic was already there. Legacy just overlooked it, so users executed it manually every time.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">The reframe</h4>
+    <p>If users price by rule, <strong>let them price by rule</strong>. We added a Mass Pricing surface: select Item × Charge atoms from the main table, click <strong>Update Prices</strong>, and a drawer opens with a rule builder.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>The drawer scopes itself intelligently. The main list has thousands of items but only a handful of supported charges, so the drawer surfaces just the charges in the user's selection keeping the rule definition focused on what's actually being edited.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">rule builder structure — Base Entity (Price List / Cost List / Current PL Price) → Source List → Reference Date → Operation (Markup/Markdown by % or amount) → Value → Effective Dates</div>
+      </div>
+    </div>
+
+    <p><strong>The result: the unit of work shifts from the price to the rule.</strong> A single rule action prices thousands of atoms. The logic users already kept in their heads is now codified, auditable, and reusable.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">Removing the housekeeping step</h4>
+    <p>A second order problem surfaced once we built this: a single Item × UOM × Charge × Date Effectivity atom can't carry two prices at the same time the order management system downstream wouldn't know which to honor. So updating a price isn't really one action; it's two: end-date the old price, start the new one. Legacy forced users to do both, manually, in sequence.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>We collapsed the second action into the first. <strong>If a user adds a new price with a future start date, and an existing open ended price is still active, the existing price auto-end-dates the day before the new one begins.</strong></p>
+        <p>The user never thinks about the housekeeping. The integrity of the data is preserved without making them earn it.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">timeline diagram: existing price (open-ended) → new price added with future start → existing auto-ends one day prior</div>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <h3 class="sub-h">Move 2: The Grid Escape Hatch — designing for muscle memory</h3>
+
+    <h4 class="minor-h" style="font-size: 24px">The constraint, reframed as a feature</h4>
+    <p>Pricing analysts live in grids. Excel is their native environment they share, review, and reason about prices in tabbed grids, often passing spreadsheets around over email. That muscle memory is decades deep.</p>
+
+    <p>Our price list is built on Oracle's table component, which is the right default for this surface: <strong>prices are sensitive transactional data, and tables enforce a deliberate edit flow where they click a cell, open an edit affordance, commit the change.</strong> That friction is protective. Grids, by contrast, allow accidental edits and paste-overs, which is exactly what you don't want as the default for data that flows directly into order fulfillment.</p>
+
+    <p>But the same friction that protects against single cell mistakes makes bulk editing painful. Both modes are right; neither is right for everything.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">The reframe</h4>
+    <p>Don't replace the table. Don't compromise it. <strong>Let users opt into a grid when they need one.</strong></p>
+
+    <p>Users select atoms from the main table and promote them into a dedicated grid surface that's a deliberate mode switch, not a default. Inside the grid, they can paste columns directly from Excel, edit in place, and apply changes in bulk, in exactly the workflow they already practice outside the product.</p>
+
+    <figure class="figure-full">
+      <div class="placeholder ui">
+        <div class="label">screenshot: grid editing surface, paste-from-Excel demonstration</div>
+      </div>
+    </figure>
+
+    <p>The result: the table protects the 99% case. The grid serves the 1% case where bulk editing is the actual job. Users don't break their existing patterns to use our product they bring those patterns in.</p>
+
+    <hr class="rule" />
+
+    <h3 class="sub-h">Move 3: UOM-Derived Pricing — codifying logic users were re-running by hand</h3>
+
+    <h4 class="minor-h" style="font-size: 24px">The pattern in the data</h4>
+    <p>Every price list we looked at had the same item appearing in multiple UOMs as separate lines (Each, Pair, Dozen, Case) each with its own price. Legacy required users to enter every variant manually.</p>
+
+    <p>When we asked analysts how they actually priced different UOMs, the answer was almost always the same shape: "It's price-per-unit times UOM, plus a markdown." A pair is 2× minus 2%. A dozen is 12× minus 12%. The conversion logic was consistent across an item group, often consistent across an entire customer's catalog.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">Why this matters more than it looks</h4>
+    <p>The deeper issue isn't just data entry volume. <strong>The logic was already in the analysts' heads that legacy made them re-execute it manually for every item, every list, every time.</strong> That's not just slow; it's error-prone. Manual re-execution of a known rule is exactly where typos, missed multipliers, and inconsistencies enter the data. <strong>Codifying the rule once doesn't just save keystrokes; it produces consistency the manual flow couldn't guarantee.</strong></p>
+
+    <h4 class="minor-h" style="font-size: 24px">The reframe</h4>
+    <p>Price the base unit. Define the UOM conversion rule once. Apply it across the item group.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>We paired this with the Mass Pricing rule builder from Move 1 — so a single action can now price a base unit across a group <em>and</em> derive every UOM variant in the same pass.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">1 base price (Each: $10) → UOM rule (Pair = 2× + 2%, Dozen = 12× + 12%) → derived prices auto-populate across the group</div>
+      </div>
+    </div>
+
+    <p><strong>The result: data entry collapses, and so does the surface area for human error.</strong> What used to be hundreds of manual entries per item group becomes one base price plus one rule.</p>
+
+    <hr class="rule" />
+
+    <h3 class="sub-h">Why three moves, not one</h3>
+    <p>A single "edit prices" surface would have been simpler to design and worse at every job. Mass Pricing, the Grid, and UOM-Derived Pricing aren't variations of the same task they're responses to three different things users were already doing, in three different mental modes: rule based derivation, hands on bulk editing, and implicit logic that had never been codified. Designing for the mode, not the action, is what made each surface earn its place.</p>
+  </section>
+
+  <!-- 7. ITEMS: HOLDING THE LINE, THEN FINDING THE DOOR -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">06</span><span>Items</span></div>
+    <h2 class="sec-h">Items: Holding the Line, Then Finding the Door</h2>
+
+    <h4 class="minor-h">Four item types, one table</h4>
+    <p>Price lists support four fundamentally different item types: <strong>Standard</strong> items charged one-time or on a recurring basis; <strong>Subscription</strong> items priced via rate plans that combine one-time, recurring, and usage-based charges; <strong>Coverage</strong> items like warranties, sold in bundles and priced against an item, a category, or the whole catalog; and <strong>Models</strong>, which are configurations assembled from standard items.</p>
+
+    <p>These aren't variations of the same thing. They differ in setup, in pricing logic, and in the attributes that matter. A subscription's rate plan has nothing in common with a warranty's coverage scope. Legacy treated them as one where every attribute for every type sat in a single table, and the table stopped being scannable.</p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>The legacy single-table view jammed every type's attributes into one row structure with most cells empty because most attributes don't apply to most rows.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">legacy single-table view — one wide table with columns for rate plan, coverage scope, model config, and standard pricing all jammed into one row structure; most cells empty because most attributes don't apply to most rows</div>
+      </div>
+    </div>
+
+    <h4 class="minor-h" style="font-size: 24px">The disagreement</h4>
+    <p>Our design proposed separating the four into tabs with one surface per item type, each with the attributes that actually applied. PMs preferred a single table for engineering simplicity. They escalated, secured senior approval, and built a custom component to support type switching from inside the action collection which was a pattern that conflicted with the design system and, more fundamentally, conflated "switching what you're acting on" with "acting on what you've selected."</p>
+
+    <h4 class="minor-h" style="font-size: 24px">Holding the line without blocking delivery</h4>
+    <p>We didn't win that round. The custom component shipped. <strong>What we did do: annotate the deviation in the design file in the loudest red we had, and leave our tabbed design intact as the documented intent.</strong> Delivery moved forward; the disagreement was on record. Both teams could ship and both positions were preserved.</p>
+
+    <h4 class="minor-h" style="font-size: 24px">The door that opened later</h4>
+    <p>I'd been making a habit of reading our design system's quarterly release notes — partly out of curiosity, partly because unresolved itches don't go away just because a decision was made. Oracle is a large company with hundreds of products, and the DS team continuously evolves components based on needs surfacing across the org — none of which had anything to do with our project.</p>
+
+    <p>Three quarters in, an enhancement landed: a <strong>context switcher</strong> pattern, purpose-built for switching the entity in scope without conflating it with actions on that entity. It wasn't tabs. It wasn't the custom component. <strong>It was the thing our problem had been asking for, built for someone else's reasons entirely.</strong></p>
+
+    <div class="row-flow">
+      <div class="text">
+        <p>I brought it to my manager, we mocked it up against the live surface, and we walked it back to the PM as a future enhancement. This time the conversation went differently there was now a sanctioned, system-native answer to the question we'd raised nine months earlier. It went into the roadmap.</p>
+      </div>
+      <div class="placeholder diagram">
+        <div class="label">side-by-side — left: custom component with type-switcher embedded inside the action collection (entity scope and actions tangled); right: context switcher with type-switcher placed above and separate from the action collection (entity scope and actions cleanly separated)</div>
+      </div>
+    </div>
+
+    <hr class="rule" />
+
+    <h4 class="minor-h" style="font-size: 24px">The lesson</h4>
+    <p>Not every design fight is winnable in the moment, and not every loss is permanent. <strong>Documenting a principled disagreement is a different act from blocking delivery — and doing both, well, is part of the job.</strong> The "itch" of an unresolved design problem is information; staying alert to the ecosystem around your product — even the parts that have nothing to do with you — is how you eventually act on it. Three quarters of patience and a habit of reading release notes turned a loss into a roadmap item.</p>
+  </section>
+
+  <!-- 8. CONCLUSION -->
+  <section class="panel conclusion" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">07</span><span>Conclusion</span></div>
+    <h2 class="sec-h">Conclusion</h2>
+    <p style="font-family: &quot;DM Sans&quot;; font-weight: 300; font-size: 22px">This was my first major product redesign, and the lessons came in two registers. The craft ones I can name now because the project taught them: <strong>question the data model before accepting it as the interaction model, design for the mode the user is in rather than the action they're taking, and treat constraints as design inputs rather than obstacles.</strong></p>
+
+    <p style="font-family: &quot;DM Sans&quot;; font-weight: 300; font-size: 22px">The deeper one I learned by watching my manager was that <strong>a documented disagreement is more durable than a won argument</strong>, and that most of the design actually gets made in the tight loops between people, not at the edges of the process. I came in as a designer who could produce screens. I left as one who could hold a position, run a loop, and recognize the right answer when it showed up nine months late.</p>
+  </section>
+
+  <!-- 9. RESPONSIBILITY — one section, two states (cross-fade on scroll midpoint) -->
+  <section class="panel resp-card" id="resp-section" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">08</span><span>WORKFLOW</span></div>
+    <h2 class="sec-h">How I worked with the team</h2>
+
+    <div class="resp-intro-pos resp-states">
+      <p class="resp-intro resp-state" data-state="1" data-active="true">Here's how the work moved between PM, Manager, Dev, and me across the project.</p>
+      <p class="resp-intro resp-state" data-state="2" data-active="false">Here's how the work changed over successful cycles.</p>
+    </div>
+
+    <div class="resp-states">
+      <!-- State 1 — cross-functional -->
+      <div class="resp-state" data-state="1" data-active="true">
+        <img class="resp-diagram" src="assets/process-1.svg" alt="Process 1 — cross-functional ownership across the project" style="margin: 8px 0px 0px; border-width: 0.833333px; border-style: solid; border-radius: 1px; border-color: rgb(230, 230, 230); height: 245.903px" />
+      </div>
+
+      <!-- State 2 — later cycles -->
+      <div class="resp-state" data-state="2" data-active="false">
+        <img class="resp-diagram" src="assets/process-2.svg" alt="Process 2 — ownership over successive cycles" style="margin: 8px 0px 0px; border-width: 0.833333px; border-style: solid; border-radius: 1px; border-color: rgb(230, 230, 230); height: 245.903px" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. HOW I -->
+  <section class="panel" data-panel>
+    <div class="sec-label"><span class="bar"></span><span class="num">09</span><span>EXTRAS</span></div>
+    <h2 class="sec-h">Some Tasty Sides</h2>
+
+    <div class="howi-grid">
+      <div class="howi" data-panel>
+        <div class="ph"><span>image · component library</span></div>
+        <div class="tag">Systems</div>
+        <p>How I maintained an internal component library specefic to Pricing suite, so the already made components can be used across different apps, maintaining Familiarity</p>
+      </div>
+      <div class="howi" data-panel>
+        <div class="ph"><span>image · scaleable flows</span></div>
+        <div class="tag">Patterns</div>
+        <p>Created scaleable flows like mass action, data grid entry, matrix. tiers that were used in other pricing apps fitting it to their use case. bacame easy to ship other products fast</p>
+      </div>
+      <div class="howi" data-panel>
+        <div class="ph"><span>image · pricing on a timeline</span></div>
+        <div class="tag">Exploration</div>
+        <p>Experimented with changing the way user saw pricing data, instead of grids why not visualize prices in a timeline. Idea didn't move further due to lack of research bandwidth. Got appreciated at senior levels for the effort.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="pageend">— end of case study —</div>
+</main>
+
+<div id="tweaks-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "mood": "editorial",
+    "voice": "serif",
+    "panelFeel": "flush"
+  }/*EDITMODE-END*/;
+
+  function CaseStudyTweaks(){
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => {
+      const root = document.documentElement;
+      root.setAttribute('data-mood', t.mood);
+      root.setAttribute('data-voice', t.voice);
+      root.setAttribute('data-panel-feel', t.panelFeel);
+    }, [t.mood, t.voice, t.panelFeel]);
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Mood" />
+        <TweakRadio value={t.mood}
+          options={[
+            {value:'editorial', label:'Editorial'},
+            {value:'ivory',     label:'Ivory'},
+            {value:'graphite',  label:'Graphite'}
+          ]}
+          onChange={(v)=>setTweak('mood', v)} />
+        <TweakSection label="Voice" />
+        <TweakRadio value={t.voice}
+          options={[
+            {value:'serif', label:'Serif-led'},
+            {value:'sans',  label:'Sans-only'},
+            {value:'mono',  label:'Mono'}
+          ]}
+          onChange={(v)=>setTweak('voice', v)} />
+        <TweakSection label="Panels" />
+        <TweakRadio value={t.panelFeel}
+          options={[
+            {value:'flush',    label:'Flush'},
+            {value:'bordered', label:'Bordered'},
+            {value:'floating', label:'Floating'}
+          ]}
+          onChange={(v)=>setTweak('panelFeel', v)} />
+      </TweaksPanel>
+    );
+  }
+  // Apply initial values immediately so the page boots in the chosen mood.
+  document.documentElement.setAttribute('data-mood',       TWEAK_DEFAULTS.mood);
+  document.documentElement.setAttribute('data-voice',      TWEAK_DEFAULTS.voice);
+  document.documentElement.setAttribute('data-panel-feel', TWEAK_DEFAULTS.panelFeel);
+
+  ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<CaseStudyTweaks/>);
+</script>
+
+<script>
+  // Panel lift: previously triggered at viewport midline (0.5).
+  // Move the actuation up by 25% of viewport height → trigger band centred on 0.25.
+  const panels = document.querySelectorAll('[data-panel]');
+  function updateOnScroll(){
+    const vh = window.innerHeight;
+    panels.forEach(p => {
+      const r = p.getBoundingClientRect();
+      // Band: top  < vh * 0.45  (was 0.70) ; bottom > vh * 0.05 (was 0.30) — 25% higher.
+      if (r.top < vh * 0.45 && r.bottom > vh * 0.05) {
+        p.classList.add('lifted');
+      } else {
+        p.classList.remove('lifted');
+      }
+    });
+
+    const nav = document.getElementById('topnav');
+    if (window.scrollY > 8) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+
+    // Responsibility section: switch state when its vertical middle crosses viewport middle.
+    const resp = document.getElementById('resp-section');
+    if (resp){
+      const rr = resp.getBoundingClientRect();
+      const sectionMid = rr.top + rr.height / 2;
+      const showState2 = sectionMid < vh * 0.5;
+      resp.querySelectorAll('.resp-state').forEach(el => {
+        const want = el.getAttribute('data-state') === (showState2 ? '2' : '1');
+        el.setAttribute('data-active', want ? 'true' : 'false');
+      });
+    }
+  }
+  window.addEventListener('scroll', updateOnScroll, { passive: true });
+  window.addEventListener('resize', updateOnScroll);
+  updateOnScroll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(New-Item -ItemType Directory -Force \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-1\")",
+      "Bash(Out-Null)",
+      "Bash(New-Item -ItemType Directory -Force \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-2\")",
+      "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\page.tsx\")",
+      "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\case-study-1\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-1\\\\page.tsx\")",
+      "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\case-study-2\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-2\\\\page.tsx\")",
+      "Bash(Write-Output \"Matrix files copied\")"
+    ]
+  }
+}

@@ -1,14 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./case-study-1.module.css";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
+gsap.registerPlugin(useGSAP);
 
 export default function CaseStudy1() {
   const [mood, setMood] = useState("editorial");
   const [voice, setVoice] = useState("serif");
   const [panelFeel, setPanelFeel] = useState("flush");
-  const [readMode, setReadMode] = useState<"short" | "story">("short");
+  const [readMode, setReadMode] = useState<"short" | "story">("story");
+  const pillRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const panels = document.querySelectorAll('[data-panel]');
@@ -53,6 +59,21 @@ export default function CaseStudy1() {
     };
   }, [readMode]);
 
+  // GSAP: animate the sliding pill indicator when readMode changes
+  useGSAP(() => {
+    const pill = pillRef.current;
+    const indicator = indicatorRef.current;
+    if (!pill || !indicator) return;
+    const buttons = pill.querySelectorAll('button');
+    const activeBtn = readMode === 'short' ? buttons[0] : buttons[1];
+    gsap.to(indicator, {
+      x: (activeBtn as HTMLElement).offsetLeft - 4,
+      width: (activeBtn as HTMLElement).offsetWidth,
+      duration: 0.35,
+      ease: 'power3.out',
+    });
+  }, { dependencies: [readMode], scope: pillRef });
+
   return (
     <div 
       className={styles.caseStudyRoot}
@@ -72,41 +93,85 @@ export default function CaseStudy1() {
         {/* 1. HERO */}
         <section className={`${styles.panel} ${styles.hero}`} data-panel="true" style={{ position: 'relative' }}>
           {/* MODE TOGGLE */}
-          <div style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', background: 'var(--rule)', borderRadius: '100px', padding: '4px' }}>
-            <button 
-              onClick={() => setReadMode('short')}
+          <div style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
+            <div
+              ref={pillRef}
               style={{
-                background: readMode === 'short' ? 'var(--ink)' : 'transparent',
-                color: readMode === 'short' ? 'var(--paper)' : 'var(--ink-soft)',
-                border: 'none',
-                padding: '8px 16px',
+                position: 'relative',
+                display: 'flex',
+                background: 'var(--rule)',
                 borderRadius: '100px',
-                cursor: 'pointer',
-                fontFamily: 'var(--sans)',
-                fontSize: '14px',
-                fontWeight: 500,
-                transition: 'all 0.2s ease'
+                padding: '4px',
               }}
             >
-              Short Read
-            </button>
-            <button 
-              onClick={() => setReadMode('story')}
+              {/* Sliding indicator */}
+              <span
+                ref={indicatorRef}
+                style={{
+                  position: 'absolute',
+                  top: '4px',
+                  left: '4px',
+                  height: 'calc(100% - 8px)',
+                  background: 'var(--ink)',
+                  borderRadius: '100px',
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                  // initial width/x set by GSAP on mount
+                }}
+              />
+              <button
+                onClick={() => setReadMode('short')}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  background: 'transparent',
+                  color: readMode === 'short' ? 'var(--paper)' : 'var(--ink-soft)',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '100px',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--sans)',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  transition: 'color 0.2s ease',
+                }}
+              >
+                Short Read
+              </button>
+              <button
+                onClick={() => setReadMode('story')}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  background: 'transparent',
+                  color: readMode === 'story' ? 'var(--paper)' : 'var(--ink-soft)',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '100px',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--sans)',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  transition: 'color 0.2s ease',
+                }}
+              >
+                Story Mode
+              </button>
+            </div>
+            {/* Subtle AI Summary label */}
+            <span
               style={{
-                background: readMode === 'story' ? 'var(--ink)' : 'transparent',
-                color: readMode === 'story' ? 'var(--paper)' : 'var(--ink-soft)',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '100px',
-                cursor: 'pointer',
                 fontFamily: 'var(--sans)',
-                fontSize: '14px',
-                fontWeight: 500,
-                transition: 'all 0.2s ease'
+                fontSize: '11px',
+                color: 'var(--ink-soft)',
+                letterSpacing: '0.04em',
+                width: '50%',
+                textAlign: 'center',
+                opacity: 0.6,
               }}
             >
-              Story Mode
-            </button>
+              AI Summary
+            </span>
           </div>
 
           <div className={styles.eyebrow}>Case Study · 01</div>

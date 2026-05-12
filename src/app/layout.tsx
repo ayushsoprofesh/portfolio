@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   title: "Ayush - UX Designer",
   description: "A compilation of Ayush's work",
   icons: {
-    icon: "/Website Icon.png"
+    icon: "/Website Icon 2.png"
   }
 };
 

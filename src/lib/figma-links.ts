@@ -31,7 +31,7 @@ export const CASE_STUDY_1_LINKS = {
   case2_1: "https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16112&p=f&viewport=-191%2C-348%2C0.02&scaling=scale-down&content-scaling=fixed&starting-point-node-id=180%3A16112&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1",
   
   // Case 2.2: Pricing grid
-  case2_2: "https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-16606&p=f&viewport=-191%2C-348%2C0.02&scaling=scale-down&content-scaling=fixed&starting-point-node-id=180%3A16606&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1",
+  case2_2: "https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=844-74268&viewport=4516%2C263%2C0.15&t=cpuyImBa8YmVw0NM-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=844%3A74282&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1",
   
   // Case 3: Multi-charge Setup
   case3: "https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=180-39164&p=f&viewport=-191%2C-348%2C0.02&scaling=scale-down&content-scaling=fixed&starting-point-node-id=180%3A39164&show-proto-sidebar=0&page-id=73%3A3&embed-host=share&hide-ui=1",

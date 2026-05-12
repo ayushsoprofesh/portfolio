@@ -1,0 +1,10 @@
+81:7 | legacy screenshot with annotations: Price list details + DFFs / Items in the price list / Charges for selected items | 1290px | 796px
+89:3065 | linear stack → nested drilldown, "Not this" labeling the move | 919px | 481px
+89:3066 | flow diagram: Search → Select Item → Select UOM → Define Charge → Assign Value → Repeat (×N) | 1106px | 821px
+83:31940 | new design screen: Add Items panel with PIM-sourced list, attribute filters, multi-select | 1920px | 1080px
+85:35661 | rule builder structure — Base Entity (Price List / Cost List / Current PL Price) → Source List → Reference Date → Operation (Markup/Markdown by % or amount) → Value → Effective Dates | 1144px | 494px
+91:3070 | screent shot mass edit | 1321px | 42px
+91:3069 | screenshot: grid editing surface, paste-from-Excel demonstration | 1321px | 42px
+89:3064 | timeline diagram: existing price (open-ended) → new price added with future start → existing auto-ends one day prior | 696px | 515px
+91:3080 | 1 base price (Each: $10) → UOM rule (Pair = 2× + 2%, Dozen = 12× + 12%) → derived prices auto-populate across the group | 927px | 380px
+91:3123 | side-by-side — left: custom component with type-switcher embedded inside the action collection (entity scope and actions tangled); right: context switcher with type-switcher placed above and separate from the action collection (entity scope and actions cleanly separated) | 1065px | 1165px
