@@ -1,10 +1,12 @@
 "use client";
+import Image from "next/image";
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./case-study-2.module.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import MinimalFooter from "../minimal/components/MinimalFooter";
 
 gsap.registerPlugin(useGSAP);
 
@@ -27,6 +29,19 @@ export default function CaseStudy2() {
           p.classList.add(styles.lifted);
         } else {
           p.classList.remove(styles.lifted);
+        }
+      });
+
+      // Other-project cards: activate shadow when card midpoint (= half the card) enters the viewport
+      document.querySelectorAll<HTMLElement>('[data-other-card]').forEach(card => {
+        const r = card.getBoundingClientRect();
+        const midY = r.top + r.height / 2;
+        if (midY > 0 && midY < vh) {
+          card.style.boxShadow = '0 0 40px 0 rgba(0,0,0,0.10), 0 0 4px 0 rgba(0,0,0,0.04)';
+          card.style.transform = 'translateY(-6px)';
+        } else {
+          card.style.boxShadow = '';
+          card.style.transform = '';
         }
       });
 
@@ -234,9 +249,7 @@ export default function CaseStudy2() {
               <p>The problem wasn't visible until you tried to <em>use</em> it.</p>
 
               <figure className={styles.figureFull}>
-                <div className={`${styles.placeholder} ${styles.placeholderUI}`}>
-                  <div className={styles.label}>legacy screenshot: four-panel layout with summary cards, annotated to show the drilldown path for a single edit</div>
-                </div>
+                <Image src="/assets/cs2/legacy screenshot four-panel layout with summary cards, annotated to show the drilldown path for a single edit.png" alt="Legacy screenshot: four-panel layout with summary cards, annotated to show the drilldown path for a single edit" width={2372} height={968} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />
               </figure>
 
               <p><strong>Summary-only meant tunneling for every action.</strong> The panels showed <em>what</em> was configured but not enough to <em>change</em> it. Every admin action, whether editing a charge, adjusting a tier, or modifying a rule, required drilling into a separate page, completing the task, and coming back. The main screen was a viewing surface, not a working one. Users lived in the drilldowns and used the main screen as a navigation index.</p>
@@ -262,9 +275,7 @@ export default function CaseStudy2() {
                 <div className={styles.text}>
                   <p>We took both sets into a stakeholder meeting. The visual side-by-side did most of the work. <strong>It's hard to argue that a design will be fine when you're looking at a mockup showing it not being fine.</strong></p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>mockup pair: "add entitlements to existing 4-panel design" vs. "redesigned surface absorbing entitlements natively", with annotated pros/cons on canvas</div>
-                </div>
+                <Image src="/assets/cs2/mockup pair add entitlements to existing 4-panel design vs redesigned surface absorbing entitlements natively, with annotated pros cons on canvas.png" alt="Mockup pair: add entitlements to existing 4-panel design vs. redesigned surface" width={1027} height={696} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <h4 className={styles.minorH} style={{ fontSize: '24px' }}>The win, and what we'd actually signed up for</h4>
@@ -315,9 +326,7 @@ export default function CaseStudy2() {
                 <div className={styles.text}>
                   <p>We mocked up both versions, took the combined Pricing + Subscription teams through the user journey, and made the case that the visibility win wasn't worth the cognitive cost. Entitlements moved inside Rate Plans.</p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>diagram: "entitlements outside" flow showing the 5-step hide-and-seek vs. "entitlements inside" flow showing a single continuous authoring path</div>
-                </div>
+                <Image src="/assets/cs2/diagram entitlements outside flow showing the 5-step hide-and-seek vs entitlements inside flow showing a single continuous authoring path.png" alt="Diagram: entitlements outside flow vs. entitlements inside flow" width={1274} height={960} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <hr className={styles.rule} />
@@ -339,9 +348,7 @@ export default function CaseStudy2() {
                 <div className={styles.text}>
                   <p>So we <strong>deliberately broke our own patterns</strong>, sat with CPQ and OM designers to understand how their users actually moved through a negotiation, and designed two fragments that prioritized those flows over consistency with the authoring surface. The fragments share visual language and components with Rate Plans, but the <em>information hierarchy</em> and <em>primary actions</em> differ by surface.</p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>diagram: rate plan authoring surface alongside the CPQ fragment (granular-edit-first) and OM fragment (whole-plan-review-first), showing how the same data reorganizes around the user's working mode</div>
-                </div>
+                <Image src="/assets/cs2/diagram rate plan authoring surface alongside the CPQ fragment granular-edit-first and OM fragment whole-plan-review-first, showing how the same data reorganizes around the user working mode.png" alt="Diagram: rate plan authoring surface alongside CPQ and OM fragments" width={1456} height={575} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <hr className={styles.rule} />
@@ -364,9 +371,7 @@ export default function CaseStudy2() {
               </ol>
 
               <figure className={styles.figureFull}>
-                <div className={`${styles.placeholder} ${styles.placeholderUI}`}>
-                  <div className={styles.label}>shipped UI: three surfaces side by side, labeled with their host product and primary user mode</div>
-                </div>
+                <Image src="/assets/cs2/shipped UI three surfaces side by side, labeled with their host product and primary user mode.png" alt="Shipped UI: three surfaces side by side, labeled with their host product and primary user mode" width={1621} height={1458} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />
               </figure>
 
               <p>The lesson I took from this stretch isn't that cross-team design is hard. It's that <strong>the patterns you've earned the right to design with aren't the patterns you're entitled to use everywhere</strong>. When the user changes, the design has to be willing to change with them, even when your existing patterns work. Especially then.</p>
@@ -401,9 +406,7 @@ export default function CaseStudy2() {
                   <p>We argued for <strong>three tabs</strong>, one per pricing method, each with its own optimized add flow and table structure.</p>
                   <p>This time, the argument didn't take quarters to win. We'd already built the precedent.</p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>diagram: single-table version (flat, sparse, columns for all three methods crammed in) vs. three-tab version (each tab tuned to its method)</div>
-                </div>
+                <Image src="/assets/cs2/diagram single-table version flat, sparse, columns for all three methods crammed in vs three-tab version each tab tuned to its method.png" alt="Diagram: single-table version vs. three-tab version" width={2406} height={1144} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <h4 className={styles.minorH} style={{ fontSize: '24px' }}>What got reused, and what was new</h4>
@@ -419,9 +422,7 @@ export default function CaseStudy2() {
               <p>What was <em>new</em> was the <strong>add flow per tab</strong>. Adding a Price-by-Shipping-Method row is different work from adding a Price-by-Item row, different fields, different validations, different reference data. Each tab got its own purpose-built add flow rather than a single generic one.</p>
 
               <figure className={styles.figureFull}>
-                <div className={`${styles.placeholder} ${styles.placeholderUI}`}>
-                  <div className={styles.label}>UI: three tabs side by side, each showing its tuned add flow</div>
-                </div>
+                <Image src="/assets/cs2/UI three tabs side by side, each showing its tuned add flow.png" alt="UI: three tabs side by side, each showing its tuned add flow" width={2449} height={573} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />
               </figure>
 
               <h4 className={styles.minorH} style={{ fontSize: '24px' }}>Shipped solo, in three weeks</h4>
@@ -469,15 +470,11 @@ export default function CaseStudy2() {
                 <div className={styles.text}>
                   <p><strong>2. A "where used" view.</strong> The main Formula Management list shows each formula alongside the pricing entities it's referenced by. Clicking <strong>Where Used</strong> opens a drawer with a table, one row per Price List × Item combination using that formula. Users can see exactly where a formula is in play before they touch it.</p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>diagram: legacy IA (formulas nested inside each PL) vs. new IA (Formula Management as a sibling entity)</div>
-                </div>
+                <Image src="/assets/cs2/diagram legacy IA formulas nested inside each PL vs new IA Formula Management as a sibling entity.png" alt="Diagram: legacy IA vs. new IA with Formula Management as sibling entity" width={864} height={725} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <figure className={styles.figureFull}>
-                <div className={`${styles.placeholder} ${styles.placeholderUI}`}>
-                  <div className={styles.label}>UI: Formula Management main list with usage counts, Where Used drawer expanded</div>
-                </div>
+                <Image src="/assets/cs2/UI Formula Management main list with usage counts, Where Used drawer expanded.png" alt="UI: Formula Management main list with usage counts, Where Used drawer expanded" width={1621} height={537} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />
               </figure>
 
               <p><strong>3. Selective push to update prices.</strong> When a user edits a formula, they can push the change out to consuming entities. The push isn't all-or-nothing. <strong>Users select which Price Lists to update, and within each PL, which items to push to.</strong> The system previews the resulting price changes before commit.</p>
@@ -489,9 +486,7 @@ export default function CaseStudy2() {
                   <p><strong>The lesson</strong></p>
                   <p>The conventional framing is that data modeling is engineering territory, and designers come in after the entities are defined. <strong>Formula Management is the clearest case I worked on where that framing was wrong.</strong></p>
                 </div>
-                <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-                  <div className={styles.label}>flow diagram: Edit formula → Select target PLs → Select target items → Preview → Commit</div>
-                </div>
+                <Image src="/assets/cs2/flow diagram Edit formula Select target PLs Select target items Preview Commit.png" alt="Flow diagram: Edit formula → Select target PLs → Select target items → Preview → Commit" width={1111} height={494} style={{ width: '100%', maxWidth: '520px', height: 'auto', borderRadius: '12px' }} />
               </div>
 
               <p>Where formulas <em>lived</em> in the system was the design decision. Inside a price list, they were duplicated work and silent maintenance debt. As their own entity, they became reusable, visible, and controllable. The UI changes followed from the architecture change, not the other way around. <strong>The data model was the design.</strong></p>
@@ -570,9 +565,7 @@ export default function CaseStudy2() {
 
               <p><strong>Summary-only meant tunneling for every action.</strong> Every admin task required drilling into a separate page. The main screen was a viewing surface, not a working one. The layout was also fixed (empty panels for plans using fewer charge types, cramped panels for plans using all four), and the underlying template was generic, conscripted into rate plans because it was available at migration time.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderUI}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>legacy screenshot: four-panel layout with summary cards, annotated drilldown path for a single edit</div>
-              </div>
+              <Image src="/assets/cs2/legacy screenshot four-panel layout with summary cards, annotated to show the drilldown path for a single edit.png" alt="Legacy screenshot: four-panel layout with summary cards" width={2372} height={968} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p>For four quarters, my team had been embedding old Rate Plans inside the new Price List. We knew it wasn't working. <strong>It wasn't our product to redesign.</strong></p>
 
@@ -580,9 +573,7 @@ export default function CaseStudy2() {
 
               <p>We didn't think it would fit. <strong>So we built the argument visually.</strong> Multiple mockup iterations of entitlements crammed into the existing UI, side by side with a proposed redesign, with pros and cons explicit on the canvas. <strong>It's hard to argue that a design will be fine when you're looking at a mockup showing it not being fine.</strong></p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>mockup pair: "add entitlements to existing 4-panel design" vs. "redesigned surface absorbing entitlements natively"</div>
-              </div>
+              <Image src="/assets/cs2/mockup pair add entitlements to existing 4-panel design vs redesigned surface absorbing entitlements natively, with annotated pros cons on canvas.png" alt="Mockup pair: add entitlements vs. redesigned surface" width={1027} height={696} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p>The stakeholders agreed to scope a full Rate Plans redesign. What we didn't grasp in that meeting: Rate Plans doesn't live in one ecosystem. It's authored in Pricing, pulled by Order Management for negotiation, and now needed Subscription Management's entitlements fragment. <strong>Three teams, three ecosystems, three sets of opinions</strong> about what the surface should be.</p>
             </section>
@@ -597,9 +588,7 @@ export default function CaseStudy2() {
               <h3 className={styles.subH}>Fight 1: Where do entitlements belong?</h3>
               <p>Subscription Management wanted entitlements to sit outside Rate Plans, on the main price list page, with a link back. Their argument was visibility and engineering effort. For our users, it broke the mental model: <strong>entitlements derive their meaning from the rate plan they belong to.</strong> Separating them in the UI forced users into a 5-step hide-and-seek with their own work.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>diagram: "entitlements outside" 5-step flow vs. "entitlements inside" single continuous authoring path</div>
-              </div>
+              <Image src="/assets/cs2/diagram entitlements outside flow showing the 5-step hide-and-seek vs entitlements inside flow showing a single continuous authoring path.png" alt="Diagram: entitlements outside vs. inside flow" width={1274} height={960} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p>We made the case with mockups and walked the combined teams through both flows. Entitlements moved inside Rate Plans.</p>
 
@@ -612,9 +601,7 @@ export default function CaseStudy2() {
 
               <p><strong>Our authoring patterns weren't wrong for our users, but they weren't right for these users.</strong> We deliberately broke them, sat with CPQ and OM designers, and designed two fragments that prioritized those flows over consistency with the authoring surface.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>diagram: rate plan authoring surface alongside CPQ fragment (granular-edit-first) and OM fragment (whole-plan-review-first)</div>
-              </div>
+              <Image src="/assets/cs2/diagram rate plan authoring surface alongside the CPQ fragment granular-edit-first and OM fragment whole-plan-review-first, showing how the same data reorganizes around the user working mode.png" alt="Diagram: rate plan authoring surface alongside CPQ and OM fragments" width={1456} height={575} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <hr className={styles.rule} />
 
@@ -626,9 +613,7 @@ export default function CaseStudy2() {
               <h4 className={styles.minorH} style={{ fontSize: '24px' }}>The shipped outcome</h4>
               <p>Three deliveries: the Rate Plans authoring surface (entitlements integrated inside), the CPQ negotiation fragment (granular-edit-first), the OM negotiation fragment (whole-plan-review-first).</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderUI}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>shipped UI: three surfaces side by side, labeled with host product and user mode</div>
-              </div>
+              <Image src="/assets/cs2/shipped UI three surfaces side by side, labeled with their host product and primary user mode.png" alt="Shipped UI: three surfaces side by side" width={1621} height={1458} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p><strong>The patterns you've earned the right to design with aren't the patterns you're entitled to use everywhere.</strong> When the user changes, the design has to be willing to change with them.</p>
             </section>
@@ -645,9 +630,7 @@ export default function CaseStudy2() {
               <h4 className={styles.minorH} style={{ fontSize: '24px' }}>The PM ask, and the disagreement</h4>
               <p>PMs wanted a single table for all three pricing methods, same engineering-simplicity argument as the Price List Items section. We pushed back with the same argument: <strong>setup paths differ, pricing logic differs, attributes differ.</strong> We argued for three tabs, each with its own optimized add flow.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>diagram: single-table vs. three-tab version</div>
-              </div>
+              <Image src="/assets/cs2/diagram single-table version flat, sparse, columns for all three methods crammed in vs three-tab version each tab tuned to its method.png" alt="Diagram: single-table version vs. three-tab version" width={2406} height={1144} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p>This time the argument didn't take quarters to win. The precedent was already built.</p>
 
@@ -674,15 +657,11 @@ export default function CaseStudy2() {
 
               <p><strong>1. A top-level entity.</strong> Formula Management became a separate surface alongside Price List, Cost List, and Shipping Charge List.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>diagram: legacy IA (formulas nested in each PL, duplicated) vs. new IA (Formula Management as sibling entity)</div>
-              </div>
+              <Image src="/assets/cs2/diagram legacy IA formulas nested inside each PL vs new IA Formula Management as a sibling entity.png" alt="Diagram: legacy IA vs. new IA with Formula Management as sibling" width={864} height={725} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p><strong>2. A "where used" view.</strong> The main list shows each formula alongside the pricing entities referencing it. Clicking <strong>Where Used</strong> opens a drawer with one row per Price List × Item combination.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderUI}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>UI: Formula Management main list with usage counts, Where Used drawer expanded</div>
-              </div>
+              <Image src="/assets/cs2/UI Formula Management main list with usage counts, Where Used drawer expanded.png" alt="UI: Formula Management main list with usage counts" width={1621} height={537} style={{ width: '100%', height: 'auto', borderRadius: '12px', marginBottom: '40px' }} />
 
               <p><strong>3. Selective push to update prices.</strong> When a user edits a formula, they push the change out, <strong>but they select which Price Lists, and within each PL, which items</strong>, with a preview of resulting price changes before commit. Granular selection makes the cascade safe to use.</p>
 
@@ -703,6 +682,38 @@ export default function CaseStudy2() {
 
         <div className={styles.pageend}>— end of case study —</div>
       </main>
+
+      {/* OTHER PROJECTS */}
+      <div className={styles.otherProjects}>
+        <h2 className={styles.secH} style={{ marginBottom: '48px' }}>Other projects</h2>
+        <div className={styles.otherProjectsGrid}>
+          {/* Case Study 1 */}
+          <Link href="/case-study-1" className={styles.otherProjectCard} data-other-card="true">
+            <div className={styles.otherCardInfo}>
+              <div className={styles.otherCardEyebrow}>Case Study · 01 · Oracle Fusion Pricing</div>
+              <h3 className={styles.otherCardTitle}>Redesigning the Price List</h3>
+            </div>
+            <div className={styles.otherCardImage}>
+              <img src="/Chosen works/Case Study 2.png" alt="Redesigning the Price List" />
+            </div>
+          </Link>
+
+          {/* Case Study 3 — Figma external */}
+          <a href="https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=401-82901&p=f&viewport=505%2C9%2C0.08&t=UkW17W2GLhvz7cjj-1&scaling=contain&content-scaling=fixed&starting-point-node-id=401%3A82901&page-id=401%3A2&show-proto-sidebar=1" target="_blank" rel="noopener noreferrer" className={styles.otherProjectCard} data-other-card="true">
+            <div className={styles.otherCardInfo}>
+              <div className={styles.otherCardEyebrow}>Case Study · 03 · Oracle CX Unity</div>
+              <h3 className={styles.otherCardTitle}>Customer Segment Dashboard</h3>
+            </div>
+            <div className={styles.otherCardImage}>
+              <img src="/Chosen works/Case study 3.jpg" alt="Customer Segment Dashboard" />
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 'var(--max, 1120px)', margin: '0 auto', padding: '0 32px', width: '100%' }}>
+        <MinimalFooter />
+      </div>
     </div>
   );
 }

@@ -83,7 +83,7 @@
 .mainContent {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 64px 32px 160px;
+  padding: 64px 32px 96px;
 }
 
 .panel {
@@ -489,6 +489,78 @@
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* ── Other Projects section ── */
+.otherProjects {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 40px 32px 0;
+}
+.otherProjectsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.otherProjectCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--panel-radius);
+  padding: 36px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-flush);
+  transform: translateY(0);
+  transition: box-shadow .55s cubic-bezier(.2,.6,.2,1), transform .55s cubic-bezier(.2,.6,.2,1);
+  align-items: center;
+  min-height: 200px;
+}
+.otherProjectCard.lifted { box-shadow: var(--shadow-pop); transform: translateY(var(--lift-offset)); }
+.otherCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 28px;
+}
+.otherCardEyebrow {
+  font-family: var(--label-font);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.otherCardTitle {
+  font-family: var(--display-font);
+  font-style: var(--display-style);
+  font-weight: 400;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--ink);
+}
+.otherCardImage {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  height: 140px;
+}
+.otherCardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 900px) {
+  .otherProjectsGrid { grid-template-columns: 1fr; }
+  .otherProjectCard { grid-template-columns: 1fr; min-height: auto; }
+  .otherCardInfo { padding-right: 0; padding-bottom: 20px; }
+  .otherCardImage { height: 160px; }
+  .otherProjects { padding: 32px 18px 0; }
 }
 
 @media (max-width: 900px) {

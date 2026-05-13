@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./case-study-1.module.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import MinimalFooter from "../minimal/components/MinimalFooter";
 
 gsap.registerPlugin(useGSAP);
 
@@ -28,6 +29,19 @@ export default function CaseStudy1() {
           p.classList.add(styles.lifted);
         } else {
           p.classList.remove(styles.lifted);
+        }
+      });
+
+      // Other-project cards: activate shadow when card midpoint (= half the card) enters the viewport
+      document.querySelectorAll<HTMLElement>('[data-other-card]').forEach(card => {
+        const r = card.getBoundingClientRect();
+        const midY = r.top + r.height / 2;
+        if (midY > 0 && midY < vh) {
+          card.style.boxShadow = '0 0 40px 0 rgba(0,0,0,0.10), 0 0 4px 0 rgba(0,0,0,0.04)';
+          card.style.transform = 'translateY(-6px)';
+        } else {
+          card.style.boxShadow = '';
+          card.style.transform = '';
         }
       });
 
@@ -488,8 +502,8 @@ export default function CaseStudy1() {
             <div className={styles.text}>
               <p>The legacy single-table view jammed every type's attributes into one row structure with most cells empty because most attributes don't apply to most rows.</p>
             </div>
-            <div className={`${styles.placeholder} ${styles.placeholderDiagram}`}>
-              <div className={styles.label}>legacy single-table view — one wide table with columns for rate plan, coverage scope, model config, and standard pricing all jammed into one row structure; most cells empty because most attributes don't apply to most rows</div>
+            <div style={{ width: '100%', borderRadius: '18px', overflow: 'hidden' }}>
+              <img src="/assets/cs1/legacy single-table view — one wide table with columns for rate plan, coverage scope, model config, and standard pricing all jammed into one row structure; most cells empty because most attributes don't apply to most rows.png" alt="Legacy single-table view" style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }} />
             </div>
           </div>
 
@@ -555,17 +569,23 @@ export default function CaseStudy1() {
 
           <div className={styles.howiGrid}>
             <div className={styles.howi} data-panel="true">
-              <div className={styles.ph}><span>image · component library</span></div>
+              <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                <img src="/assets/cs1/image · component library.png" alt="Component library" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
               <div className={styles.tag}>Systems</div>
               <p><strong>A pricing-suite component library.</strong> Maintained an internal library of pricing-specific patterns so new apps could ship faster while staying familiar to existing users.</p>
             </div>
             <div className={styles.howi} data-panel="true">
-              <div className={styles.ph}><span>image · scaleable flows</span></div>
+              <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                <img src="/assets/cs1/image · scaleable flows.png" alt="Scaleable flows" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
               <div className={styles.tag}>Patterns</div>
               <p><strong>Patterns that traveled.</strong> Mass actions, the data grid, and the tiered-pricing matrix were picked up by other pricing apps in the suite and adapted to their use cases.</p>
             </div>
             <div className={styles.howi} data-panel="true">
-              <div className={styles.ph}><span>image · pricing on a timeline</span></div>
+              <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                <img src="/assets/cs1/image · pricing on a timeline.png" alt="Pricing on a timeline" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
               <div className={styles.tag}>Exploration</div>
               <p><strong>A timeline experiment.</strong> Prototyped a timeline view of pricing data instead of a grid. Didn't ship due to research bandwidth, but recognized at senior levels.</p>
             </div>
@@ -807,17 +827,23 @@ export default function CaseStudy1() {
 
               <div className={styles.howiGrid}>
                 <div className={styles.howi} data-panel="true">
-                  <div className={styles.ph}><span>image · component library</span></div>
+                  <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                    <img src="/assets/cs1/image · component library.png" alt="Component library" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  </div>
                   <div className={styles.tag}>Systems</div>
                   <p><strong>A pricing-suite component library.</strong> Internal library of pricing-specific patterns so new apps could ship faster while staying familiar.</p>
                 </div>
                 <div className={styles.howi} data-panel="true">
-                  <div className={styles.ph}><span>image · scaleable flows</span></div>
+                  <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                    <img src="/assets/cs1/image · scaleable flows.png" alt="Scaleable flows" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  </div>
                   <div className={styles.tag}>Patterns</div>
                   <p><strong>Patterns that traveled.</strong> Mass actions, the data grid, and the tiered-pricing matrix were picked up by other pricing apps in the suite.</p>
                 </div>
                 <div className={styles.howi} data-panel="true">
-                  <div className={styles.ph}><span>image · pricing on a timeline</span></div>
+                  <div className={styles.ph} style={{ padding: 0, overflow: 'hidden', borderRadius: '12px' }}>
+                    <img src="/assets/cs1/image · pricing on a timeline.png" alt="Pricing on a timeline" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                  </div>
                   <div className={styles.tag}>Exploration</div>
                   <p><strong>A timeline experiment.</strong> Prototyped a timeline view of pricing data instead of a grid. Didn't ship due to research bandwidth, but recognized at senior levels.</p>
                 </div>
@@ -829,6 +855,37 @@ export default function CaseStudy1() {
         <div className={styles.pageend}>— end of case study —</div>
       </main>
 
+      {/* OTHER PROJECTS */}
+      <div className={styles.otherProjects}>
+        <h2 className={styles.secH} style={{ marginBottom: '48px' }}>Other projects</h2>
+        <div className={styles.otherProjectsGrid}>
+          {/* Case Study 2 */}
+          <Link href="/case-study-2" className={styles.otherProjectCard} data-other-card="true">
+            <div className={styles.otherCardInfo}>
+              <div className={styles.otherCardEyebrow}>Case Study · 02 · Oracle Fusion Pricing</div>
+              <h3 className={styles.otherCardTitle}>Designing Across a Product Suite</h3>
+            </div>
+            <div className={styles.otherCardImage}>
+              <img src="/Chosen works/Case Study 1.jpg" alt="Designing Across a Product Suite" />
+            </div>
+          </Link>
+
+          {/* Case Study 3 — Figma external */}
+          <a href="https://www.figma.com/proto/1NlEmSIcdvEJYf9HIXu8Th/Portfolio?node-id=401-82901&p=f&viewport=505%2C9%2C0.08&t=UkW17W2GLhvz7cjj-1&scaling=contain&content-scaling=fixed&starting-point-node-id=401%3A82901&page-id=401%3A2&show-proto-sidebar=1" target="_blank" rel="noopener noreferrer" className={styles.otherProjectCard} data-other-card="true">
+            <div className={styles.otherCardInfo}>
+              <div className={styles.otherCardEyebrow}>Case Study · 03 · Oracle CX Unity</div>
+              <h3 className={styles.otherCardTitle}>Customer Segment Dashboard</h3>
+            </div>
+            <div className={styles.otherCardImage}>
+              <img src="/Chosen works/Case study 3.jpg" alt="Customer Segment Dashboard" />
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div style={{ maxWidth: 'var(--max, 1120px)', margin: '0 auto', padding: '0 32px', width: '100%' }}>
+        <MinimalFooter />
+      </div>
     </div>
   );
 }
