@@ -7,7 +7,12 @@
       "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\page.tsx\")",
       "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\case-study-1\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-1\\\\page.tsx\")",
       "Bash(Copy-Item \"d:\\\\Portfolio\\\\src\\\\app\\\\case-study-2\\\\page.tsx\" \"d:\\\\Portfolio\\\\src\\\\app\\\\matrix\\\\case-study-2\\\\page.tsx\")",
-      "Bash(Write-Output \"Matrix files copied\")"
+      "Bash(Write-Output \"Matrix files copied\")",
+      "WebSearch",
+      "WebFetch(domain:simpleicons.org)",
+      "WebFetch(domain:icons.getbootstrap.com)",
+      "Bash(Get-ChildItem -Path \"d:\\\\Portfolio\\\\src\\\\app\" -Recurse -Directory)",
+      "Bash(Select-Object FullName)"
     ]
   }
 }

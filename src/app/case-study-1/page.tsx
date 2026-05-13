@@ -107,7 +107,7 @@ export default function CaseStudy1() {
         {/* 1. HERO */}
         <section className={`${styles.panel} ${styles.hero}`} data-panel="true" style={{ position: 'relative' }}>
           {/* MODE TOGGLE */}
-          <div style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
+          <div className={styles.heroToggle} style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
             <div
               ref={pillRef}
               style={{
@@ -447,7 +447,7 @@ export default function CaseStudy1() {
           <figure className={styles.figureFull}>
             <div style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: '18px', overflow: 'hidden' }}>
               <iframe 
-                src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F1NlEmSIcdvEJYf9HIXu8Th%2FPortfolio%3Fnode-id%3D180-16606%26p%3Df%26viewport%3D1959%252C194%252C0.06%26t%3DUAKT7KbnDU8kuAC6-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D180%253A16606%26page-id%3D73%253A3%26hide-ui%3D1" 
+                src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F1NlEmSIcdvEJYf9HIXu8Th%2FPortfolio%3Fnode-id%3D844-74282%26viewport%3D5642%252C-56%252C0.28%26t%3DIDVVfz8v1DomLRDY-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D844%253A74282%26show-proto-sidebar%3D0%26page-id%3D73%253A3%26hide-ui%3D1" 
                 allowFullScreen 
                 style={{border: "none", width: "100%", height: "100%"}}>
               </iframe>
@@ -745,7 +745,7 @@ export default function CaseStudy1() {
 
               <div style={{ width: '100%', aspectRatio: '16 / 9', borderRadius: '18px', overflow: 'hidden', marginBottom: '40px' }}>
                 <iframe 
-                  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F1NlEmSIcdvEJYf9HIXu8Th%2FPortfolio%3Fnode-id%3D180-16606%26p%3Df%26viewport%3D1959%252C194%252C0.06%26t%3DUAKT7KbnDU8kuAC6-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D180%253A16606%26page-id%3D73%253A3%26hide-ui%3D1" 
+                  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F1NlEmSIcdvEJYf9HIXu8Th%2FPortfolio%3Fnode-id%3D844-74282%26viewport%3D5642%252C-56%252C0.28%26t%3DIDVVfz8v1DomLRDY-1%26scaling%3Dscale-down-width%26content-scaling%3Dfixed%26starting-point-node-id%3D844%253A74282%26show-proto-sidebar%3D0%26page-id%3D73%253A3%26hide-ui%3D1" 
                   allowFullScreen 
                   style={{border: "none", width: "100%", height: "100%"}}>
                 </iframe>

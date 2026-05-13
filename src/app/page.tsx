@@ -99,16 +99,15 @@ export default function Home() {
 
       <main>
         {/* HERO SECTION */}
-        <div className="row-flow" style={{ position: 'relative', minHeight: '80vh', marginBottom: '80px', marginTop: '20px', alignItems: 'center' }}>
+        <div className="row-flow hero-row" style={{ position: 'relative', minHeight: '80vh', marginBottom: '80px', marginTop: '20px', alignItems: 'center' }}>
           <InteractiveHalftone imageSrc="/Profile.png" triggerRipple={heroPoppedOut} />
 
-          <div style={{ position: 'relative', zIndex: 10 }}>
+          <div className="hero-card-wrapper" style={{ position: 'relative', zIndex: 10 }}>
             <section
               id="hero-left-panel"
               className={`panel hero ${heroPoppedOut ? 'lifted' : ''}`}
               style={{ margin: 0, transition: 'all 1s cubic-bezier(0.2, 0.6, 0.2, 1)' }}
             >
-              <div className="eyebrow">Portfolio</div>
               <h1>Hi.<br/>I'm <em>Ayush.</em></h1>
               <p className="lede">A UX Designer who turns data into simple, scalable products. I've spent close to 2 years at Oracle designing ERP systems.</p>
               <dl className="meta">
@@ -120,8 +119,7 @@ export default function Home() {
             </section>
           </div>
 
-          <div id="hero-image-target" style={{ pointerEvents: 'none', width: '100%', height: '100%', minHeight: '500px' }}>
-            {/* Empty space for the halftone portrait on the right half */}
+          <div id="hero-image-target" className="hero-image-target" style={{ pointerEvents: 'none', width: '100%', height: '100%', minHeight: '500px' }}>
           </div>
         </div>
 
@@ -137,7 +135,7 @@ export default function Home() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
 
-            <Link href="/case-study-1" className="panel row-flow" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
+            <Link href="/case-study-1" className="panel row-flow work-card-link" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
               <div className="card-info" style={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
                 <div className="sec-label" style={{ marginBottom: 0 }}>
                   <span className="num">01</span><span className="bar"></span> ORACLE FUSION PRICING
@@ -154,7 +152,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href="/case-study-2" className="panel row-flow" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
+            <Link href="/case-study-2" className="panel row-flow work-card-link" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
               <div className="card-info" style={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
                 <div className="sec-label" style={{ marginBottom: 0 }}>
                   <span className="num">02</span><span className="bar"></span> ORACLE FUSION PRICING
@@ -171,7 +169,7 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href={EXTERNAL_CASE_STUDY_LINKS.figma} target="_blank" rel="noopener noreferrer" className="panel row-flow" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
+            <Link href={EXTERNAL_CASE_STUDY_LINKS.figma} target="_blank" rel="noopener noreferrer" className="panel row-flow work-card-link" data-panel style={{ display: 'grid', textDecoration: 'none', color: 'inherit', margin: 0, padding: '40px', alignItems: 'stretch', height: '460px' }}>
               <div className="card-info" style={{ display: 'flex', flexDirection: 'column', gap: '16px', justifyContent: 'center' }}>
                 <div className="sec-label" style={{ marginBottom: 0 }}>
                   <span className="num">03</span><span className="bar"></span> Oracle CX Unity

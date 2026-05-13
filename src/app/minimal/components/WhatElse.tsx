@@ -141,15 +141,15 @@ function MarqueeCard({ item }: { item: MarqueeItemData }) {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-      <div 
-        className="panel"
-        style={{ 
-          width: "450px", 
-          height: "300px", 
-          flexShrink: 0, 
-          padding: 0, 
-          overflow: "hidden", 
-          margin: 0, 
+      <div
+        className="panel what-else-card"
+        style={{
+          width: "450px",
+          height: "300px",
+          flexShrink: 0,
+          padding: 0,
+          overflow: "hidden",
+          margin: 0,
           borderRadius: "18px",
           boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.08), 0px 2px 6px rgba(0, 0, 0, 0.04)",
           cursor: item.link ? "pointer" : "default"
@@ -201,18 +201,18 @@ export default function WhatElse() {
       <div style={{ position: 'relative', width: '100%', marginTop: '48px' }}>
         
         {/* Left Edge Opacity Gradient Overlay */}
-        <div style={{
+        <div className="what-else-edge" style={{
           position: 'absolute',
           right: '100%',
-          width: 'calc(50vw - 50%)', 
-          top: -100, bottom: -100, // Covers shadows
+          width: 'calc(50vw - 50%)',
+          top: -100, bottom: -100,
           background: 'linear-gradient(to right, var(--paper) 0%, var(--paper) 50%, transparent 100%)',
           zIndex: 10,
           pointerEvents: 'none'
         }} />
 
         {/* Right Edge Opacity Gradient Overlay */}
-        <div style={{
+        <div className="what-else-edge" style={{
           position: 'absolute',
           left: '100%',
           width: 'calc(50vw - 50%)',

@@ -580,3 +580,28 @@
   .howiGrid { grid-template-columns: 1fr; }
   .triadRow { grid-template-columns: 1fr; gap: 14px; padding: 22px; }
 }
+
+@media (max-width: 640px) {
+  /* Hero becomes a flex column so order works */
+  .hero { display: flex; flex-direction: column; }
+
+  /* Move toggle to the bottom of the card, full width */
+  .heroToggle {
+    position: static !important;
+    order: 10;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+  /* Pill: full width */
+  .heroToggle > div { width: 100% !important; }
+  /* Each button: equal halves */
+  .heroToggle > div > button { flex: 1 !important; text-align: center; }
+  /* AI label: centred under "Short Read" (left half of pill) */
+  .heroToggle > span { width: 50% !important; text-align: center !important; }
+}

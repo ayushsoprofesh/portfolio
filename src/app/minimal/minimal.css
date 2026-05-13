@@ -675,3 +675,185 @@
 
 html, body { overflow: clip !important; overflow-y: visible !important; height: auto !important; background-color: var(--paper) !important; color: var(--ink) !important; }
 
+/* ═══════════════════════════════════════════════
+   MOBILE-ONLY  (≤ 640px)
+   All rules here override tablet/desktop layout.
+   ═══════════════════════════════════════════════ */
+
+/* Show/hide desktop vs mobile experience variants */
+.exp-mobile-only { display: none; }
+.exp-desktop-only { display: grid; }
+
+/* Social label hidden on desktop, shown on mobile */
+.footer-social-label { display: none; }
+
+@media (max-width: 640px) {
+
+  /* ── Hero ──────────────────────────────────── */
+
+  /* Reorder: image target on top, card below */
+  .hero-row {
+    grid-template-columns: 1fr !important;
+    min-height: unset !important;
+    margin-bottom: 40px !important;
+    gap: 0 !important;
+    align-items: stretch !important;
+  }
+  .hero-image-target {
+    order: 1;
+    min-height: 0 !important;
+    height: 320px !important; /* override inline height: '100%' */
+  }
+  .hero-card-wrapper {
+    order: 2;
+    /* Card covers bottom ~20 % of 320 px image */
+    margin-top: -64px;
+    position: relative;
+    z-index: 10;
+  }
+  section.hero {
+    margin-top: 0 !important;
+    border-radius: 18px 18px var(--panel-radius) var(--panel-radius);
+  }
+  .hero h1 { font-size: clamp(36px, 10vw, 48px); }
+  .hero .lede { font-size: 18px; margin-bottom: 32px; }
+
+  /* ── Experience — accordion ────────────────── */
+
+  .exp-desktop-only { display: none !important; }
+  .exp-mobile-only  { display: flex !important; flex-direction: column; gap: 10px; margin-top: 36px; }
+
+  .exp-accordion-item {
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: var(--shadow-pop);
+  }
+  .exp-accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .exp-acc-left { flex: 1; min-width: 0; }
+  .exp-acc-company {
+    font-family: var(--display-font);
+    font-style: var(--display-style);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .exp-acc-role {
+    font-family: var(--label-font);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 4px;
+  }
+  .exp-acc-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    text-align: right;
+    flex-shrink: 0;
+    line-height: 1.6;
+  }
+  .exp-acc-chevron {
+    font-size: 11px;
+    color: var(--ink-faint);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .exp-accordion-item.open .exp-acc-chevron { transform: rotate(180deg); }
+
+  .exp-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+  }
+  .exp-accordion-item.open .exp-accordion-body { max-height: 800px; }
+  .exp-accordion-body-inner {
+    border-top: 1px solid var(--rule);
+    padding: 16px 20px 20px;
+  }
+
+  /* ── Work cards — portrait ─────────────────── */
+
+  .work-card-link {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    /* padding on sides + top matches the web card feel; info adds its own vertical padding */
+    padding: 16px 16px 0 16px !important;
+  }
+  .work-card-link .card-image {
+    order: 1;
+    height: 200px !important;
+    flex-shrink: 0;
+    border-radius: 18px !important; /* restore card-feel — image is inset, not edge-to-edge */
+  }
+  .work-card-link .card-info {
+    order: 2;
+    padding: 20px 0 24px !important;
+    gap: 10px !important;
+  }
+  .work-card-link h4.sec-h { font-size: 22px !important; }
+  /* Hide meta row on mobile — not enough room */
+  .work-card-link .meta { display: none !important; }
+
+  /* ── Testimonials — single-column stack ─────── */
+
+  .testim-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 340px;
+    margin: 0 auto;
+    gap: 36px !important;
+  }
+  /* ── About me — smaller marquee cards ─────── */
+
+  /* Hide the white fade overlays at the marquee edges — on mobile the content
+     fills the full viewport width so the gradients cause unwanted white bands */
+  .what-else-edge { display: none !important; }
+
+  .what-else-card {
+    width: 240px !important;
+    height: 160px !important;
+  }
+
+  /* ── Footer — stack all 4 contacts vertically ─ */
+
+  .min-footer-inner {
+    flex-direction: column !important;
+    gap: 0 !important;
+    align-items: flex-start !important;
+  }
+  .footer-contact-group {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    width: 100%;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .footer-social-group {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+    padding-top: 4px;
+  }
+  .footer-social-label {
+    display: inline !important;
+    font-size: 17px;
+  }
+
+}
+

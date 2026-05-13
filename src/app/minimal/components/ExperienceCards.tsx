@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -21,18 +21,16 @@ interface ExperienceCardsProps {
 
 export default function ExperienceCards({ experiences }: ExperienceCardsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [openId, setOpenId] = useState<number | null>(null);
 
   useGSAP(
     () => {
+      if (window.innerWidth <= 640) return; // Mobile shows accordion instead
+
       const cards = gsap.utils.toArray<HTMLElement>(".exp-card");
 
-      // Initial state: cards below, invisible
-      gsap.set(cards, {
-        y: 80,
-        autoAlpha: 0,
-      });
+      gsap.set(cards, { y: 80, autoAlpha: 0 });
 
-      // Phase 1: Cards scroll up into view (staggered entrance)
       const entranceTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -50,7 +48,6 @@ export default function ExperienceCards({ experiences }: ExperienceCardsProps) {
         ease: "power3.out",
       });
 
-      // Phase 2: Sequential card flip when section reaches center
       const flipTl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -61,18 +58,11 @@ export default function ExperienceCards({ experiences }: ExperienceCardsProps) {
       });
 
       cards.forEach((card, i) => {
-        // Flip the entire card
         flipTl.to(
           card,
-          {
-            rotationY: 180,
-            duration: 0.7,
-            ease: "power2.inOut",
-          },
+          { rotationY: 180, duration: 0.7, ease: "power2.inOut" },
           i * 0.18
         );
-
-        // Add shadow after flip completes
         flipTl.to(
           card,
           {
@@ -89,29 +79,54 @@ export default function ExperienceCards({ experiences }: ExperienceCardsProps) {
   );
 
   return (
-    <div className="exp-cards-container" ref={containerRef}>
-      {experiences.map((exp) => (
-        <div className="exp-card" key={exp.id}>
-          {/* FRONT FACE */}
-          <div className="exp-card-face exp-card-front">
-            <div className="exp-front-number">
-              {String(exp.id).padStart(2, "0")}
+    <>
+      {/* ── Desktop: 3D flip cards ── */}
+      <div className="exp-cards-container exp-desktop-only" ref={containerRef}>
+        {experiences.map((exp) => (
+          <div className="exp-card" key={exp.id}>
+            <div className="exp-card-face exp-card-front">
+              <div className="exp-front-number">
+                {String(exp.id).padStart(2, "0")}
+              </div>
+              <div className="exp-front-company">{exp.company}</div>
+              <div className="exp-front-role">{exp.designation}</div>
             </div>
-            <div className="exp-front-company">{exp.company}</div>
-            <div className="exp-front-role">{exp.designation}</div>
+            <div className="exp-card-face exp-card-back">
+              <div className="exp-back-header">
+                <div className="exp-back-company">{exp.company}</div>
+                <div className="exp-back-role">{exp.designation}</div>
+              </div>
+              <div className="exp-back-meta">{exp.subHeader}</div>
+              <p className="exp-back-body">{exp.body}</p>
+            </div>
           </div>
+        ))}
+      </div>
 
-          {/* BACK FACE */}
-          <div className="exp-card-face exp-card-back">
-            <div className="exp-back-header">
-              <div className="exp-back-company">{exp.company}</div>
-              <div className="exp-back-role">{exp.designation}</div>
+      {/* ── Mobile: accordion ── */}
+      <div className="exp-mobile-only">
+        {experiences.map((exp) => (
+          <div
+            key={exp.id}
+            className={`exp-accordion-item${openId === exp.id ? " open" : ""}`}
+            onClick={() => setOpenId(openId === exp.id ? null : exp.id)}
+          >
+            <div className="exp-accordion-header">
+              <div className="exp-acc-left">
+                <div className="exp-acc-company">{exp.company}</div>
+                <div className="exp-acc-role">{exp.designation}</div>
+              </div>
+              <div className="exp-acc-meta">{exp.subHeader}</div>
+              <div className="exp-acc-chevron">▾</div>
             </div>
-            <div className="exp-back-meta">{exp.subHeader}</div>
-            <p className="exp-back-body">{exp.body}</p>
+            <div className="exp-accordion-body">
+              <div className="exp-accordion-body-inner">
+                <p className="exp-back-body">{exp.body}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }

@@ -66,7 +66,8 @@ export default function InteractiveHalftone({
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
 
-      const spacing = HALFTONE_SETTINGS.dotSpacing;
+      // Use tighter spacing on mobile so dot density matches the desktop portrait
+      const spacing = window.innerWidth <= 640 ? 3.3 : HALFTONE_SETTINGS.dotSpacing;
       const maxDotRadius = spacing * HALFTONE_SETTINGS.maxDotRadiusMultiplier;
 
       const offscreen = document.createElement("canvas");
@@ -90,8 +91,9 @@ export default function InteractiveHalftone({
         rightStart = tRect.left + window.scrollX;
         targetW = tRect.width;
         
-        // If left panel exists, strictly sync height and Y position
-        if (leftEl) {
+        // On mobile the image target is stacked above the card;
+        // use its own dimensions. On desktop sync with the left panel.
+        if (leftEl && window.innerWidth > 640) {
           const lRect = leftEl.getBoundingClientRect();
           targetY = lRect.top + window.scrollY;
           targetH = lRect.height;
@@ -143,19 +145,21 @@ export default function InteractiveHalftone({
           const darkness = 255 - (normalized * 255);
           
           let feather = 1.0;
-          const featherDist = 80;
-          
-          if (x < rightStart + featherDist) {
-            feather = Math.min(feather, (x - rightStart) / featherDist);
+          const isMobileLayout = window.innerWidth <= 640;
+          const featherDistSide = isMobileLayout ? 15 : 80;
+          const featherDistTop  = isMobileLayout ? 0  : 80;
+
+          if (x < rightStart + featherDistSide) {
+            feather = Math.min(feather, (x - rightStart) / featherDistSide);
           }
-          if (x > rightStart + targetW - featherDist) {
-            feather = Math.min(feather, (rightStart + targetW - x) / featherDist);
+          if (x > rightStart + targetW - featherDistSide) {
+            feather = Math.min(feather, (rightStart + targetW - x) / featherDistSide);
           }
-          if (y < targetY + featherDist) {
-            feather = Math.min(feather, (y - targetY) / featherDist);
+          if (featherDistTop > 0 && y < targetY + featherDistTop) {
+            feather = Math.min(feather, (y - targetY) / featherDistTop);
           }
-          if (y > targetY + targetH - featherDist) {
-            feather = Math.min(feather, (targetY + targetH - y) / featherDist);
+          if (y > targetY + targetH - featherDistSide) {
+            feather = Math.min(feather, (targetY + targetH - y) / featherDistSide);
           }
           feather = Math.max(0, feather);
           
@@ -215,7 +219,10 @@ export default function InteractiveHalftone({
         y: e.clientY + window.scrollY,
       };
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    // Cursor repel only on desktop — no mouse pointer on touch devices
+    if (window.innerWidth > 640) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
 
     const render = () => {
       const { w: width, h: height } = sizeRef.current;
@@ -341,7 +348,7 @@ export default function InteractiveHalftone({
   }, [triggerRipple]);
 
   return (
-    <div ref={containerRef} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0, overflow: "visible" }}>
+    <div ref={containerRef} className="halftone-container" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0, overflow: "visible" }}>
       <canvas
         ref={canvasRef}
         style={{

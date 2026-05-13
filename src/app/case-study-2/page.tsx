@@ -96,7 +96,7 @@ export default function CaseStudy2() {
         {/* 1. HERO */}
         <section className={`${styles.panel} ${styles.hero}`} data-panel="true" style={{ position: 'relative' }}>
           {/* MODE TOGGLE */}
-          <div style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
+          <div className={styles.heroToggle} style={{ position: 'absolute', top: '40px', right: '40px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '6px' }}>
             <div
               ref={pillRef}
               style={{
