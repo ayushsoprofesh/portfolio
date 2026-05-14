@@ -14,21 +14,21 @@ const TESTIMONIALS = [
     company: "ORACLE",
     name: "PRAVIN ROBERTS",
     designation: "Senior Principal UX, Oracle",
-    body: "Ayush is dedicated, dependable, and proactive. He consistently meets tight deadlines, seeks clarification when needed, and ensures his work aligns with user needs and past design decisions.",
+    body: "...Ayush is dedicated, dependable, and proactive. He consistently meets tight deadlines, seeks clarification when needed, and ensures his work aligns with user needs and past design decisions...",
   },
   {
     id: 2,
     company: "ORACLE",
     name: "PRADIPTA DATTA MAJUMDAR",
     designation: "Senior Principal PM, Oracle",
-    body: "His ability to translate complex ideas into simple, user-friendly experiences has been particularly impressive. In one of our key projects, Ayush designed the pricing user interfaces, resulting in improved usability and a noticeable increase in user engagement.",
+    body: "...His ability to translate complex ideas into simple, user-friendly experiences has been particularly impressive. In one of our key projects, Ayush designed the pricing user interfaces, resulting in improved usability and a noticeable increase in user engagement...",
   },
   {
     id: 3,
     company: "ORACLE",
     name: "DAIPAYAN BHATTACHARJEE",
     designation: "Senior Principal UX, Oracle",
-    body: "The biggest strength he showed consistently, right from the first interview to the point he was offered a full time role at Oracle was the ability to 'jump in and figure out' with minimal handholding.",
+    body: "...The biggest strength he showed consistently, right from the first interview to the point he was offered a full time role at Oracle was the ability to 'jump in and figure out' with minimal handholding...",
   },
 ];
 
