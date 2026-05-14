@@ -144,24 +144,22 @@ export default function InteractiveHalftone({
 
           const darkness = 255 - (normalized * 255);
           
-          let feather = 1.0;
           const isMobileLayout = window.innerWidth <= 640;
-          const featherDistSide = isMobileLayout ? 15 : 80;
-          const featherDistTop  = isMobileLayout ? 0  : 80;
+          const featherDist = isMobileLayout ? 15 : 80;
+          const cornerRadius = isMobileLayout ? 12 : 36;
 
-          if (x < rightStart + featherDistSide) {
-            feather = Math.min(feather, (x - rightStart) / featherDistSide);
-          }
-          if (x > rightStart + targetW - featherDistSide) {
-            feather = Math.min(feather, (rightStart + targetW - x) / featherDistSide);
-          }
-          if (featherDistTop > 0 && y < targetY + featherDistTop) {
-            feather = Math.min(feather, (y - targetY) / featherDistTop);
-          }
-          if (y > targetY + targetH - featherDistSide) {
-            feather = Math.min(feather, (targetY + targetH - y) / featherDistSide);
-          }
-          feather = Math.max(0, feather);
+          // Rounded-rectangle SDF — gives corner rounding + uniform feather zone
+          const cx = rightStart + targetW / 2;
+          const cy = targetY + targetH / 2;
+          const qx = Math.abs(x - cx) - targetW / 2 + cornerRadius;
+          const qy = Math.abs(y - cy) - targetH / 2 + cornerRadius;
+          const sdf =
+            Math.sqrt(Math.max(qx, 0) ** 2 + Math.max(qy, 0) ** 2) +
+            Math.min(Math.max(qx, qy), 0) -
+            cornerRadius;
+          // sdf < 0 → inside; map to [0,1] then apply smoothstep for gradual fade
+          const t = Math.max(0, Math.min(1, -sdf / featherDist));
+          const feather = t * t * (3 - 2 * t);
           
           let baseRadius = 0;
           if (darkness > HALFTONE_SETTINGS.darknessThreshold) {
