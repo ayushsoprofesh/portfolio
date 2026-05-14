@@ -12,7 +12,8 @@
       "WebFetch(domain:simpleicons.org)",
       "WebFetch(domain:icons.getbootstrap.com)",
       "Bash(Get-ChildItem -Path \"d:\\\\Portfolio\\\\src\\\\app\" -Recurse -Directory)",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(git show *)"
     ]
   }
 }

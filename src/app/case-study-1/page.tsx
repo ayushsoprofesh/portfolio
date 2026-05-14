@@ -775,8 +775,8 @@ export default function CaseStudy1() {
 
               <p>Price lists support four fundamentally different item types — <strong>Standard, Subscription, Coverage, Model</strong> — each with its own attributes and pricing logic. Legacy crammed them all into one table; the table stopped being scannable.</p>
 
-              <div className={`${styles.placeholder} ${styles.placeholderDiagram}`} style={{ marginBottom: '40px' }}>
-                <div className={styles.label}>diagram: legacy single-table view — wide table with attributes from all four types jammed in, most cells empty</div>
+              <div style={{ width: '100%', borderRadius: '18px', overflow: 'hidden', marginBottom: '40px' }}>
+                <img src="/assets/cs1/legacy single-table view — one wide table with columns for rate plan, coverage scope, model config, and standard pricing all jammed into one row structure; most cells empty because most attributes don't apply to most rows.png" alt="Legacy single-table view" style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }} />
               </div>
 
               <p>We proposed separating them into tabs. PMs preferred a single table for engineering simplicity, escalated, and built a custom component that conflated <strong>"switching what you're acting on"</strong> with <strong>"acting on what you've selected."</strong> We didn't win that round — but we annotated the deviation in the design file in the loudest red we had, and left our tabbed design intact as documented intent.</p>
